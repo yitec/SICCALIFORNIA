@@ -1,0 +1,527 @@
+@charset "utf-8";
+/* CSS Document */
+  
+  /*****************************************cuadro grande*******************/
+  .izq_sup_g{
+float:left;
+position:relative;
+width:13px;
+height:48px;
+background: url(../img/izq_sup_g.jpg); 
+}
+.izq_inf_g{
+float:left;
+position:relative;
+margin-left:-13px;
+width:13px;
+height:36px;
+background:url(../img/izq_inf_g.jpg);
+}
+
+
+.izq_lat_g{
+float:left;
+margin-bottom:18px;
+height:500px;
+width:13px;
+background:url(../img/lat_izq_g.jpg);
+}
+
+
+
+.der_sup_g{
+margin-left:905px;
+position:relative;
+width:12px;
+height:48px;
+background:url(../img/der_sup_g.jpg);
+}
+
+.der_sup_g_m{
+margin-left:1102px;
+position:relative;
+width:12px;
+height:48px;
+background:url(../img/der_sup_g.jpg);
+}
+
+.der_lat_g{
+position:relative;
+margin-top:0px;
+margin-left:905px;
+width:12px;
+height:500px;
+background:url(../img/lat_der_g.jpg);
+}
+
+.der_lat_g_m{
+position:relative;
+margin-top:0px;
+margin-left:1102px;
+width:12px;
+height:500px;
+background:url(../img/lat_der_g.jpg);
+}
+
+.der_inf_g{
+position:relative;
+margin-left:905px;
+height:36px;
+width:12px;
+background:url(../img/der_inf_g.jpg);
+}
+
+.der_inf_g_m{
+position:relative;
+margin-left:1102px;
+height:36px;
+width:12px;
+background:url(../img/der_inf_g.jpg);
+}
+
+.cen_sup_g{
+position:relative;
+float:left;
+width:903px;
+height:48px;
+background: url(../img/cen_sup_g.jpg);
+}
+
+.cen_sup_g_m{
+position:relative;
+float:left;
+width:1101px;
+height:48px;
+background: url(../img/cen_sup_g.jpg);
+}
+
+.cen_inf_g{
+position:relative;
+float:left;
+height:36px;
+width:903px;
+background:url(../img/cen_inf_g.jpg);
+}
+
+.cen_inf_g_m{
+position:relative;
+float:left;
+height:36px;
+width:1100px;
+background:url(../img/cen_inf_g.jpg);
+}
+
+.lineaAzul{
+margin-left:2px;
+width:912px;
+height:9px;
+background:url(../img/azul.jpg);
+}
+.lineaAzul_m{
+margin-left:2px;
+width:1109px;
+height:9px;
+background:url(../img/azul.jpg);
+}
+
+
+}
+
+
+.contenido_g{
+float:left;
+
+width:200px;
+height:200px;
+margin-left:10px;
+margin-top:100px;
+}
+
+.contenido_gm{
+float:left;
+width:800px;
+height:390px;
+margin-left:80px;
+margin-top:20px;
+}
+
+/**************************************otros*****************/
+.inputbox{
+	background:#FFF;
+	font-size: 15px;
+	color: #000;
+	border: 1px solid #DBDBDB;
+	height: 25px;
+	padding:2px;
+	-webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+
+.inputboxPequeno{
+	background:#FFF;
+	font-size: 12px;
+	color: #000;
+	border: 1px solid #DBDBDB;
+	height: 22px;
+	padding:2px;
+	-webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+
+.combos{
+	background:#FFF;
+	font-size: 11px;
+	color: #000;
+	border: 1px solid #DBDBDB;
+	height: 24px;
+	padding:2px;
+	-webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+
+.textArea{
+	font-family: arial;
+	font-size: 16px;
+	color: #000;
+	-webkit-border-radius: 4px; -moz-border-radius: 4px;
+}
+
+.Arial14Negro{
+font-size:14px;
+color:#000000;
+font-family:arial;
+}
+
+.Arial11Negro{
+font-size:11px;
+color:#000000;
+font-family:arial;
+}
+
+.Arial10Negro{
+font-size:10px;
+color:#000000;
+font-family:arial;
+}
+
+.Arial8negro{
+font-size:8px;
+color: #000000;
+font-family:arial;
+font-weight:bold;
+}
+
+.Arial14Azul{
+font-size:14px;
+color:#0099FF;
+font-family:arial;
+}
+
+.Arial14Morado{
+font-weight:bold;
+font-size:14px;
+color:#3d5875 ;
+font-family:arial;
+}
+
+
+
+.Arial12Azul{
+font-size:12px;
+color:#0099FF;
+font-family:arial;
+}
+
+.Arial18Azul{
+font-size:18px;
+color: #0099FF;
+font-family:arial;
+font-weight:bold;
+}
+
+.Arial18Morado{
+font-size:18px;
+color: #3d5875;
+font-family:arial;
+font-weight:bold;
+}
+
+.Arial24Azul{
+font-size:24px;
+color: #0099FF;
+font-family:arial;
+font-weight:bold;
+}
+
+.Arial8azul{
+font-size:8px;
+color: #0099FF;
+font-family:arial;
+font-weight:bold;
+}
+
+
+
+.Arial14blanco{
+font-size:14px;
+color: #ffffff;
+font-family:arial;
+font-weight:bold;
+}
+
+.Arial10gris{
+font-size:10px;
+color: #999;
+font-family:arial;
+}
+
+.Arial12rojo{
+	position: relative;
+	margin-left:280px;
+	font-size:16px;
+	color:#F00;
+	font-family:arial;
+}
+
+.Arial12rojo{
+	font-size:12px;
+	color:#F00;
+	font-family:arial;
+}
+.Arial14rojo{
+	font-size:14px;
+	color:#F00;
+	font-family:arial;
+}
+.Arial14amarillo{
+	font-size:14px;
+	color:#d7b700;
+	font-family:arial;
+}
+
+.Arial20rojomargin{
+	position: relative;
+	margin-left:280px;
+	font-size:20px;
+	color:#F00;
+	font-family:arial;
+}
+
+.Arial12rojoObservaciones{
+	font-size:12px;
+	color:#F00;
+	font-family:arial;
+}
+
+.Arial20rojo{
+font-size:20px;
+color:#F00;
+font-family:arial;
+}
+
+.azulColumn{
+	
+	background-image:url(../img/azul_column.png);
+	font-family:Arial;
+	font-size:14px;
+	color:#FFF;
+	font-weight:bold;
+	height:18px;
+}
+
+.fondoGrid{
+	background-color:#FFF;
+	font-family:Arial;
+	font-size:12px;
+	color: #666;
+
+}
+.fondoGrid2{
+	background-color:#FFF;
+	font-family:Arial;
+	font-size:12px;
+	color: #F00 ;
+
+}
+
+.fondoGrid3{
+	background-color:#FFF;
+	font-family:Arial;
+	font-size:14px;
+	color: #F00 ;
+	font-weight:bold;
+
+}
+
+.table,table_td { border: 1px solid #a6c9e2; }
+.table_td { border: 1px solid #a6c9e2; }
+
+
+.roundedcornr_box_122094 {
+   background: #ffffff;
+}
+.roundedcornr_top_122094 div {
+   background: url(roundedcornr_122094_tl.png) no-repeat top left;
+}
+.roundedcornr_top_122094 {
+   background: url(roundedcornr_122094_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_122094 div {
+   background: url(roundedcornr_122094_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_122094 {
+   background: url(roundedcornr_122094_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_122094 div, .roundedcornr_top_122094, 
+.roundedcornr_bottom_122094 div, .roundedcornr_bottom_122094 {
+   width: 100%;
+   height: 7px;
+   font-size: 1px;
+}
+.roundedcornr_content_122094 { margin: 0 7px; }
+
+/* cuadros redondeados  blanco*/
+#mainBlanco,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+#mainBlanco{
+	background-color: #FFFFFF;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:765px;
+}
+
+/* cuadros redondeados gris*/
+#mainGris,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	box-shadow: 2px 2px 2px;
+}
+
+#mainGris{
+	background-color:#dddddd;
+	height: 200px;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:765px;
+}
+
+/* cuadros redondeados blancos menu central*/
+#mainBlancoMenu,
+a.button{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+#mainBlancoMenu{
+	background-color: #FFF;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:88px;
+}
+
+/* cuadros redondeados gris usuarioa*/
+#mainGrisUsuarios,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+#mainGrisUsuarios{
+	background-color:#dddddd;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:765px;
+}
+
+#mainBlancoMolienda{
+	background-color: #FFFFFF;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:755px;
+}
+
+/* cuadros redondeados  blanco*/
+#mainBlancoMolienda,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+#mainAzulFondo{
+	background-color: #3d5875;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:auto;
+}
+
+/* cuadros redondeados  blanco*/
+#mainAzulFondo,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+#mainBlancoFondo{
+	background-color: #fff ;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:auto;
+}
+
+/* cuadros redondeados  blanco*/
+#mainBlancoFondo,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+
+#mainGrisFondo{
+	background-color:  #F0F0F0;
+	height: auto;
+	
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:auto;
+}
+
+/* cuadros redondeados  blanco*/
+#mainGrisFondo,
+a.button{
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+

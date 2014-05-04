@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+
+.tablas{
+	 border-top: 1px solid # 0CF;
+     border-right: 1px solid #0CF;
+     border-bottom: 1px solid #0CF;
+     border-left: 1px solid #0CF;
+
+}
+
+.diseno_tablas{
+  border: 1px solid #d4d4d4;
+  
+}
+.titulo_tablas{
+  color: #ffffff;
+background-color: #555555;
+border: 1px solid #555555;
+font-size: 12px;
+padding: 3px;
+vertical-align: top;
+text-align: left;
+
+
+}
+.datos_tablas{
+  font-family:arial;  
+  border: 1px solid #d4d4d4;
+  padding: 5px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  vertical-align: top;
+  border: 1px solid #d4d4d4;
+}
+
+
+
+tr:nth-child(2n+1) { 
+  background: #f6f4f0; 
+  
+
+}

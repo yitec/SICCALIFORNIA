@@ -1,0 +1,356 @@
+body {
+ margin: 0px;
+ margin-top: 0px;
+font-family: 'Carrois Gothic', sans-serif;	
+ font-size: 14px;
+ /*background-color: #F4F4F4;	*/
+ background-image: url('../img/background7.jpg');
+ width: auto;
+}
+
+
+
+.fondo_h{
+	background: -webkit-linear-gradient(#95969a,#dcdcdc);
+	background: -moz-linear-gradient(#95969a,#dcdcdc);
+	background: -o-linear-gradient(#95969a,#dcdcdc);
+	background: linear-gradient(#95969a,#dcdcdc);
+	behavior: url(border-radius.htc); /* Para IE */
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#3d3e3e', EndColorStr='#000');  
+	height: 300px;
+}
+
+.fondo_c{
+	background: -webkit-radial-gradient(#2a94c8,#066ea3);
+	background: -moz-radial-gradient(#2a94c8,#066ea3);
+	background: -o-radial-gradient(#2a94c8,#066ea3);
+	background: radial-gradient(#2a94c8,#066ea3);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#2a94c8', EndColorStr='#066ea3');
+	height: 5px;	
+}
+
+.main_frame {
+	position:relative;	
+	border: 1px ridge #DCD9D9;	
+	background-color: #fff;
+	padding: 100px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin:150px 400px;	
+	width: 300px; 
+	-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 10px 10px 5px #888;
+			
+}
+/***************************************************Boxes*****************************************************/
+.box { 
+    position:relative;
+    margin: auto;
+    margin-top: 150px;      
+    border: 1px solid #ddd; 
+    padding: 30px 40px 20px 40px;     
+    width: 250px;
+    background: #fff;
+    /* -- CSS3 - define rounded corners -- */	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px; 
+	border-radius: 10px;
+	/* -- CSS3 - create a background gradient -- */	
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:0px 0 10px #000;
+	-moz-box-shadow:0px 0 10px #000; 
+	box-shadow:0px 0 10px #000;
+}
+.box_mprincipal { 
+    position:relative;
+    margin: auto;
+    margin-top: 100px;      
+    border: 1px solid #b1b8c0; 
+    width: 920px;
+    background: #fff; 
+    /* -- CSS3 - define rounded corners -- */	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px; 
+	border-radius: 5px;   
+	/* -- CSS3 - create a background gradient -- */	
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:5px 5px 5px #919191;
+	-moz-box-shadow:5px 5px 5px #919191; 
+	box-shadow:5px 5px 5px #919191;
+}
+
+.box_contenidos { 
+    position:relative;
+    margin: auto;
+    margin-top: 20px;      
+    border: 1px solid #b1b8c0; 
+    width: 820px;
+    background: #fff; 
+    /* -- CSS3 - define rounded corners -- */	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px; 
+	border-radius: 5px;   
+	/* -- CSS3 - create a background gradient -- */	
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:1px 1px 1px #919191;
+	-moz-box-shadow:1px 1px 1px #919191; 
+	box-shadow:1px 1px 1px #919191;
+	
+}
+
+.box_msecundario { 
+    position:relative;
+    margin: auto;        
+    padding: 40px;     
+    width: 440px;
+    background: #fff;
+}
+
+/**************************************************Controles Generales*********************************************************/
+
+
+.inputbox{
+    padding: 8px; 
+    margin: 0px 0 20px 0; 
+    background: #fff; 
+    width: 180px; 
+    font-size: 14px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    /* -- CSS3 - define rounded corners -- */ 
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px; 
+  border-radius: 5px;     
+}
+
+.textArea{
+    padding: 8px; 
+    margin: 0px 0 20px 0; 
+    background: #fff; 
+    width: 480px; 
+    font-size: 14px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    /* -- CSS3 - define rounded corners -- */ 
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px; 
+  border-radius: 5px;     
+}
+.inputbox_peq{
+    font-family: Arial;  
+    padding: 2px; 
+    background: #fff; 
+    width: 200px; 
+    font-size: 20px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    /* -- CSS3 - define rounded corners -- */ 
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px; 
+  border-radius: 5px;     
+}
+
+input:hover, textarea:hover { 
+    background: #fafafa; 
+}
+
+input.submit { 	
+    width: 150px; 
+    height: 40px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #aabf1c;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aabf1c), to(#85a100)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#85a100, #aabf1c);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+}
+
+input.submit:hover { 		
+    cursor:  pointer; 
+}
+
+a:link {
+  text-decoration: none;
+  color: #fff;
+}
+a:hover{
+  color: #fff;
+}
+a{
+ color: #fff; 
+}
+label {	
+    font-size: 20px;
+    color: #666; 
+}
+ 
+fieldset { border: none; }
+
+textarea {		
+    width: 390px; 
+    height: 175px; 		 		
+}
+
+h1{
+	margin-top: 0px;
+	width: 100%;
+	background: -webkit-linear-gradient(gray,black);
+	background: -moz-linear-gradient(gray,black);
+	background: -o-linear-gradient(gray,black);
+	background: linear-gradient(gray,black);
+}
+
+h2{
+    position:relative;
+    text-align: center;
+}
+
+
+
+/***************************************************Barras Titulo***************************************************/
+#barra_principal{
+  margin-top: 0px;
+  width: 100%;
+  height: 60px;
+  background: -webkit-linear-gradient(#3F3F3F,#373737);
+  background: -moz-linear-gradient(#3F3F3F,#373737);
+  background: -o-linear-gradient(#3F3F3F,#373737);
+  background: linear-gradient(#3F3F3F,#373737);
+ border-bottom: 2px solid #C00; 
+  text-align: right;
+  color: #fff;
+}
+#search {
+	vertical-align: 40px;
+	margin-left: 450px;		
+}
+
+#search_icon {
+	vertical-align: 30px;	
+	margin-left: 10px;		
+} 
+
+.subtitulos{
+	font-size: 18px;
+	font-weight: bold;
+	color: #292929;
+}
+
+#navegacion {
+  position: relative;
+  margin-top: 10px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+
+}
+#botones_izquierdos: hover{
+  background-color:yellow;
+  
+}
+
+/********************************************Formularios**********************************************************/
+.separacion{
+  margin-top: 10px;
+}
+
+.resultados{
+ margin-top: 10px;
+ color: #32c01b;
+ font-weight: bold;  
+}
+
+.labels{
+  font-size: 14px;
+  font-weight: bold;
+  color: #292929;
+}
+
+/****************************************************Tooltip*****************************************************/
+.ui-tooltip, .arrow:after {
+    background: white;
+    border: 2px solid white;
+     font-size: 62.5%;
+  }
+  .ui-tooltip {
+  	 font-size: 62.5%;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 20px;
+    font-family: 'Open Sans Condensed',  sans-serif;
+   
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+  }
+  .arrow.top {
+    top: -16px;
+    bottom: auto;
+  }
+  .arrow.left {
+    left: 20%;
+  }
+  .arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    tranform: rotate(45deg);
+  }
+  .arrow.top:after {
+    bottom: -20px;
+    top: auto;
+  }
+
+/************************************Textos************************************/
+.titulo_sombreado{
+  
+  color: #5ca1c2;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+
+/************************************Alineacion************************************/
+.margen_izquierdo{
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.margen_reportes{
+  position: relative;
+  margin: auto;
+  margin-top: 20px;
+}

@@ -1,0 +1,237 @@
+span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.usuario{
+display: table;
+background-color: #70a0b4;
+height: 60px;
+width: 250px;
+margin-left: 200px;
+float: left;
+}
+
+.titulo{	
+	display: table;
+background-color: #fff;
+height: 60px;
+width: 700px;
+margin-left: 440px;
+}
+
+.panel_izquierdo{
+	display: table;
+	position: relative;
+	background-color: #333230;
+	height: 500px;
+	width: 250px;
+	float: left;
+	margin-left: 200px;	
+	/*box-shadow:10px 10px 10px black;	*/
+}
+.panel_central{
+	display: table;
+	position: relative;
+	background-color: #f6f6f6;
+	height: 500px;
+	width: 700px;	
+	margin-left: 440px;	
+	/*box-shadow:8px 10px 8px black;	*/
+}
+.backgroundlogo{
+	background-repeat: no-repeat;
+	background-image: url('../img/logo_lab.png');
+	background-position: right bottom;
+	background-size: 250px 150px;
+	
+	
+}
+
+#texto_usuario{
+ color: #fff;
+ font-weight: bold;
+}
+#texto_titulo_panel{
+ color: #2a2a2a;
+ font-weight: bold;
+ font-size: 20px;
+}
+.botones_izquierdos{
+ color: #fff;
+ font-weight: bold;
+ font-size: 14px;
+ height: 40px;
+ padding: 10px;
+}
+
+.botones_izquierdos:hover{
+background-color: #70a0b4;
+height: 40px;
+padding: 10px;
+}
+
+
+.alineado_general{
+ margin-left: auto;
+ margin-right: auto;
+ width: 1000px;
+}
+
+#mainBlancoMenu{
+	background-color: #FFF;
+	height: auto;
+	/*margin:10px 10px 10px;*/
+	
+	padding:5px 5px 5px 5px;
+	position:relative;
+	width:88px;
+	border-radius:10px;
+}
+
+#mainBlancoMenu:hover{
+    -webkit-box-shadow: 0px 0px 0px #555;
+    -moz-box-shadow: 0px 0px 0px #fff; 
+    box-shadow: 0px 0px 5px #555;        
+}
+
+#cuadro_verde { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #aabf1c;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aabf1c), to(#85a100)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#85a100, #aabf1c);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_red { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff0001), to(#cc0000)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#ff0001, #cc0000);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_azul { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0077ff), to(#00aeff)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#0077ff, #00aeff);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_anaranjado { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff8400), to(#ff9c00)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#ff8400, #ff9c00);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_negro { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000010), to(#0a0f19)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#000010, #0a0f19);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_verde2 { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#56813c), to(#3f5926)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#56813c, #3f5926);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px gray;	
+}
+
+#cuadro_azul2 { 	
+    width: 58px; 
+    height: 58px;
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    background-color: #ff253f;    
+    border: none;    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4365a7), to(#314a8c)); 
+	background:  -moz-linear-gradient(25% 75% 90deg,#4365a7, #314a8c);	
+	/* -- CSS3 - Rounded Corners -- */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; 
+	border-radius: 4px;
+	box-shadow:1px 1px 1px black;	
+}
