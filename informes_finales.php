@@ -21,7 +21,7 @@ conectar();
 <div id="barra_principal"></div>
 <br><br>
 
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Informes Finales</span></div>
 
 <div class="panel_izquierdo backgroundlogo">
@@ -45,14 +45,14 @@ conectar();
     <th class="titulo_tablas">Ver Informe</th>    
     </tr>
 <?
-$result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=2");
+$result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
 while($row=mysql_fetch_object($result))
 {
 echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
-        <td class="datos_tablas">'.utf8_decode($row->fecha_terminado).'</td>
-        <td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados.php?id='.$row->id.'&nombre='.utf8_encode($row->nombre).'&consecutivo='.$row->consecutivo_solicitud.'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_terminado).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
 }
 ?>
@@ -62,3 +62,14 @@ echo'<tr>
 <br />
 </body>
 </html>
+
+<?
+function fecha_nacional($fecha){
+  $year=substr($fecha, 0, 4);
+  $mes=substr($fecha, 5, 2);
+  $dia=substr($fecha, 8, 2);
+  $horas= substr($fecha, 10, 9);
+  $fecha=$dia."-".$mes."-".$year." ".$horas;
+  return($fecha);
+}
+?>

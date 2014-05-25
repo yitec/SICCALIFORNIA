@@ -22,7 +22,7 @@ function busca_nombres(){
 }
 /********************************************Buscar expediente*****************************************************************/
 /**********************************************
-Accion:Busca un expediente por numero o nombre
+Accion:Busca un cliente por numero o nombre
 Parametros:datos del input txt_buscar
 Ivocación:click img_biscar
 /**********************************************/
@@ -45,7 +45,42 @@ $('#btn_buscar').click(function(){
           $("#txt_tel_fijo").attr("value",data.tel_fijo);
           $("#txt_fax").attr("value",data.fax);
           $("#txt_direccion").attr("value",data.direccion);
+          if (data.sexo==1){
+            jQuery("#masc").attr('checked', 'checked');
+          }else{
+            jQuery("#fem").attr('checked', 'checked');
+          }
           $("#opcion").attr("value","2");
+          
+      }
+    }
+
+    });
+
+});
+/**********************************************
+Accion:Busca un cliente en el padron por numero de cedula
+Parametros:datos del input txt_buscar
+Ivocación:click img_buscar_cli
+/**********************************************/
+
+$('#btn_buscarcli').click(function(){
+    var parametros=$("#txt_cedula").val()+",";
+    $.ajax({ 
+    data: "metodo=busca_padron&parametros="+parametros,
+    type: "POST",
+    async:false,
+    dataType: "json",
+    url: "../SICCALIFORNIA/operaciones/Clase_clientes.php",
+    success: function (data){
+      if (data.resultado=="Success"){          
+          $("#txt_nombre").attr("value",data.nombre);
+          if (data.sexo==1){
+            jQuery("#masc").attr('checked', 'checked');
+          }else{
+            jQuery("#fem").attr('checked', 'checked');
+          }
+          
           
       }
     }
@@ -67,8 +102,10 @@ $("#btn_guardar").click(function(event){
       }  
   
     
-    if($('#opcion').val()==1){      
-      var parametros=$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val();
+    if($('#opcion').val()==1){  
+    var sexo=$('input:radio[name=rnd_sexo]:checked').val();
+    var fnacimiento=$("#cmb_year").val()+"-"+$("#cmb_mes").val()+"-"+$("#cmb_dia").val();    
+      var parametros=$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+sexo+","+fnacimiento;
       $.ajax({
         data: "metodo=crea_cliente&parametros="+parametros,
         type: "POST",
@@ -89,7 +126,8 @@ $("#btn_guardar").click(function(event){
       busca_nombres();
       $('#txt_buscar').focus(); 
     }else{
-      var parametros=$("#id_cliente").val()+","+$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val();
+      var sexo=$('input:radio[name=rnd_sexo]:checked').val(); 
+      var parametros=$("#id_cliente").val()+","+$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+sexo;
       $.ajax({
         data: "metodo=modifica_cliente&parametros="+parametros,
         type: "POST",
@@ -114,16 +152,12 @@ $("#btn_guardar").click(function(event){
 
 
 /***************************************Limpiar todos los campos***************************************/
-function limpiar(){
-      $('#txt_nombre').attr('value','');
-      $('#txt_cedula').attr('value','');
-      $('#txt_correo').attr('value','');
-      $('#txt_tel_cel').attr('value','');
-      $('#txt_tel_fijo').attr('value','');
-      $('#txt_fax').attr('value','');
-      $('#txt_direccion').attr('value','');      
-      $('#txt_buscar').attr('value','');            
+function limpiar(){      
+      $('input[type=text]').each(function() {
+        $(this).val('');
+      });
       $('#opcion').attr('value','1'); 
+
 }
 
 

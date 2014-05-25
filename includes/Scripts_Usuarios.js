@@ -152,13 +152,9 @@ $("#btn_guardar").click(function(event){
 
 /***************************************Limpiar todos los campos***************************************/
 function limpiar(){
-      $('#txt_nombre').attr('value','');
-      $('#txt_cedula').attr('value','');
-      $('#txt_pass').attr('value','');
-      $('#txt_usuario').attr('value','');
-      $('#txt_fecha').attr('value','');
-      $('#txt_apellidos').attr('value','');      
-      $('#txt_buscar').attr('value','');            
+      $('input[type=text]').each(function() {
+        $(this).val('');
+      });         
       $('#opcion').attr('value','1'); 
 }
 

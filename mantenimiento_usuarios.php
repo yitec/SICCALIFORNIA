@@ -44,11 +44,11 @@ conectar();
 </div>
 <div class="panel_central">
 <br>
-<div class="Arial14Negro" style="margin-left:450px; float:left; margin-top:5px;   ">Doctor:</div>
+<div class="Arial14Negro" style="margin-left:450px; float:left; margin-top:5px;   ">Usuario:&nbsp;&nbsp;</div>
      <div class="ui-widget" style="float:left;"><input class="inputboxPequeno" size="20" id="txt_buscar" name="txt_buscar" type="text"  /></div>
     <input name="btn_buscar" id="btn_buscar" type="image" src="img/search.png" />
 
-	<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Informaci&oacute;n General Doctores</div>
+	<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Informaci&oacute;n General Clientes</div>
 	<table>
 	  <tr>
 	    <td class="Arial14Negro">Nombre</td>
@@ -57,41 +57,35 @@ conectar();
 	    </tr>
 	  <tr>
 	    <td class="Arial14Negro"><input id="txt_nombre" class="inputbox" type="text" /></td>
-	    <td class="Arial14Negro"><input id="txt_cedula" class="inputbox" type="text" /></td>
+	    <td class="Arial14Negro"><input id="txt_cedula" class="inputboxpeq" type="text" />&nbsp;&nbsp;<input name="btn_buscarcli" id="btn_buscarcli" type="image" src="img/search.png" />&nbsp;&nbsp;</td>
 	    <td class="Arial14Negro"><input id="txt_correo" class="inputbox" type="text" /></td>
 	    </tr>
 	  <tr>	  
 	    <td class="Arial14Negro">Tel&eacute;fono Cel</td>
-	    <td class="Arial14Negro">Tel&eacute;fono Fijo</td>
+	    <td class="Arial14Negro">Tel&eacute;fono Fijo</td>	    
 	    </tr>
-	  <tr>
-	  
+	  <tr>	  
 	    <td class="Arial14Negro"><input id="txt_tel_cel" class="inputbox" type="text" /></td>
-	    <td class="Arial14Negro"><input id="txt_tel_fijo" class="inputbox" type="text" /></td>
+	    <td class="Arial14Negro"><input id="txt_tel_fijo" class="inputboxpeq" type="text" /></td>	    
 	    </tr>
 	  <tr>
-	    <td class="Arial14Negro">Fax</td>
-	    <td class="Arial14Negro">Direcci&oacute;n</td>
-	    </tr>
-	  <tr>
-	    <td class="Arial14Negro"><input id="txt_fax" class="inputbox" type="text" /></td>
-	    <td class="Arial14Negro"><input  id="txt_direccion"  class="inputbox" type="text" /><input id="opcion" name="opcion" type="hidden" value="1" /></td>
-	    </tr>
-	<tr>
-	    <td class="Arial14Negro">Clinica</td>
-	   
-	    <td class="Arial14Negro">Cr&eacute;dito</td>
-	    </tr>
-	  <tr>
-	    <td class="Arial14Negro"><input id="txt_clinica" class="inputbox" type="text" /></td>
-	    
-	    <td class="Arial14Negro">
-			<input type="radio" name="rnd_credito" value="1" id="rnd_credito_1" />
-	        Si
-	        <input type="radio" name="rnd_credito" value="0" id="rnd_credito_0" />
-	        No</td>
-	    </tr>
-	  <tr>        
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Crea Solicitud</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Ingresar Resultados</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Aprobar Resultados</td>
+      </tr>       
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Ver Reportes</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Modificar Precios</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Crear Análisis</td>
+      </tr>       
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Generar Informes</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Crar Clientes</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Crear Doctores</td>
+      </tr>       
 	  </table>
 	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" value="Guardar" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
@@ -101,5 +95,5 @@ conectar();
 <script src="includes/ui/jquery-ui.js"></script> 
 <script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
 <script src="includes/vendor/jquery.ui.widget.js"></script>
-<script src="includes/Scripts_Doctores.js" type="text/javascript"></script> 
+<script src="includes/Scripts_Clientes.js" type="text/javascript"></script> 
 

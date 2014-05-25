@@ -6,36 +6,30 @@ conectar();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>SIC-CALIFORNIA</title>
-
 <link href="css/general.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="includes/themes/base/jquery-ui-1.10.0.custom.css" />
 <link href="css/jquery.pnotify.default.css" rel="stylesheet" type="text/css" />
-
-
 </head>
 <body>
 <div id="barra_principal"></div>
 <br><br>
-
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Ingreso de Resultados</span></div>
-
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
 <div  class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Informes</div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Menu</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Men&uacute;</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">

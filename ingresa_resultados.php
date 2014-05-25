@@ -23,38 +23,42 @@ conectar();
 <body>
 <div id="barra_principal"></div>
 <br><br>
-
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Ingreso de Resultados</span></div>
-
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
 <div  class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Informes</div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Menu</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Men&uacute;</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">
 <div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">An&aacute;lisis: <?=$_REQUEST['nombre']?></div>
 <input id="txt_idanalisis" type="hidden" value="<?=$_REQUEST['id']?>" />
 <input id="txt_consecutivo" type="hidden" value="<?=$_REQUEST['consecutivo']?>" />
+<?
+//busco si es un resultado rechazado y si es así imprimo los valores anteriores
+$sql="select resultado,observaciones_gerente from tbl_resultados where id_analisis='".$_REQUEST['id']."'";
+$result=mysql_query($sql);
+$row=mysql_fetch_object($result);
+?>
 <table class=" margen_izquierdo">
 <tbody>
         <tr>
         <td class="Arial14Negro">Resultado</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" /></td>        
+        <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
         </tr>
         <tr>
         <td class="Arial14Negro">Observaciones</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"></textarea></td>        
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$row->observaciones_gerente;?></textarea></td>        
         </tr>
 </tbody>
 </table>

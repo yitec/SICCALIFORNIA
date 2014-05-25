@@ -23,9 +23,9 @@ conectar();
 <script>
 function validar(){
 	exito=true;
-	if ($('#txt_nombreSolicitante').val()==""||$('#txt_telefonoSolicitante').val()==""||$('#txt_nombre').val()==""||$('#txt_tipoCliente').val()==""){
+	if ($('#txt_cliente').val()==""||$('#txt_consecutivo').val()==""){
 		
-		alert("Todos los campos son obligatorios debe llenarlos todos.");	
+		alert("Debe indicar el cliente y el numero de consecutivo.");	
 		return ;
 	}
 	if (exito){
@@ -40,18 +40,18 @@ function validar(){
 <div id="barra_principal"></div>
 <br><br>
 
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Panel de Control General</span></div>
 
 <div class="panel_izquierdo">
 <div><img src="img/separador.png"></div>
 <div class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Informes</div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Menu</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Menu</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">
@@ -68,17 +68,17 @@ function validar(){
         <td height="25" valign="top" class="Arial14Morado">Doctor</td>
         <td valign="top"><div style="float:left;"><div class="ui-widget"><input id="txt_doctor" name="txt_doctor"  size="40"  class="inputbox" type="text" /></div></div>
           
-          <div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>
+          <!--<div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>-->
           </td>
     </tr>
     <tr>
     	<td height="25" valign="top" class="Arial14Morado">Cliente</td>
         <td valign="top"><div style="float:left;"><div class="ui-widget"><input id="txt_cliente" name="txt_cliente"  size="40"  class="inputbox" type="text" /></div></div>
           
-          <div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>
+          <!--<div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>-->
           </td>
     </tr>
-    <tr>
+    <!--<tr>
       <td height="25" valign="top" class="Arial14Morado">Edad</td>
         <td valign="top"><div style="float:left;">
         A&ntilde;os
@@ -121,9 +121,7 @@ function validar(){
     <tr>
     	<td height="25" valign="top" class="Arial14Morado">Tel&eacute;fono Solicitante</td>
         <td><input name="txt_telefonoSolicitante" id="txt_telefonoSolicitante" class="inputbox" type="text" /></td>
-    </tr>    
-    
-    
+    </tr>    -->    
 	<tr>
     	<td height="25" valign="top" class="Arial14Morado">Tipo Pago</td>
         <td><select class="combos" id="cmb_tipoPago" name="cmb_tipoPago">
@@ -139,7 +137,42 @@ function validar(){
           <option selected="selected">No</option>
           <option selected="selected">Si</option>
         </select></td>
-	  </tr>            
+	  </tr>     
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado">Otros Datos</td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Ovulaci&oacute;n</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Menopausia</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Embarazo</td>
+      </tr>       
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Embarazo 1r Trim</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Embarazo 2r Trim</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Embarazo 3r Trim</td>
+      </tr>
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Embarazo 1ra-2da</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Embarazo 2da-3ra</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Embarazo 3ra-4ta</td>
+      </tr>       
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Embarazo 5ta-6ta</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Embarazo 7ma-11va</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />Embarazo 11va-16va</td>
+      </tr>
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Embarazo 16va-21va</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Embarazo 21va-39va</td>        
+      </tr>             
+      <tr>
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Post Menopausia</td>
+        <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Fuma</td>
+        <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />No Fuma</td>
+      </tr>       
     </table>
 	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" onclick="validar()" value="Siguiente" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->

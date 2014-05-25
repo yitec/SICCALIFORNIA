@@ -316,6 +316,59 @@ color:#F00;
 font-family:arial;
 }
 
+.Texto14blanco{
+font-size:14px;
+color:#fff;
+}
+
+.Texto16blanco{
+font-size:16px;
+color:#fff;
+}
+
+.Texto18blanco{
+font-size:18px;
+color:#fff;
+}
+.Texto14negro{
+font-size:14px;
+color:#000;
+}
+
+.Texto16negro{
+font-size:16px;
+color:#000;
+}
+
+.Texto18negro{
+font-size:18px;
+color:#000;
+}
+
+.Texto20negro{
+margin-left: 10px;
+font-size:20px;
+font-weight: bold;
+color:#000;
+}
+
+.Texto20celeste{
+margin-left: 10px;
+font-size:20px;
+font-weight: bold;
+color:#a6c9e2;
+}
+
+.Texto14rojo{
+font-size:14px;
+color:#F00000;
+}
+
+.margin20{
+	margin-left: 20px;
+}
+
+
 .azulColumn{
 	
 	background-image:url(../img/azul_column.png);

@@ -12,6 +12,7 @@ conectar();
 <title>SIC-CALIFORNIA</title>
 
 <link href="css/general.css" rel="stylesheet" type="text/css" />
+<link href="css/cuadros.css" rel="stylesheet" type="text/css" />
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
@@ -22,7 +23,7 @@ conectar();
 <br><br>
 
 <div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
-<div class="titulo"><span id="texto_titulo_panel" >Resultados Pendientes</span></div>
+<div class="titulo"><span id="texto_titulo_panel" >Reportes de Sistema</span></div>
 
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
@@ -39,21 +40,19 @@ conectar();
 <table cellpadding="0" cellspacing="0"class="diseno_tablas margen_izquierdo">
     <tbody>
     <tr>
-    <th class="titulo_tablas">Solicitud</th>
-    <th class="titulo_tablas">An&aacute;lisis</th>
-    <th class="titulo_tablas">Fecha Ingreso</th>    
-    <th class="titulo_tablas">Resultados</th>    
+    <th class="titulo_tablas" width="300px">Reportes</th>
+    <th class="titulo_tablas" width="100px"><div align="center">Acci&oacute;n</div></th>    
     </tr>
 <?
-$result=mysql_query("select res.id,res.consecutivo_solicitud,res.resultado,res.observaciones_analista,res.fecha_ingreso, cat.nombre from tbl_resultados res join tbl_analisis ana join tbl_categoriasanalisis cat where res.estado=0 and res.id_analisis=ana.id and ana.id_analisis=cat.id");
+$result=mysql_query("select * from tbl_reportes where estado=1");
 while($row=mysql_fetch_object($result))
 {
-echo'<tr>
-        <td class="datos_tablas">'.utf8_encode($row->consecutivo_solicitud).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
-        <td class="datos_tablas">'.utf8_decode($row->fecha_ingreso).'</td>
-        <td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados.php?id='.$row->id.'&nombre='.utf8_encode($row->nombre).'&consecutivo='.$row->consecutivo_solicitud.'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+  if(in_array($row->id,$_SESSION['reportes'])){
+    echo'<tr>
+        <td class="datos_tablas"><a class="Texto14negro" id="ver" href="'.$row->link.'">'.utf8_encode($row->nombre).'</a></td>        
+        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="'.$row->link.'"><img src="img/chart.png" width="25" height="25" /></a></div></td>
     </tr>';
+  }
 }
 ?>
 </tbody>
@@ -62,3 +61,14 @@ echo'<tr>
 <br />
 </body>
 </html>
+
+<?
+function fecha_nacional($fecha){
+  $year=substr($fecha, 0, 4);
+  $mes=substr($fecha, 5, 2);
+  $dia=substr($fecha, 8, 2);
+  $horas= substr($fecha, 10, 9);
+  $fecha=$dia."-".$mes."-".$year." ".$horas;
+  return($fecha);
+}
+?>

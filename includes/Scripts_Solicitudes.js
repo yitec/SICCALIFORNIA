@@ -56,7 +56,11 @@ $('#cmb_categoria').change(function() {
 $(document).on('click', '.p_1',function() {      
    var id=$( this ).attr("id");
    var precio=$( this ).attr("precio");
+   var ligados=$( this ).attr("ligados");
    agregaAnalisis(id,1,1,precio,0);
+   if(ligados!=0){
+    marcaLigados(id,1,1,precio,ligados);
+   }
 });
 
 $(document).on('click', '#btn_imprimir',function() {
@@ -72,7 +76,8 @@ $(document).on('click', '#btn_imprimir',function() {
       
     }//end succces function
     });//end ajax function
-  top.location.href = 'solicitudes.php?consecutivo='+$('#txt_consecutivo').val(); 
+  window.open("http://localhost/SICCALIFORNIA/solicitudes.php?consecutivo="+$('#txt_consecutivo').val());
+  top.location.href = 'menu.php'; 
 });  
 
 /************************************Boton continuar hacia revisar analisis*********************************************/
@@ -153,18 +158,18 @@ function cargaAnalisis(tipo,copiar){
             //evaluo si estoy reimprimiendo un analisis, si si le pongo el cheked
             if(v_aAnterior.indexOf(parseFloat(v_datos[0]))>=0&&copiar==true){
               
-              $('.analisis_1').append('<br><br><div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'" precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
+              $('.analisis_1').append('<br><br><div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'" precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
               
               //reagregaAnalisis(v_datos[0],$('#cmb_laboratorio_'+tipo+'_'+seleccionada).val(),seleccionada,v_datos[3]);                          
             }else{//else de reimprimiedo                        
-              $('.analisis_1').append('<div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
+              $('.analisis_1').append('<div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
             }//fin if reimprimiendo                            
           }else{//else de residuo o                                
               if(v_aAnterior.indexOf(parseFloat(v_datos[0]))>=0&&copiar==true){
-              $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox"  title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
+              $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox"  title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
               //reagregaAnalisis(v_datos[0],$('#cmb_laboratorio_'+tipo+'_'+seleccionada).val(),seleccionada,v_datos[3]);                      
             }else{//else reimprimiendo sin residuo 0                                        
-              $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'"  class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'" laboratorio="'+v_datos[1]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');                      
+              $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'"  class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'" laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');                      
             }//end if reimprimiedo sin residuo 0
           
           }//end if residuo 0
@@ -235,7 +240,60 @@ function agregaAnalisis(id,laboratorio,tab,precio,ligados){
 
 }//end agrega analisis
 
+//*********************************Marcar Analisis Ligados*********************************
 
+function marcaLigados(id,laboratorio,tab,precio,ligados){
+
+//esta funcion se llama cuando marco un analisis y se verifica si tienen otros ligados y los marca  
+
+    
+    var precio_n=0;
+    var v_resultado=ligados.split(":");
+    
+    
+    for (i=0;i<v_resultado.length;i++) { 
+    //averiguo el precio del analisis ligado actual   
+    /*$.ajax({ data: "opcion=13&id="+parseInt(v_resultado[i]),
+    type: "POST",
+    async: false,
+    url: "operaciones/opr_contratos.php",
+    success: function(datos){ 
+      var v_res=datos.split("|");     
+      precio_n=parseInt(v_res[0]);
+      lab=v_res[1];   
+    } 
+    });
+    */
+      //si el analisis ligado es de pepsina le pongo precio 0
+     /* if (pepsina>0&&v_lpepsina.indexOf(parseFloat(v_resultado[i]))>=0){
+        precio_n=0;         
+        
+      }
+      */   
+      //Primero pregunto si el analisis ligado ya esta dentro del vector de analisis seleccionados
+      var data=v_resultado[i]+','+laboratorio+','+tab+','+precio_n+'|';
+      for (j=0;j<v_analisis.length;j++) { 
+        if (v_analisis[j]==data){
+          return;
+        }
+      
+      }
+      
+      
+      //continuo con el proceso si no lo encontro
+      monto=monto+precio_n;
+      $('#monto').html("Total = "+monto);   
+      
+      $('.p_1').each(function (index) {       
+        if ($(this).attr("id")==v_resultado[i]){  
+          $(this).attr("checked","checked");          
+        }
+      });
+      v_analisis[contAnalisis]=data;
+      v_aActual[contAnalisis]=parseFloat(v_resultado[i]);
+      contAnalisis++;     
+    }//end for                 
+}//end marcar analisis ligados
 
 /***************************************Limpiar todos los campos***************************************/
 function limpiar(){

@@ -20,18 +20,18 @@ conectar();
 <div id="barra_principal"></div>
 <br><br>
 
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Panel de Control General</span></div>
 
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
 <div  class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="informes_finales.php">Informes</a></div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Men&uacute;</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Men&uacute;</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">
@@ -54,7 +54,7 @@ conectar();
     <? } ?>
     <? if (in_array(12, $_SESSION['perfil'])){?>
 	<div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="mantenimiento_usuario.php"><div id="cuadro_verde2"></div></a>Mantenimiento Usuarios</div>
+    <div align="center" class="Arial14Negro"><a href="mantenimiento_usuarios.php"><div id="cuadro_verde2"></div></a>Mantenimiento Usuarios</div>
     </div>
     <? } ?>
     <? if (in_array(13, $_SESSION['perfil'])){?>
@@ -65,7 +65,7 @@ conectar();
     <? if (in_array(23, $_SESSION['perfil'])){
 	?>
     <div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="precios_analisis.php"><div id="cuadro_red"></div></a>Mantenimiento Precios</div>
+    <div align="center" class="Arial14Negro"><a href="mantenimiento_precios.php"><div id="cuadro_red"></div></a>Mantenimiento Precios</div>
     </div>
     <? } ?>
     <? if (in_array(13, $_SESSION['perfil'])){?>
@@ -76,12 +76,12 @@ conectar();
      <? if (in_array(22, $_SESSION['perfil'])){
 	?>
     <div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="crear_analisis.php"><div id="cuadro_verde"></div></a>Nuevos  An&aacute;lisis</div>
+    <div align="center" class="Arial14Negro"><a href="nuevos_analisis.php"><div id="cuadro_verde"></div></a>Nuevos  An&aacute;lisis</div>
     </div>
     <? } ?>
     <? if (in_array(11, $_SESSION['perfil'])){  ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="reportes/reportes.php"><div id="cuadro_verde"></div></a>Visualizar Reportes</div>
+    <div align="center" class="Arial14Negro"><a href="menu_reportes.php"><div id="cuadro_verde"></div></a>Visualizar Reportes</div>
     </div>
     <? } ?>
     <? if (in_array(13, $_SESSION['perfil'])){

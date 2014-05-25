@@ -56,7 +56,7 @@ function guarda_solicitud($parametros,$hoy){
 	$sql1="select id from tbl_clientes where nombre='".$_SESSION['cliente']."'";
 	$result=mysql_query($sql1);
 	$row=mysql_fetch_object($result);
-	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,numero_muestras,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values('".$_SESSION['consecutivo']."','".$row->id."',1,'".$_SESSION['total']."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$_SESSION['doctor']."',NOW(),1)";	
+	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$_SESSION['total']."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$_SESSION['doctor']."',NOW(),1)";	
 	$result=mysql_query($sql);				
 	//$jsondata=mysql_insert_id();	
 	$jsondata=$sql;	
@@ -72,7 +72,7 @@ function guarda_solicitud($parametros,$hoy){
 
 function buscar_analisis($parametros,$hoy){
 	$v_datos=explode(",",$parametros);		
-	$result=mysql_query("select * from tbl_categoriasanalisis where ids_categoriaMuestra='".$v_datos[0]."'  and precio>0 order by nombre");
+	$result=mysql_query("select * from tbl_categoriasanalisis where ids_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre");
 		while ($row=mysql_fetch_assoc($result)){			
 			$vector=$vector."|".$row['id'].",".$row['id_laboratorio'].','.$row['nombre'].','.$row['precio'].','.$row['analisis_ligados']; 
 	}
@@ -145,12 +145,17 @@ function guarda_analisis($parametros,$hoy){
 
 function guarda_resultados($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
-	$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."',NOW(),0)";	
+	$result=mysql_query("select id from tbl_resultados where id_analisis='".$v_datos[1]."'");
+	if (mysql_num_rows($result)>=1){
+		$row=mysql_fetch_object($result);
+		$sql="update tbl_resultados set resultado='".$v_datos[2]."',observaciones_analista='".$v_datos[3]."', estado=0 where id='".$row->id."'";
+	}else{
+		$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."',NOW(),0)";		
+	}
 	$result=mysql_query($sql);
-	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");				
+	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");					
 	$jsondata="Success";	
 	echo json_encode($jsondata);
-
 }
 
 
@@ -163,9 +168,42 @@ function guarda_resultados($parametros,$hoy){
 
 function aprueba_resultados($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
-	$sql="update tbl_resultados set estado=1 where id='".$v_datos[1]."'";
+	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where id='".$v_datos[1]."'";
 	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where id='".$v_datos[1]."') ";
+	$result=mysql_query($sql);	
+	//estas consultas evaluan si ya todos los analisis tienen un resultado y marcan la solicitud
+	$result3=mysql_query("select COUNT(1) as total from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and estado='"."1"."'");
+	$row3=mysql_fetch_assoc($result3);
+	$total_res=$row3['total'];
+	$result3=mysql_query("select COUNT(1) as total from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."'");	
+	$row3=mysql_fetch_assoc($result3);
+	$total_an=$row3['total'];
+
+	if($total_res==$total_an){
+		//echo "Entro";
+		$result3=mysql_query("update tbl_solicitudes set fecha_terminado='".$hoy."', estado='"."4"."' where consecutivo='".$v_datos[0]."'");
+		 		date_default_timezone_set('America/Denver');
+       /*
+       //$dest = "kmadrigal@feednet.ucr.ac.cr";
+       $dest  = 'kmadrigal@feednet.ucr.ac.cr' . ', ';
+	   $dest .= 'sergio.barrantes@hotmail.com';
+       $head = "From: info@siccina.ucr.ac.cr<info@siccina.ucr.ac.cr>\r\n";
+	   $asunto = "Contrato Termindado = ".$_REQUEST['contrato'];
+	   $email = "info@siccina.ucr.ac.cr";
+		$msg="El contrato ".$_REQUEST['contrato']." ha finalizado su proceso, por favor genere el informe";
+		if (mail($dest, $asunto, $msg, $head)) {
+      
+	   $jsondata="Success";
+       } else {
+       	$jsondata="Error";
+	   }
+	   */
+	}
+
 	$jsondata="Success";	
+	//$jsondata=$sql;
+
 	echo json_encode($jsondata);
 
 }	
@@ -181,7 +219,7 @@ function rechaza_resultados($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
 	$sql="update tbl_resultados set estado=2, observaciones_gerente='".$v_datos[2]."' where id='".$v_datos[1]."'";	
 	$result=mysql_query($sql);
-	//$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");				
+	$result=mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0 where id in(select id_analisis from tbl_resultados where id='".$v_datos[1]."') ");				
 	$jsondata="Success";	
 	echo json_encode($jsondata);
 

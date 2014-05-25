@@ -2,6 +2,7 @@
 session_start();
 require_once('cnx/conexion.php');
 require_once('cnx/session_activa.php');
+require_once('includes/calcular_edad.php');
 conectar();
 $_SESSION['consecutivo']=$_REQUEST['txt_consecutivo'];
 $_SESSION['cliente']=$_REQUEST['txt_cliente'];
@@ -10,8 +11,15 @@ $_SESSION['telefono_solicitante']=$_REQUEST['txt_telefonoSolicitante'];
 $_SESSION['doctor']=$_REQUEST['txt_doctor'];
 $_SESSION['tipo_pago']=$_REQUEST['cmb_tipoPago'];
 $_SESSION['correo']=$_REQUEST['cmb_xcorreo'];
-
-
+$result=mysql_query("select fecha_nacimiento from tbl_clientes where nombre='".$_SESSION['cliente']."' ");
+$row=mysql_fetch_object($result);
+$ano=substr($row->fecha_nacimiento, 0, 4);
+$mes=substr($row->fecha_nacimiento, 5, 2);
+$dia=substr($row->fecha_nacimiento, 8, 2);
+$fecha_nacimiento=$dia."/".$mes."/".$ano;
+$hoy=date("d/m/Y");
+$v_edad=tiempo_transcurrido($fecha_nacimiento, $hoy);
+$_SESSION['edad']=$v_edad[0]." Años ".$v_edad[1]." Meses ".$v_edad[2]." días"
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,18 +41,18 @@ $_SESSION['correo']=$_REQUEST['cmb_xcorreo'];
 <div id="barra_principal"></div>
 <br><br>
 
-<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: Sergio Barrantes</span></div>
+<div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
 <div class="titulo"><span id="texto_titulo_panel" >Panel de Control General</span></div>
 
 <div class="panel_izquierdo">
 <div><img src="img/separador.png"></div>
 <div class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Informes</div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Menu</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Menu</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">

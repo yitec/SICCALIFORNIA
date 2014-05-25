@@ -116,15 +116,9 @@ $("#btn_guardar").click(function(event){
 
 /***************************************Limpiar todos los campos***************************************/
 function limpiar(){
-      $('#txt_nombre').attr('value','');
-      $('#txt_cedula').attr('value','');
-      $('#txt_correo').attr('value','');
-      $('#txt_tel_cel').attr('value','');
-      $('#txt_tel_fijo').attr('value','');
-      $('#txt_fax').attr('value','');
-      $('#txt_direccion').attr('value','');      
-      $('#txt_clinica').attr('value','');      
-      $('#txt_buscar').attr('value','');            
+     $('input[type=text]').each(function() {
+        $(this).val('');
+    });          
       $('#opcion').attr('value','1'); 
 }
 

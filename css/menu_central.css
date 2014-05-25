@@ -61,15 +61,15 @@ margin-left: 440px;
 .botones_izquierdos{
  color: #fff;
  font-weight: bold;
- font-size: 14px;
- height: 40px;
- padding: 10px;
+ font-size: 18px;
+ height: 10px;
+ padding: 30px;
 }
 
 .botones_izquierdos:hover{
 background-color: #70a0b4;
-height: 40px;
-padding: 10px;
+height: 10px;
+padding: 30px;
 }
 
 

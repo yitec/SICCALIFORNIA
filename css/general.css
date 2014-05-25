@@ -130,6 +130,20 @@ font-family: 'Carrois Gothic', sans-serif;
   border-radius: 5px;     
 }
 
+.inputboxpeq{
+    padding: 8px; 
+    margin: 0px 0 20px 0; 
+    background: #fff; 
+    width: 90px; 
+    font-size: 14px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    /* -- CSS3 - define rounded corners -- */ 
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px; 
+  border-radius: 5px;     
+}
+
 .textArea{
     padding: 8px; 
     margin: 0px 0 20px 0; 
@@ -155,6 +169,15 @@ font-family: 'Carrois Gothic', sans-serif;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px; 
   border-radius: 5px;     
+}
+.combos{
+  background:#FFF;
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #DBDBDB;
+  height: 24px;
+  padding:2px;
+  -webkit-border-radius: 4px; -moz-border-radius: 4px;
 }
 
 input:hover, textarea:hover { 
@@ -186,13 +209,13 @@ input.submit:hover {
 
 a:link {
   text-decoration: none;
-  color: #fff;
+  
 }
 a:hover{
-  color: #fff;
+  text-decoration: none;
 }
 a{
- color: #fff; 
+ text-decoration: none;
 }
 label {	
     font-size: 20px;

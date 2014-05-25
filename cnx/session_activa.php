@@ -3,7 +3,7 @@ session_start();
 $hoy=date("Y-m-d H:i:s");
 
 if (!isset($_SESSION['usuario'])){
-	$_SESSION['r_login']="Su sesión se venció, ingrese de nuevo por favor.";
+	$_SESSION['r_login']="Su sesión se venció, ingrese de nuevo ";
 	header("Location:login.php");
 	exit();
 }
