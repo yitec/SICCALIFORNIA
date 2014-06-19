@@ -12,7 +12,7 @@ function busca_nombres(){
     $.ajax({ data: "metodo=autocompleta_usuarios",
         type: "POST",
         async: false,
-        url: "../SICCALIFORNIA/operaciones/Clase_Usuarios.php",        
+        url: "../operaciones/Clase_Usuarios.php",        
         success: function(data){     
           availableTags =data;      
         }//end succces function
@@ -37,7 +37,7 @@ $('#btn_buscar').click(function(){
     type: "POST",
     async:false,
     dataType: "json",
-    url: "../SICCALIFORNIA/operaciones/Clase_Usuarios.php",
+    url: "../operaciones/Clase_Usuarios.php",
     success: function (data){
       if (data.resultado=="Success"){
           $("#id_usuario").attr("value",data.id_usuario);
@@ -46,13 +46,11 @@ $('#btn_buscar').click(function(){
           $("#txt_cedula").attr("value",data.cedula);
           $("#txt_usuario").attr("value",data.usuario);
           $("#txt_pass").attr("value",data.clave);
-          $("#txt_correo").attr("value",data.correo);
           $("#txt_fecha").attr("value",data.fecha_vencimiento);          
           $("#opcion").attr("value","2");
           $("#cmb_estado option[value='"+data.estado+"']").attr("selected","selected");
-          var sql=data.sql;
-          var v_accesos=data.accesos.split(",");
-          var v_reportes=data.reportes.split(",");
+          var v_accesos=data.accesos.split("/");
+          var v_reportes=data.reportes.split("/");
           $('.ck').each(function (index) {          
             if(v_accesos.indexOf($(this).attr("numero"))>=0){        
               $(this).attr("checked","checked");          
@@ -86,15 +84,15 @@ $("#btn_guardar").click(function(event){
       var reportes=0;
       $('.ck').each(function (index) {          
         if ($(this).is(":checked")){
-        accesos=accesos+","+$(this).attr("numero");
+        accesos=accesos+"/"+$(this).attr("numero");
         }      
       });    
       $('.rp').each(function (index) {          
         if ($(this).is(":checked")){
-        reportes=reportes+","+$(this).attr("numero");
+        reportes=reportes+"/"+$(this).attr("numero");
         }      
       });
-      var parametros=$("#txt_nombre").val()+"/"+$("#txt_cedula").val()+"/"+$("#txt_correo").val()+"/"+$("#txt_usuario").val()+"/"+$("#txt_pass").val()+"/"+$("#txt_fecha").val()+"/"+accesos+"/"+reportes;
+      var parametros=$("#txt_nombre").val()+","+$("#txt_apellidos").val()+","+$("#txt_cedula").val()+","+$("#txt_usuario").val()+","+$("#txt_pass").val()+","+$("#txt_fecha").val()+","+accesos+","+reportes;
       $.ajax({
         data: "metodo=crea_usuario&parametros="+parametros,
         type: "POST",
@@ -115,25 +113,15 @@ $("#btn_guardar").click(function(event){
       var reportes=0;
       $('.ck').each(function (index) {          
         if ($(this).is(":checked")){
-        accesos=accesos+","+$(this).attr("numero");
+        accesos=accesos+"/"+$(this).attr("numero");
         }      
       });    
       $('.rp').each(function (index) {          
         if ($(this).is(":checked")){
-        reportes=reportes+","+$(this).attr("numero");
+        reportes=reportes+"/"+$(this).attr("numero");
         }      
       });      
-      parametros=
-      $("#txt_nombre").val()
-      +"/"+$("#txt_cedula").val()
-      +"/"+$("#txt_correo").val()
-      +"/"+$("#txt_usuario").val()
-      +"/"+$("#txt_pass").val()
-      +"/"+$("#txt_fecha").val()
-      +"/"+accesos
-      +"/"+reportes
-      +"/"+$("#id_usuario").val();
-      
+      var parametros=$("#id_usuario").val()+","+$("#txt_nombre").val()+","+$("#txt_apellidos").val()+","+$("#txt_cedula").val()+","+$("#txt_usuario").val()+","+$("#txt_pass").val()+","+$("#txt_fecha").val()+","+$("#cmb_estado").val()+","+accesos+","+reportes;
       $.ajax({
         data: "metodo=modifica_usuario&parametros="+parametros,
         type: "POST",
@@ -166,10 +154,7 @@ $("#btn_guardar").click(function(event){
 function limpiar(){
       $('input[type=text]').each(function() {
         $(this).val('');
-      });     
-      $('.ck').each(function (index) {          
-        $(this).attr("checked",false);                      
-      });    
+      });         
       $('#opcion').attr('value','1'); 
 }
 

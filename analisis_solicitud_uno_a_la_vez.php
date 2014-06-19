@@ -2,26 +2,24 @@
 session_start();
 require_once('cnx/conexion.php');
 require_once('cnx/session_activa.php');
-//require_once('includes/calcular_edad.php');
+require_once('includes/calcular_edad.php');
 conectar();
 $_SESSION['consecutivo']=$_REQUEST['txt_consecutivo'];
 $_SESSION['cliente']=$_REQUEST['txt_cliente'];
-//$_SESSION['nombre_solicitante']=$_REQUEST['txt_nombreSolicitante'];
-//$_SESSION['telefono_solicitante']=$_REQUEST['txt_telefonoSolicitante'];
+$_SESSION['nombre_solicitante']=$_REQUEST['txt_nombreSolicitante'];
+$_SESSION['telefono_solicitante']=$_REQUEST['txt_telefonoSolicitante'];
 $_SESSION['doctor']=$_REQUEST['txt_doctor'];
 $_SESSION['tipo_pago']=$_REQUEST['cmb_tipoPago'];
 $_SESSION['correo']=$_REQUEST['cmb_xcorreo'];
-/**********Calcula la edad*********
 $result=mysql_query("select fecha_nacimiento from tbl_clientes where nombre='".$_SESSION['cliente']."' ");
 $row=mysql_fetch_object($result);
 $ano=substr($row->fecha_nacimiento, 0, 4);
 $mes=substr($row->fecha_nacimiento, 5, 2);
 $dia=substr($row->fecha_nacimiento, 8, 2);
 $fecha_nacimiento=$dia."/".$mes."/".$ano;
+$hoy=date("d/m/Y");
 $v_edad=tiempo_transcurrido($fecha_nacimiento, $hoy);
 $_SESSION['edad']=$v_edad[0]." Años ".$v_edad[1]." Meses ".$v_edad[2]." días"
-*/
-$hoy=date("d/m/Y");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -64,63 +62,37 @@ $hoy=date("d/m/Y");
 	<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Solicitud de An&aacute;lisis</div>
 	<div align="center" class="titulo_sombreado">Categor&iacute;a</div>
 	<br>
-<div id="monto" style="float:left;" >&nbsp;&nbsp;&nbsp;</div><div id="numero_analisis" style="float:left; margin-left:50px;" ></div><div align="right"><a href="info_ayuda.php" target="_blank" ><img src="img/help.png" title="Ayuda" width="20" height="20"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<table>
-	<tr>
-	<td valign="top">
-		<div>
-		<?
-			$nombrem="";
-			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,cat.fantasma ,catm.nombre as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=1 and catm.id<=4 and cat.visible=1 order by catm.id,cat.orden ");
-			while ($row=mysql_fetch_object($result)){
-					if($nombrem!=$row->nombrem){
-							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
-							$nombrem=$row->nombrem;
-					}else{
-							echo '<div><input id="'.$row->id.'" class="p_1" type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
-					}
-			}	
-			?>			
-		</div>
-	</td>
-	<td valign="top">
-		<div >
-			<?
-			$nombrem="";
-			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,cat.fantasma,catm.nombre  as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=5 and catm.id<=8 and cat.visible=1 order by catm.id,cat.orden ");
-			while ($row=mysql_fetch_object($result)){
-					if($nombrem!=$row->nombrem){
-							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
-							$nombrem=$row->nombrem;
-					}else{
-							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
-					}
-			}	
-			?>		
-		</div>
-	</td>
-	<td valign="top">
-		<div >
-			<?
-			$nombrem="";
-			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,catm.nombre  as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=9 and cat.visible=1  order by catm.id");
-			while ($row=mysql_fetch_object($result)){
-					if($nombrem!=$row->nombrem){
-							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
-							$nombrem=$row->nombrem;
-					}else{
-							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" title="'.$row->precio.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
-					}
-			}	
-			?>		
-		</div>
-	</td>
-	</tr>
-	</table>	
+	<div id="monto" style="float:left;" >&nbsp;&nbsp;&nbsp;</div><div id="numero_analisis" style="float:left; margin-left:50px;" ></div><div align="right"><a href="info_ayuda.php" target="_blank" ><img src="img/help.png" title="Ayuda" width="20" height="20"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	<br>
+	<div align="left">
+		&nbsp;&nbsp;&nbsp;<select id="cmb_categoria"  >
+			<option selected="selected" >Selecione</option>
+			<option  value="1">Hematologia</option>
+			<option  value="2">Banco de Sangre</option>
+			<option  value="3">Qu&iacute;mica Sanguinea</option>
+			<option  value="4">Cromosomopatia</option>
+			<option  value="5">Inmunologia</option>
+			<option  value="6">Hormonas</option>			
+			<option  value="7">Genotipaje de V.P.H</option>
+			<option  value="8">Marcadores Tumorales</option>
+			<option  value="9">Orina</option>
+			<option  value="10">Heces</option>
+			<option  value="11">Secreciones</option>
+			<option  value="12">Prueba de Embarazo</option>
+			<option  value="13">Liquido Amniotico</option>
+			<option  value="14">Otros</option>
+			
+			
+			
+		</select>
+	</div>
+	<br><br>
 	<div id="analisis_1" class="analisis_1">
-	<div align="center" class="titulo_sombreado">------------------------------------------------------</div>	
-	</div>	
+	<div align="center" class="titulo_sombreado">------------------------------------------------------</div>
+	<div align="Center" >Seleccione la Categor&iacute;a</div>	
+	<br><br><br>
+	</div>
+	
 	<input name="txt_totAnalisis" id="txt_totAnalisis" type="hidden" value="" />
 
 	<div align="center" style="float: none; margin-top:10px; margin-bottom:0px;"><input id="btn_continuara" type="submit"  value="Siguiente" name="submit" class="submit" /></div>    

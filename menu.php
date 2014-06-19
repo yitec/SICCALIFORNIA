@@ -84,10 +84,16 @@ conectar();
     <div align="center" class="Arial14Negro"><a href="menu_reportes.php"><div id="cuadro_verde"></div></a>Visualizar Reportes</div>
     </div>
     <? } ?>
-    <? if (in_array(13, $_SESSION['perfil'])){
+    <? if (in_array(15, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="informes_finales.php"><div id="cuadro_anaranjado"></div></a>Informes Finales</div>
+    </div>
+    <? } ?>
+    <? if (in_array(14, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Informes Finales</div>
     </div>
     <? } ?>
 </div><!-- fin div panel Central-->

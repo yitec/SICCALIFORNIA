@@ -34,7 +34,7 @@ $('#btn_buscar').click(function(){
     type: "POST",
     async:false,
     dataType: "json",
-    url: "../SICCALIFORNIA/operaciones/Clase_clientes.php",
+    url: "../SICCALIFORNIA/operaciones/Clase_Clientes.php",
     success: function (data){
       if (data.resultado=="Success"){
           $("#id_cliente").attr("value",data.id_cliente);
@@ -71,8 +71,9 @@ $('#btn_buscarcli').click(function(){
     type: "POST",
     async:false,
     dataType: "json",
-    url: "../SICCALIFORNIA/operaciones/Clase_clientes.php",
+    url: "../SICCALIFORNIA/operaciones/Clase_Clientes.php",
     success: function (data){
+      alert(data.sql);
       if (data.resultado=="Success"){          
           $("#txt_nombre").attr("value",data.nombre);
           if (data.sexo==1){

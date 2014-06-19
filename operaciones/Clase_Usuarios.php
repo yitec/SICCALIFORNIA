@@ -33,17 +33,19 @@ class Expedientes{
 function busca_usuario($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
 	$result=mysql_query("select * from tbl_usuarios where nombre='".$v_datos[0]."'");
+
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
+		$jsondata['sql']="select * from tbl_usuarios where nombre='".$v_datos[0]."'";
 		$jsondata['id_usuario']=$row->id;		
 		$jsondata['nombre']=utf8_decode($row->nombre);		
 		$jsondata['apellidos']=utf8_decode($row->apellidos);		
 		$jsondata['cedula']=$row->cedula;
 		$jsondata['usuario']=$row->usuario;		
-		$jsondata['clave']=$row->clave;		
+		$jsondata['clave']=$row->pass;		
 		$jsondata['telefono']=$row->telefono;
 		$jsondata['fecha_vencimiento']=$row->fecha_vencimiento;
-		$jsondata['accesos']=$row->ids_accesos;
+		$jsondata['accesos']=$row->id_perfil;
 		$jsondata['reportes']=$row->ids_reportes;
 		$jsondata['estado']=$row->estado;		
 		$jsondata['resultado']="Success";	
@@ -58,8 +60,9 @@ function busca_usuario($parametros,$hoy){
 
 function crea_usuario($parametros,$hoy){
 
-	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("insert into tbl_usuarios(nombre,apellidos,cedula,usuario,clave,fecha_vencimiento,estado,ids_accesos,ids_reportes)values('".utf8_encode($v_datos[0])."','".utf8_encode($v_datos[1])."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','"."1"."','".$v_datos[6]."','".$v_datos[7]."')");
+	$v_datos=explode("/",$parametros);	
+	$result=mysql_query("insert into tbl_usuarios(nombre,cedula,correo,usuario,pass,fecha_vencimiento,estado,id_perfil,ids_reportes)values(
+	'".utf8_encode($v_datos[0])."','".utf8_encode($v_datos[1])."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','"."1"."','".$v_datos[6]."','".$v_datos[7]."')");
 	if (!$result) {//si da error que me despliegue el error del query       		
        		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
         }else{
@@ -75,17 +78,17 @@ function crea_usuario($parametros,$hoy){
 
 ********************************************************/
 function modifica_usuario($parametros,$hoy){
-	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("update tbl_usuarios set nombre='".utf8_encode($v_datos[1])."',
-		apellidos='".utf8_encode($v_datos[2])."',
-		cedula='".$v_datos[3]."',
-		usuario='".$v_datos[4]."',
-		clave='".$v_datos[5]."',
-		fecha_vencimiento='".$v_datos[6]."',
-		estado='".$v_datos[7]."',
-		ids_accesos='".$v_datos[8]."',
-		ids_reportes='".$v_datos[9]."'
-		 where id='".$v_datos[0]."'");
+	$v_datos=explode("/",$parametros);	
+	$result=mysql_query("update tbl_usuarios set nombre='".utf8_encode($v_datos[0])."',	
+		cedula='".$v_datos[1]."',
+		correo='".$v_datos[2]."',
+		usuario='".$v_datos[3]."',
+		clave='".$v_datos[4]."',
+		fecha_vencimiento='".$v_datos[5]."',
+		estado='".$v_datos[6]."',
+		id_perfil='".$v_datos[7]."',
+		ids_reportes='".$v_datos[8]."'
+		 where id='".$v_datos[9]."'");
 	if (!$result) {//si da error que me despliegue el error del query       		
        		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
         }else{

@@ -28,15 +28,15 @@ conectar();
 <div><img src="img/separador.png"></div>
 <div  class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Informes</div>
+<a class="Texto18blanco" href="informes_finales.php"><div class="botones_izquierdos">&nbsp;&nbsp;Informes</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;<a href="menu.php">Menu</a></div>
+<a class="Texto18blanco" href="menu.php"><div class="botones_izquierdos">&nbsp;&nbsp;Men&uacute;</div></a>
 <img src="img/separador.png">
-<div class="botones_izquierdos">&nbsp;&nbsp;Salir</div>
+<a class="Texto18blanco" href="login.php"><div class="botones_izquierdos">&nbsp;&nbsp;Salir</div></a>
 <img src="img/separador.png">
 </div>
 <div class="panel_central">
-<table cellpadding="0" cellspacing="0"class="diseno_tablas margen_izquierdo">
+<table cellpadding="0" cellspacing="0"class="diseno_tablas centrado_tablas">
     <tbody>
     <tr>
     <th class="titulo_tablas">Solicitud</th>

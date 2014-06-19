@@ -45,15 +45,46 @@ conectar();
 $sql="select resultado,observaciones_gerente from tbl_resultados where id_analisis='".$_REQUEST['id']."'";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
+$sql2="select ref.referencia_hombre,referencia_mujer,ref.referencia_general from tbl_referencias ref join tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id and ref.id_analisis=cat.id 
+where ana.id='".$_REQUEST['id']."'";
+$result2=mysql_query($sql2);
+$row2=mysql_fetch_object($result2);
+
 ?>
-<table class=" margen_izquierdo">
+<div align="left">
+<table class="margen_izquierdo">
 <tbody>
         <tr>
         <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>        
         </tr>
         <tr>
         <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$_REQUEST['unidades'];?>" /></td>        
+</tbody>
+</table>
+<div align="center" class="titulo_sombreado">Referencias</div>
+<br>
+<table class="margen_izquierdo">
+<tbody>             
+        <tr>
+        <td class="Texto10celeste" width="215" align="center">Referencia General</td>
+        <td class="Texto10celeste" width="215" align="center">Referencia Hombre</td>
+        <td class="Texto10celeste" width="215" align="center">Referencia Mujer</td>
+        </tr>        
+        <tr>
+        <td class="Texto10celeste" align="center"><?=$row2->referencia_general?></td>
+        <td class="Texto10celeste" align="center"><?=$row2->referencia_hombre?></td>
+        <td class="Texto10celeste" align="center"><?=$row2->referencia_mujer?></td>         
         </tr>
+        <tr>
+
+        </tr>
+</tbody>
+</table>
+</div>
+<table class=" margen_izquierdo">
+<tbody>        
         <tr>
         <td class="Arial14Negro">Observaciones</td>        
         </tr>

@@ -63,17 +63,37 @@ $pdf->Cell(63,5,'Parametro',0,0,'L');
 $pdf->Cell(63,5,'Resultado',0,0,'C');
 $pdf->Cell(64,5,'Referencia',0,1,'C');
 $pdf->SetFont('Arial','',10);
-$sql="select res.resultado,res.referencia_aplicada,cat.nombre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id ";
+$sql="select res.resultado,res.referencia_aplicada,cat.nombre, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer from tbl_resultados res inner join tbl_analisis ana 
+on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
-	$pdf->Cell(63,10,$row->nombre,0,0,'L');	
-	$pdf->Cell(63,10,$row->resultado,0,0,'C');
-	$pdf->Cell(64,10,$row->referencia_aplicada,0,1,'C');
+	$pdf->MultiCell(80,5,$row->nombre,0,1,'L');	
+	$pdf->Ln(-5);
+	$pdf->SetX(78);	
+	$pdf->MultiCell(30,5,$row->resultado,0,0,'L');
+	$pdf->Ln(-5);
+	$pdf->SetX(158);	
+	if ($row->referencia_hombre<>''&&$row->referencia_mujer<>''){
+		$referencias=$row->referencia_general."\nH".$row->referencia_hombre."\nM".$row->referencia_mujer;
+	}else{
+		$referencias=$row->referencia_general;
+	}
+	$pdf->MultiCell(30,5,$referencias,0,1,'L');
+	//$pdf->Cell(63,10,$row->nombre,0,0,'L');	
+	//$pdf->Cell(63,10,$row->resultado,0,0,'C');
+	//$pdf->Cell(64,10,$row->referencia_aplicada,0,1,'C');
 }
 
+
 $pdf->SetFont('Arial','B',14);
-$pdf->Ln(140);
+
+$var = $pdf->GetY();		
+$pdf->Ln($var-10);
+$pdf->Image('img/firma.jpg',160,230,30);
+$pdf->SetTextColor(89,177,255);
+$pdf->Cell(0,10,'_________________',0,1,'R');
+$pdf->SetFont('Arial','B',8);
+$pdf->Cell(175,5,'M.Q.C. Firma',0,1,'R');
 $pdf->SetTextColor(225,0,0);
 $pdf->Cell(0,10,'_________________________________________________________________________________________________________________________________________________________________________________',0,1,'C');
 $pdf->SetTextColor(0,0,0);

@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 $(document).on('click', '#btn_guardarres',function() {    
 if(confirm('¿Seguro que desea procesar este análisis?')){               
-    parametros=$('#txt_consecutivo').val()+','+$('#txt_idanalisis').val()+','+$('#txt_resultado').val()+','+$('#txt_observaciones_analista').val();
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idanalisis').val()+','+$('#txt_resultado').val()+','+$('#txt_unidades').val()+','+$('#txt_observaciones_analista').val();
     $.ajax({
         data: "metodo=guarda_resultados&parametros="+parametros,
         type: "POST",

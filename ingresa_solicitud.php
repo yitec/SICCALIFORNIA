@@ -3,7 +3,9 @@ session_start();
 require_once('cnx/conexion.php');
 require_once('cnx/session_activa.php');
 conectar();
-
+$sql="select MAX(id) from tbl_consecutivos";
+$result=mysql_query($sql);
+$row=mysql_fetch_object($result);
 
 
 ?>
@@ -62,7 +64,7 @@ function validar(){
 <table>
     <tr>
     	<td height="29" valign="top" class="Arial14Morado">Consecutivo</td>
-        <td><input name="txt_consecutivo"  value="<?=$_SESSION['contrato'];?>" id="txt_consecutivo" class="inputbox" type="text" /></td>
+        <td><input name="txt_consecutivo"  value="<?=$row->id+1;?>" id="txt_consecutivo" class="inputbox" type="text" /></td>
     </tr>
     <tr>
         <td height="25" valign="top" class="Arial14Morado">Doctor</td>
@@ -126,18 +128,32 @@ function validar(){
     	<td height="25" valign="top" class="Arial14Morado">Tipo Pago</td>
         <td><select class="combos" id="cmb_tipoPago" name="cmb_tipoPago">
           <option selected="selected">Contado</option>
-          <option >Tarjeta</option>
-
-          
+          <option >Tarjeta</option>          
         </select></td>
     </tr>
 	<tr>
-	  <td height="25" valign="top" class="Arial14Morado">Envio por correo</td>
-	  <td><select class="combos" id="cmb_xcorreo" name="cmb_xcorreo">
+	  <td height="25" valign="top" class="Arial14Morado"><br>Envio por correo</td>
+	  <td><br><select class="combos" id="cmb_xcorreo" name="cmb_xcorreo">
           <option selected="selected">No</option>
           <option selected="selected">Si</option>
         </select></td>
-	  </tr>     
+	  </tr>
+  <tr>
+    <td height="25" valign="top" class="Arial14Morado"><br>Pendiente de Pago</td>
+    <td><br><select class="combos" id="cmb_xcorreo" name="cmb_xcorreo">
+          <option selected="selected">No</option>
+          <option>Si</option>
+        </select></td>
+  </tr>
+  <tr>
+    <td height="25" valign="top" class="Arial14Morado"><br>Datafono</td>
+    <td><br><select class="combos" id="cmb_xcorreo" name="cmb_xcorreo">
+          <option selected="selected" value="0">No Aplica</option>
+          <option  value="1">Nacional</option>
+          <option value="2">Bac San José</option>
+        </select></td>
+  </tr>
+    <!--     
       <tr>
         <td height="25" valign="top" class="Arial14Morado">Otros Datos</td>
         <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Ovulaci&oacute;n</td>
@@ -172,7 +188,7 @@ function validar(){
         <td width="189" class="Arial14Negro"><input class="ck" name="chk_usuarios" id="chk_usuarios" type="checkbox" value="" />Post Menopausia</td>
         <td width="213" class="Arial14Negro"><input class="ck" name="chk_clientes" id="chk_clientes" type="checkbox" value="" />Fuma</td>
         <td width="213" class="Arial14Negro"><input class="ck"  id="chk_precios" type="checkbox" value="" />No Fuma</td>
-      </tr>       
+      </tr>     -->  
     </table>
 	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" onclick="validar()" value="Siguiente" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->

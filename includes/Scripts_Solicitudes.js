@@ -57,9 +57,10 @@ $(document).on('click', '.p_1',function() {
    var id=$( this ).attr("id");
    var precio=$( this ).attr("precio");
    var ligados=$( this ).attr("ligados");
-   agregaAnalisis(id,1,1,precio,0);
-   if(ligados!=0){
-    marcaLigados(id,1,1,precio,ligados);
+   var fantasma=$( this ).attr("fantasma");
+   agregaAnalisis(id,1,1,precio,0);  
+   if (ligados!=0&&fantasma!=1){
+   marcaLigados(id,1,1,precio,ligados);
    }
 });
 
@@ -72,11 +73,13 @@ $(document).on('click', '#btn_imprimir',function() {
         dataType: "json",        
         url: "operaciones/Clase_Solicitudes.php",      
         success: function(datos){     
-        alert(datos);
+        //alert(datos);
       
     }//end succces function
     });//end ajax function
-  window.open("http://localhost/SICCALIFORNIA/solicitudes.php?consecutivo="+$('#txt_consecutivo').val());
+  window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/solicitudes.php?consecutivo="+$('#txt_consecutivo').val());
+  window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/imprime_factura.php?consecutivo="+$('#txt_consecutivo').val());
+
   top.location.href = 'menu.php'; 
 });  
 
@@ -138,7 +141,7 @@ function cargaAnalisis(tipo,copiar){
 //    $('#loading'+tab_counter).empty().html('<img src="img/loadingAnimation.gif" />').delay(2000).fadeIn(400);    
     var repeticiones=1;
     var seleccionada=1;
-    var parametros=$("#cmb_categoria").val();
+    var parametros=$("#cmb_categoria").val()+",";
     $('#analisis_1').html('');
     $('.analisis_1').append('<div class="titulo_sombreado">------------------------------------------------------</div>');
     $.ajax({

@@ -68,11 +68,14 @@ function busca_padron($parametros,$hoy){
 	$v_datos=explode(",",$parametros);		
 	$result=mysql_query("select * from tbl_padron where Cedula='".$v_datos[0]."'");
 	$row=mysql_fetch_object($result);	
-	if (mysql_num_rows($result)>=1){				
+	$jsondata['sql']=$parametros;
+	if (mysql_num_rows($result)>=1){	
+		
 		$jsondata['nombre']=utf8_decode(trim($row->Nombre)." ".trim($row->Apellido1)." ".trim($row->Apellido2));		
 		$jsondata['sexo']=$row->Sexo;		
 		$jsondata['resultado']="Success";	
 	}
+	$jsondata['resultado']="Success";	
 	echo json_encode($jsondata);
 }
 

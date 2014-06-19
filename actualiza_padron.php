@@ -7,7 +7,7 @@ include('cnx/conexion.php');
 conectar();
 
 $tot=0;
-$result=mysql_query("select * from tbl_padron where id>=24404 order by id asc  limit 100000 ");
+$result=mysql_query("select * from tbl_padron where id>=3065666 order by id asc  limit 500000 ");
 conectarex();
 while ($row=mysql_fetch_object($result)){	
 	echo "<br>".$tot++;

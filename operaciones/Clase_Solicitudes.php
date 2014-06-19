@@ -9,6 +9,7 @@ Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
 
 $metodo=$_POST['metodo'];
+$parametros=$_POST['parametros'];
 $exp = new Solicitudes;
 $exp->$metodo($parametros,$hoy);
 
@@ -71,12 +72,21 @@ function guarda_solicitud($parametros,$hoy){
 ********************************************************/
 
 function buscar_analisis($parametros,$hoy){
-	$v_datos=explode(",",$parametros);		
-	$result=mysql_query("select * from tbl_categoriasanalisis where ids_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre");
+	$v_datos=explode(",",$parametros);	
+	$sql="select * from tbl_categoriasanalisis where id_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre";	
+	$result=mysql_query("select * from tbl_categoriasanalisis where id_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre");
+	if (!$result) {//si da error que me despliegue el error del query
+        $message  = 'Query invalido: ' . mysql_error() . "\n";
+        $message .= 'Query ejecutado: ' . $query;
+		
+		} 
+	$var=mysql_num_rows($result);
 		while ($row=mysql_fetch_assoc($result)){			
-			$vector=$vector."|".$row['id'].",".$row['id_laboratorio'].','.$row['nombre'].','.$row['precio'].','.$row['analisis_ligados']; 
-	}
-	$jsondata['resultado']=utf8_encode($vector);	
+			//$vector=$vector."|".$row['id'].",".$row['id_laboratorio'].','.$row['nombre'].','.$row['precio'].','.$row['analisis_ligados']; 
+			//$var="entro";	
+		}
+	$jsondata['resultado']=$message;	
+	//$jsondata['resultado']=utf8_encode($vector);	
     echo json_encode($jsondata);
 }
 
@@ -123,11 +133,22 @@ function guarda_analisis($parametros,$hoy){
 			$id_laboratorio=$v_analisis[1];
 			$muestra=$v_analisis[2]+1;			
 			$precio=$v_analisis[3];			
-		}
-
-		
+		}			
 		$sql="insert into tbl_analisis (consecutivo_solicitud,codigo,id_laboratorio,id_muestra,id_analisis,precio,fecha_solicitud,estado)values('".$_SESSION['consecutivo']."','".$codigo."','".$id_laboratorio."','".$muestra."','".$id_analisis."','".$precio."','".$hoy."','"."0"."')";
 		$result=mysql_query($sql);
+		//si el analisis es fantasma metos los analisis que lo componen
+		$sql2="select fantasma, analisis_ligados from tbl_categoriasanalisis where id='".$id_analisis."' ";
+		$result2=mysql_query($sql2);		
+		$row2=mysql_fetch_object($result2);
+		if ($row2->fantasma==1){
+			$v_datos2=explode(":",$row2->analisis_ligados);	
+			foreach ($v_datos2 as $datos) {
+ 				$sql3="insert into tbl_analisis (consecutivo_solicitud,codigo,id_laboratorio,id_muestra,id_analisis,precio,fecha_solicitud,estado)values('".$_SESSION['consecutivo']."','".$codigo."','".$id_laboratorio."',1,'".$datos."',0,'".$hoy."','"."0"."')";
+				$result3=mysql_query($sql3);
+			}	
+			
+		}	
+
 	
 	
 	}//end for
@@ -148,9 +169,9 @@ function guarda_resultados($parametros,$hoy){
 	$result=mysql_query("select id from tbl_resultados where id_analisis='".$v_datos[1]."'");
 	if (mysql_num_rows($result)>=1){
 		$row=mysql_fetch_object($result);
-		$sql="update tbl_resultados set resultado='".$v_datos[2]."',observaciones_analista='".$v_datos[3]."', estado=0 where id='".$row->id."'";
+		$sql="update tbl_resultados set resultado='".$v_datos[2]."',unidades='".$v_datos[3]."',observaciones_analista='".$v_datos[4]."', estado=0 where id='".$row->id."'";
 	}else{
-		$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."',NOW(),0)";		
+		$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."',NOW(),0)";		
 	}
 	$result=mysql_query($sql);
 	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");					
@@ -224,7 +245,7 @@ function rechaza_resultados($parametros,$hoy){
 	echo json_encode($jsondata);
 
 }
-	
+
 
 }//end class
 
