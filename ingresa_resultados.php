@@ -45,6 +45,8 @@ conectar();
 $sql="select resultado,observaciones_gerente from tbl_resultados where id_analisis='".$_REQUEST['id']."'";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
+
+
 $sql2="select ref.referencia_hombre,referencia_mujer,ref.referencia_general from tbl_referencias ref join tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id and ref.id_analisis=cat.id 
 where ana.id='".$_REQUEST['id']."'";
 $result2=mysql_query($sql2);
@@ -60,8 +62,11 @@ $row2=mysql_fetch_object($result2);
         </tr>
         <tr>
         <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <? if($_REQUEST['unidades']=='undefined'){?>
+        <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="" /></td>        
+        <?}else{?>
         <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$_REQUEST['unidades'];?>" /></td>        
-</tbody>
+</tbody><?}?>
 </table>
 <div align="center" class="titulo_sombreado">Referencias</div>
 <br>
@@ -73,9 +78,9 @@ $row2=mysql_fetch_object($result2);
         <td class="Texto10celeste" width="215" align="center">Referencia Mujer</td>
         </tr>        
         <tr>
-        <td class="Texto10celeste" align="center"><?=$row2->referencia_general?></td>
-        <td class="Texto10celeste" align="center"><?=$row2->referencia_hombre?></td>
-        <td class="Texto10celeste" align="center"><?=$row2->referencia_mujer?></td>         
+        <td class="Texto14negro" align="center"><?=$row2->referencia_general?></td>
+        <td class="Texto14negro" align="center"><?=$row2->referencia_hombre?></td>
+        <td class="Texto14negro" align="center"><?=$row2->referencia_mujer?></td>         
         </tr>
         <tr>
 
@@ -93,7 +98,11 @@ $row2=mysql_fetch_object($result2);
         </tr>
 </tbody>
 </table>
-<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardarres" type="submit" value="Guardar" name="submit" class="submit" /></div>    
+<div align="center" style="margin-top:0px; margin-bottom:0px;">
+<input id="btn_guardarres" type="submit" value="Guardar" name="submit" class="submit" />
+<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
+</div>    
+
 </div><!-- fin div panel Central-->
 <br />
 </body>

@@ -9,6 +9,7 @@ Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
 
 $metodo=$_POST['metodo'];
+$parametros=$_POST['parametros'];
 $exp = new Doctores;
 $exp->$metodo($parametros,$hoy);
 
@@ -44,11 +45,12 @@ function crea_doctor($parametros,$hoy){
 	
 	
 function busca_doctor($parametros,$hoy){
-	$v_datos=explode(",",$parametros);	
+	
+	$v_datos=explode(",",$parametros);		
 	$result=mysql_query("select * from tbl_doctores where nombre='".$v_datos[0]."'");
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
-		$jsondata['id_cliente']=$row->id;		
+		$jsondata['id_doctor']=$row->id;		
 		$jsondata['nombre']=utf8_decode($row->nombre);		
 		$jsondata['cedula']=$row->cedula;
 		$jsondata['correo']=$row->correo;		
@@ -68,12 +70,11 @@ function modifica_doctor($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
 	$result=mysql_query("update tbl_doctores set nombre='".utf8_encode($v_datos[1])."',
 		cedula='".$v_datos[2]."',
-		correo='".$v_datos[3]."',
-		id_tipoCliente='".$v_datos[4]."',
+		correo='".$v_datos[3]."',		
 		tel_cel='".$v_datos[5]."',
 		tel_fijo='".$v_datos[6]."',		
 		fax='".$v_datos[7]."',
-		direccion='".utf8_encode($v_datos[8])."'
+		direccion='".utf8_encode($v_datos[8])."',
 		clinica='".utf8_encode($v_datos[9])."'
 		 where id='".$v_datos[0]."'");
 	if (!$result) {//si da error que me despliegue el error del query       		

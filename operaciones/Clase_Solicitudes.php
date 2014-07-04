@@ -59,8 +59,15 @@ function guarda_solicitud($parametros,$hoy){
 	$row=mysql_fetch_object($result);
 	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$_SESSION['total']."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$_SESSION['doctor']."',NOW(),1)";	
 	$result=mysql_query($sql);				
+
 	//$jsondata=mysql_insert_id();	
-	$jsondata=$sql;	
+	//$jsondata=$sql;	
+	$sql="insert into tbl_consecutivos (id,estado)values('".$_SESSION['consecutivo']."',1)";
+	$result=mysql_query($sql);
+	$sql="insert into tbl_facturas (consecutivo_solicitud,id_cliente,id_doctor,monto_total,fecha_ingreso)values(
+	'".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['doctor']."','".$_SESSION['total']."',NOW())";
+	$result=mysql_query($sql);
+
 	echo json_encode($jsondata);
 
 }
@@ -179,9 +186,34 @@ function guarda_resultados($parametros,$hoy){
 	echo json_encode($jsondata);
 }
 
+/*******************************************************
+	accion="Busca el sisguiente analisis para reportar"
+	parametros="id analisis"
+
+********************************************************/
+
+
+function busca_siguiente($parametros,$hoy){
+	$v_datos=explode(",",$parametros);
+	$result=mysql_query("select ana.id,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana, tbl_categoriasanalisis cat where ana.estado=0 and ana.id_analisis=cat.id and cat.fantasma!=1 and consecutivo_solicitud='".$v_datos[0]."' limit 1");
+	if (mysql_num_rows($result)>=1){
+		$row=mysql_fetch_object($result);
+		$jsondata['resultado'] = "Success";        	
+        $jsondata['id'] = $row->id;         	
+        $jsondata['consecutivo']=$row->consecutivo_solicitud;
+        $jsondata['nombre'] = $row->nombre;
+        if ($row->unidades!=""){         	
+        	$jsondata['unidades'] = $row->unidades;         			
+    	}
+	}else{
+		$jsondata['resultado'] = "No hay mas resultados";        	
+	}
+	echo json_encode($jsondata);
+}
+
 
 /*******************************************************
-	accion="Guarda los resultados de un analisis  "
+	accion="Aprueba los resultados de un analisis  "
 	parametros="id analisis"
 
 ********************************************************/
@@ -242,6 +274,62 @@ function rechaza_resultados($parametros,$hoy){
 	$result=mysql_query($sql);
 	$result=mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0 where id in(select id_analisis from tbl_resultados where id='".$v_datos[1]."') ");				
 	$jsondata="Success";	
+	echo json_encode($jsondata);
+
+}
+
+/*******************************************************
+	accion="Guarda los analisis de una nueva solicitud "
+	parametros="consecutivo, ids,nombres y precios de los analsis"
+
+********************************************************/
+
+function guarda_analisis_cotizacion($parametros,$hoy){
+	$v_parametros=explode("/",$parametros);
+	$v_datos=explode('|',$v_parametros[0]);	
+	$size = sizeof($v_datos);//TAMAÑO del vector
+	$size=$size-2;//resto posiciones en blanco
+			$jsondata=$v_datos;			
+	echo $v_parametros[0]."///".$v_parametros[1];
+
+	for($i=0;$i<=$size;$i++){
+		
+		$v_analisis=explode(',',$v_datos[$i]);	
+		if($i>=1){
+			$id_analisis=$v_analisis[1];
+			$id_laboratorio=$v_analisis[2];
+			$muestra=$v_analisis[3]+1;
+			$precio=$v_analisis[4];
+		}else{
+			$id_analisis=$v_analisis[0];
+			$id_laboratorio=$v_analisis[1];
+			$muestra=$v_analisis[2]+1;			
+			$precio=$v_analisis[3];			
+		}			
+		$sql="insert into tbl_analisis_cotizacion (consecutivo_cotizacion,nombre_cliente,id_analisis,precio,fecha_solicitud,estado)values('".$_SESSION['consecutivo']."','".$v_parametros[1]."','".$id_analisis."','".$precio."','".$hoy."','"."0"."')";
+		$result=mysql_query($sql);	
+			
+		//si el analisis es fantasma metos los analisis que lo componen
+		/*
+		$sql2="select fantasma, analisis_ligados from tbl_categoriasanalisis where id='".$id_analisis."' ";
+		$result2=mysql_query($sql2);		
+		$row2=mysql_fetch_object($result2);
+		if ($row2->fantasma==1){
+			$v_datos2=explode(":",$row2->analisis_ligados);	
+			foreach ($v_datos2 as $datos) {
+ 				$sql3="insert into tbl_analisis (consecutivo_solicitud,codigo,id_laboratorio,id_muestra,id_analisis,precio,fecha_solicitud,estado)values('".$_SESSION['consecutivo']."','".$codigo."','".$id_laboratorio."',1,'".$datos."',0,'".$hoy."','"."0"."')";
+				$result3=mysql_query($sql3);
+			}	
+			
+		}	*/
+
+	
+	
+	}//end for
+	$sql="insert into tbl_consecutivos_cotizaciones (id,estado)values('".$_SESSION['consecutivo']."',1)";
+	$result=mysql_query($sql);
+	$jsondata['resultado'] = "Success";  
+
 	echo json_encode($jsondata);
 
 }

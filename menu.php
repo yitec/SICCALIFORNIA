@@ -41,59 +41,77 @@ conectar();
     <div align="center" class="Arial14Negro"><a href="ingresa_solicitud.php"><div id="cuadro_azul2"></div></a>Solicitud An&aacute;lisis</div>
     </div>
     <? } ?>
-    <? if (in_array(5, $_SESSION['perfil'])){
+    <? if (in_array(2, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="analisis_pendientes.php"><div id="cuadro_anaranjado"></div></a>An&aacute;lisis Pendientes</div>
     </div>
     <? } ?>
-    <? if (in_array(8, $_SESSION['perfil'])){?>
+    <? if (in_array(3, $_SESSION['perfil'])){?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="resultados_pendientes.php"><div id="cuadro_azul"></div></a>Resultados An&aacute;lisis</div>
     </div>
     <? } ?>
-    <? if (in_array(12, $_SESSION['perfil'])){?>
+    <? if (in_array(4, $_SESSION['perfil'])){?>
 	<div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="mantenimiento_usuarios.php"><div id="cuadro_verde2"></div></a>Mantenimiento Usuarios</div>
     </div>
     <? } ?>
-    <? if (in_array(13, $_SESSION['perfil'])){?>
+    <? if (in_array(5, $_SESSION['perfil'])){?>
 	<div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="mantenimiento_doctores.php"><div id="cuadro_negro"></div></a>Mantenimiento Doctores</div>
     </div>
     <? } ?>
-    <? if (in_array(23, $_SESSION['perfil'])){
+    <? if (in_array(6, $_SESSION['perfil'])){
 	?>
     <div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="mantenimiento_precios.php"><div id="cuadro_red"></div></a>Mantenimiento Precios</div>
     </div>
     <? } ?>
-    <? if (in_array(13, $_SESSION['perfil'])){?>
+    <? if (in_array(7, $_SESSION['perfil'])){?>
     <div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="mantenimiento_clientes.php"><div id="cuadro_azul"></div></a>Mantenimiento Clientes</div>
     </div>
     <? } ?>
-     <? if (in_array(22, $_SESSION['perfil'])){
+     <? if (in_array(8, $_SESSION['perfil'])){
 	?>
     <div id="mainBlancoMenu"  style=" margin-left:10px; float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="nuevos_analisis.php"><div id="cuadro_verde"></div></a>Nuevos  An&aacute;lisis</div>
     </div>
     <? } ?>
-    <? if (in_array(11, $_SESSION['perfil'])){  ?>
+    <? if (in_array(9, $_SESSION['perfil'])){  ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="menu_reportes.php"><div id="cuadro_verde"></div></a>Visualizar Reportes</div>
     </div>
     <? } ?>
-    <? if (in_array(15, $_SESSION['perfil'])){
+    <? if (in_array(10, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="informes_finales.php"><div id="cuadro_anaranjado"></div></a>Informes Finales</div>
     </div>
     <? } ?>
+    <? if (in_array(11, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Análisis Sumerhill</div>
+    </div>
+    <? } ?>
+    <? if (in_array(12, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="analisis_cotizacion.php"><div id="cuadro_azul2"></div></a>Crear Cotización</div>
+    </div>
+    <? } ?>
+    <? if (in_array(13, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="r_selector_cotizacion.php"><div id="cuadro_anaranjado"></div></a>Ver Cotización</div>
+    </div>
+    <? } ?>
     <? if (in_array(14, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Informes Finales</div>
+    <div align="center" class="Arial14Negro"><a href="informes_finales.php?pendientes=1"><div id="cuadro_red"></div></a>Informes Pendientes</div>
     </div>
     <? } ?>
 </div><!-- fin div panel Central-->

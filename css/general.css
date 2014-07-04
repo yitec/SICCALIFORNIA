@@ -144,6 +144,20 @@ font-family: 'Carrois Gothic', sans-serif;
   border-radius: 5px;     
 }
 
+.inputbox_grande{
+    padding: 8px; 
+    margin: 0px 0 20px 0; 
+    background: #fff; 
+    width: 240px; 
+    font-size: 14px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    /* -- CSS3 - define rounded corners -- */ 
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px; 
+  border-radius: 5px;     
+}
+
 .textArea{
     padding: 8px; 
     margin: 0px 0 20px 0; 
@@ -570,3 +584,4 @@ color:#a6c9e2;
 font-size:14px;
 color:#F00000;
 }
+

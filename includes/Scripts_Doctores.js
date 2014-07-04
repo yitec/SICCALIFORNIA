@@ -35,9 +35,10 @@ $('#btn_buscar').click(function(){
     async:false,
     dataType: "json",
     url: "../SICCALIFORNIA/operaciones/Clase_Doctores.php",
-    success: function (data){
+    success: function (data){      
       if (data.resultado=="Success"){
-          $("#id_cliente").attr("value",data.id_cliente);
+          $("#txt_doctor").attr("value",data.id_doctor);
+          $("#opcion").attr("value","2");
           $("#txt_nombre").attr("value",data.nombre);
           $("#txt_cedula").attr("value",data.cedula);
           $("#txt_correo").attr("value",data.correo);
@@ -90,7 +91,7 @@ $("#btn_guardar").click(function(event){
       busca_nombres();
       $('#txt_buscar').focus(); 
     }else{
-      var parametros=$("#id_doctor").val()+","+$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#cmb_tipo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+$("#txt_clinica").val();
+      var parametros=$("#txt_doctor").val()+","+$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#cmb_tipo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+$("#txt_clinica").val();
       $.ajax({
         data: "metodo=modifica_doctor&parametros="+parametros,
         type: "POST",

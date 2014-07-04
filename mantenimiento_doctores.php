@@ -75,7 +75,7 @@ conectar();
 	    </tr>
 	  <tr>
 	    <td class="Arial14Negro"><input id="txt_fax" class="inputbox" type="text" /></td>
-	    <td class="Arial14Negro"><input  id="txt_direccion"  class="inputbox" type="text" /><input id="opcion" name="opcion" type="hidden" value="1" /></td>
+	    <td class="Arial14Negro"><input  id="txt_direccion"  class="inputbox" type="text" /><input id="opcion" name="opcion" type="hidden" value="1" /><input id="txt_doctor" name="txt_doctor" type="hidden" value="" /></td>
 	    </tr>
 	<tr>
 	    <td class="Arial14Negro">Clinica</td>
@@ -92,7 +92,8 @@ conectar();
 	        No</td>
 	    </tr>
 	  <tr>        
-	  </table>
+	  </table>	  
+	  
 	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" value="Guardar" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
 </body>

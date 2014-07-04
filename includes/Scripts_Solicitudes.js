@@ -298,6 +298,32 @@ function marcaLigados(id,laboratorio,tab,precio,ligados){
     }//end for                 
 }//end marcar analisis ligados
 
+
+/************************************Boton continuar hacia imprimir una cotizacion*********************************************/
+
+$(document).on('click', '#btn_continuarcoti',function() {      
+   
+    
+    
+    
+     parametros=v_analisis+'/'+$('#txt_nombre').val();
+    $.ajax({
+        data: "metodo=guarda_analisis_cotizacion&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        alert(datos);
+      
+    }//end succces function
+    });//end ajax function
+    window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/cotizaciones.php?consecutivo="+$('#txt_consecutivo').val());
+    top.location.href = 'menu.php';
+});
+
+
+
 /***************************************Limpiar todos los campos***************************************/
 function limpiar(){
       $('#txt_nombre').attr('value','');

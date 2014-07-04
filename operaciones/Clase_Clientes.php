@@ -9,6 +9,7 @@ Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
 
 $metodo=$_POST['metodo'];
+$parametros=$_POST['parametros'];
 $exp = new Clientes;
 $exp->$metodo($parametros,$hoy);
 
@@ -68,7 +69,7 @@ function busca_padron($parametros,$hoy){
 	$v_datos=explode(",",$parametros);		
 	$result=mysql_query("select * from tbl_padron where Cedula='".$v_datos[0]."'");
 	$row=mysql_fetch_object($result);	
-	$jsondata['sql']=$parametros;
+	$jsondata['parametros']=$parametros;
 	if (mysql_num_rows($result)>=1){	
 		
 		$jsondata['nombre']=utf8_decode(trim($row->Nombre)." ".trim($row->Apellido1)." ".trim($row->Apellido2));		

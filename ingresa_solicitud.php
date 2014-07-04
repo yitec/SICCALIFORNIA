@@ -3,7 +3,7 @@ session_start();
 require_once('cnx/conexion.php');
 require_once('cnx/session_activa.php');
 conectar();
-$sql="select MAX(id) from tbl_consecutivos";
+$sql="select MAX(id) as id from tbl_consecutivos where estado=1";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 

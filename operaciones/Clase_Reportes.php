@@ -9,6 +9,7 @@ Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
 
 $metodo=$_POST['metodo'];
+$parametros=$_POST['parametros'];
 $rep = new Reportes;
 $rep->$metodo($parametros,$hoy);
 

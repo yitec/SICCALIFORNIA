@@ -1,0 +1,8 @@
+Factura numer 5
+
+texto de prueba
+
+todo el formato
+
+
+esta bien

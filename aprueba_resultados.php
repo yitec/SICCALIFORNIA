@@ -44,11 +44,17 @@ $row=mysql_fetch_object($result);
 <table class=" margen_izquierdo">
 <tbody>
         <tr>
-        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Resultado</td>                
+        <td class="Arial14Negro">Unidades</td>                
         </tr>
         <tr>
         <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado?>" /></td>        
+        <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$row->unidades?>" /></td>        
         </tr>
+</tbody>
+</table>        
+<table class=" margen_izquierdo">
+<tbody>
         <tr>
         <td class="Arial14Negro">Observaciones Analista</td>        
         </tr>

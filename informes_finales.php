@@ -41,20 +41,40 @@ conectar();
     <tr>
     <th class="titulo_tablas">Solicitud</th>
     <th class="titulo_tablas">Cliente</th>
+    <?if ($_REQUEST['pendientes']==1){?>
+    <th class="titulo_tablas">Fecha Ingreso</th>    
+    <?}else{?>
     <th class="titulo_tablas">Fecha Terminado</th>    
+    <?}?>
     <th class="titulo_tablas">Ver Informe</th>    
+    <th class="titulo_tablas">Versión Impresa</th>    
     </tr>
 <?
-$result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
+if ($_REQUEST['pendientes']==1){
+  $result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=1");
+}else{
+  $result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
+}
 while($row=mysql_fetch_object($result))
 {
+if ($_REQUEST['pendientes']==1){
+echo'<tr>
+        <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+    </tr>';
+}else{
 echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_terminado).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
-}
+}    
+}//end while
 ?>
 </tbody>
 </table>

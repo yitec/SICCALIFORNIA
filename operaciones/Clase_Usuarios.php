@@ -9,6 +9,7 @@ Parametros: Vector con lista de parametros segun metodo
 /****************************************************************************************************************/
 
 $metodo=$_POST['metodo'];
+$parametros=$_POST['parametros'];
 $exp = new Expedientes;
 $exp->$metodo($parametros,$hoy);
 
@@ -53,8 +54,8 @@ function busca_usuario($parametros,$hoy){
 	echo json_encode($jsondata);
 }	
 /*******************************************************
-	accion="obtiene los cobros de un expediente"
-	parametros="nombre del expediente"
+	accion="Crea Usuario"
+	parametros="datos del usuario"
 
 ********************************************************/
 
