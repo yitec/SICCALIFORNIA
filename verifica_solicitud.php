@@ -78,6 +78,11 @@ conectar();
     	<td height="29" class="Arial14Morado">Tipo Pago:</td>
         <td class="Arial14Morado"><?=$_SESSION['tipo_pago']; ?></td>
     </tr>
+  <tr>
+      <td height="29" class="Arial14Morado">Descuento:</td>
+      <td class="Arial14Morado"><input name="txt_descuento" id="txt_descuento" value="0"  class="inputbox" type="text" /></td>
+      <td ><div style="margin-bottom:20px;"><input name="btn_descuento" id="btn_descuento" type="image" src="img/check.png" /></div></td>
+  </tr>
 	<!--<tr>
 	  <td class="Arial14Morado">Total de An&aacute;lisis:</td>
 	  <td class="Arial14Morado"><?=$_REQUEST['analisis'];?><input name="txt_totAnalisis" type="hidden" value="<?=$_REQUEST['analisis'];?>" />
@@ -85,9 +90,12 @@ conectar();
 	</tr>-->
 	<tr>
 	  <td height="35" class="Arial14Morado">Total:</td>
-      <?$_SESSION['total']=$_REQUEST['txt_totAnalisis'];?>
+      <input type="hidden" id="txt_monto_original" value="<?=$_REQUEST['txt_totAnalisis'];?>">
+      <input type="hidden" id="txt_monto_descuento" value="0">
+      <input type="hidden" id="txt_total_general" value="<?=$_REQUEST['txt_totAnalisis'];?>">
 
-	  <td class="Arial14Azul"><? echo "¢ ". number_format($_REQUEST['txt_totAnalisis'],2,',','.');?></td>
+
+	  <td class="Arial14Azul"><div id="total_general"> <? echo "¢ ". number_format($_REQUEST['txt_totAnalisis'],2,',','.');?></div></td>
 	  </tr>
 	</table>
 	

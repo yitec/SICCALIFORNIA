@@ -18,7 +18,7 @@ class Clientes{
 	function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector.",".utf8_decode($row->nombre); 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -46,7 +46,7 @@ function crea_cliente($parametros,$hoy){
 	
 function busca_cliente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("select * from tbl_clientes where nombre='".$v_datos[0]."'");
+	$result=mysql_query("select * from tbl_clientes where nombre='".utf8_encode($v_datos[0])."'");
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
 		$jsondata['id_cliente']=$row->id;		

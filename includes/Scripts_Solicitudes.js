@@ -64,8 +64,10 @@ $(document).on('click', '.p_1',function() {
    }
 });
 
+/************************************Guardar e imprimir el contrato*********************************************/
+
 $(document).on('click', '#btn_imprimir',function() {
-  parametros=$('#txt_consecutivo').val()+',';
+  parametros=$('#txt_monto_original').val()+','+$('#txt_descuento').val()+','+$('#txt_monto_descuento').val()+','+$('#txt_total_general').val();
   $.ajax({
         data: "metodo=guarda_solicitud&parametros="+parametros,
         type: "POST",
@@ -78,10 +80,21 @@ $(document).on('click', '#btn_imprimir',function() {
     }//end succces function
     });//end ajax function
   window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/solicitudes.php?consecutivo="+$('#txt_consecutivo').val());
-  window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/imprime_factura.php?consecutivo="+$('#txt_consecutivo').val());
+  //window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/imprime_factura.php?consecutivo="+$('#txt_consecutivo').val());
 
   top.location.href = 'menu.php'; 
 });  
+
+/************************************Boton descuento*********************************************/
+$(document).on('click', '#btn_descuento',function() { 
+  var porcentage=$('#txt_descuento').val();
+  var total_parcial = GetURLParameter('txt_totAnalisis');
+  var descontado=parseInt(porcentage)/100*parseInt(total_parcial);
+  var total_general=parseInt(total_parcial)-parseInt(descontado);
+  $('#txt_monto_descuento').val(descontado);
+  $('#txt_total_general').val(total_general);
+  $('#total_general').html("¢ "+agregar_comas(total_general)+".00");  
+});
 
 /************************************Boton continuar hacia revisar analisis*********************************************/
 
@@ -322,6 +335,35 @@ $(document).on('click', '#btn_continuarcoti',function() {
     top.location.href = 'menu.php';
 });
 
+
+/***************************************Optiene los parametros que vienen en la url***************************************/
+
+function GetURLParameter(sParam){
+     var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}
+
+/***************************************Agregar comas a los numeros***************************************/
+function agregar_comas(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+ 
 
 
 /***************************************Limpiar todos los campos***************************************/

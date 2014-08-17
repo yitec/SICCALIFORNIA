@@ -15,7 +15,8 @@ conectar();
 <link href="css/cuadros.css" rel="stylesheet" type="text/css" />
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
-<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet'/>
+
 
 </head>
 <body>
@@ -38,37 +39,42 @@ conectar();
 </div>
 <div class="panel_central">
 <table cellpadding="0" cellspacing="0"class="diseno_tablas centrado_tablas">
-    <tbody>
+  <tbody>
     <tr>
-    <th class="titulo_tablas" width="300px">Reportes</th>
-    <th class="titulo_tablas" width="100px"><div align="center">Acci&oacute;n</div></th>    
+    <th class="titulo_tablas" width="100px">A&ntilde;o</th>
+    <th class="titulo_tablas" width="300px"><div align="center">Acci&oacute;n</div></th>    
     </tr>
-<?
-$result=mysql_query("select * from tbl_reportes where estado=1");
-while($row=mysql_fetch_object($result))
-{
-  if(in_array($row->id,$_SESSION['reportes'])){
-    echo'<tr>
-        <td class="datos_tablas"><a class="Texto14negro" id="ver" href="'.$row->link.'">'.utf8_encode($row->nombre).'</a></td>        
-        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="'.$row->link.'"><img src="img/chart.png" width="25" height="25" /></a></div></td>
-    </tr>';
-  }
-}
-?>
-</tbody>
+    <tr>
+    <th valign="top" class="datos_tablas" width="100px">
+    <?
+    echo '<select id="cmb_year" class="combos">
+    <option value="2014">2014</option>
+    <option value="2015">2015</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+    <option value="2023">2023</option>
+    <option value="2024">2024</option>
+    <option value="2025">2025</option>
+    </select>
+    ';
+    ?>  
+    </th>
+
+    <th class="datos_tablas" width="300px"><input id="btn_generar_year" type="submit" value="Generar" name="submit" class="submit" /></th>    
+    </tr>
+
+  </tbody>
 </table>
 </div><!-- fin div panel Central-->
 <br />
 </body>
 </html>
+<script src="includes/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="includes/Scripts_Reportes.js" type="text/javascript"></script> 
 
-<?
-function fecha_nacional($fecha){
-  $year=substr($fecha, 0, 4);
-  $mes=substr($fecha, 5, 2);
-  $dia=substr($fecha, 8, 2);
-  $horas= substr($fecha, 10, 9);
-  $fecha=$dia."-".$mes."-".$year." ".$horas;
-  return($fecha);
-}
-?>
+

@@ -15,7 +15,10 @@ conectar();
 <link href="css/cuadros.css" rel="stylesheet" type="text/css" />
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
-<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet'/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 
 </head>
 <body>
@@ -38,37 +41,30 @@ conectar();
 </div>
 <div class="panel_central">
 <table cellpadding="0" cellspacing="0"class="diseno_tablas centrado_tablas">
-    <tbody>
+  <tbody>
     <tr>
-    <th class="titulo_tablas" width="300px">Reportes</th>
-    <th class="titulo_tablas" width="100px"><div align="center">Acci&oacute;n</div></th>    
+    <th class="titulo_tablas" width="100px">Fecha Inicio</th>
+    <th class="titulo_tablas" width="100px">Fecha Fin</th>
+    <th class="titulo_tablas" width="300px"><div align="center">Acci&oacute;n</div></th>    
     </tr>
-<?
-$result=mysql_query("select * from tbl_reportes where estado=1");
-while($row=mysql_fetch_object($result))
-{
-  if(in_array($row->id,$_SESSION['reportes'])){
-    echo'<tr>
-        <td class="datos_tablas"><a class="Texto14negro" id="ver" href="'.$row->link.'">'.utf8_encode($row->nombre).'</a></td>        
-        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="'.$row->link.'"><img src="img/chart.png" width="25" height="25" /></a></div></td>
-    </tr>';
-  }
-}
-?>
-</tbody>
+    <tr>
+    <th valign="top" class="datos_tablas" width="100px">
+    <input type="text" class="inputbox" id="txt_fecha_ini">
+    <th valign="top"  class="datos_tablas" width="100px">
+    <input type="text" class="inputbox" id="txt_fecha_fin">
+    </th>
+
+    <th class="datos_tablas" width="300px"><input id="btn_generar_fechas" type="submit" value="Generar" name="submit" class="submit" /></th>    
+    </tr>
+
+  </tbody>
 </table>
 </div><!-- fin div panel Central-->
 <br />
 </body>
 </html>
+<script src="includes/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="includes/Scripts_Reportes.js" type="text/javascript"></script> 
+<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
-<?
-function fecha_nacional($fecha){
-  $year=substr($fecha, 0, 4);
-  $mes=substr($fecha, 5, 2);
-  $dia=substr($fecha, 8, 2);
-  $horas= substr($fecha, 10, 9);
-  $fecha=$dia."-".$mes."-".$year." ".$horas;
-  return($fecha);
-}
-?>
+

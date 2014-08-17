@@ -18,7 +18,7 @@ class Doctores{
 	function autocompleta_doctores(){
 		$result=mysql_query("select nombre from tbl_doctores");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector.",".utf8_decode($row->nombre); 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -47,7 +47,7 @@ function crea_doctor($parametros,$hoy){
 function busca_doctor($parametros,$hoy){
 	
 	$v_datos=explode(",",$parametros);		
-	$result=mysql_query("select * from tbl_doctores where nombre='".$v_datos[0]."'");
+	$result=mysql_query("select * from tbl_doctores where nombre='".utf8_encode($v_datos[0])."'");
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
 		$jsondata['id_doctor']=$row->id;		

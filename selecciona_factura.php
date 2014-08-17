@@ -12,7 +12,6 @@ conectar();
 <title>SIC-CALIFORNIA</title>
 
 <link href="css/general.css" rel="stylesheet" type="text/css" />
-<link href="css/cuadros.css" rel="stylesheet" type="text/css" />
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
@@ -23,7 +22,7 @@ conectar();
 <br><br>
 
 <div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
-<div class="titulo"><span id="texto_titulo_panel" >Reportes de Sistema</span></div>
+<div class="titulo"><span id="texto_titulo_panel" >Informes Finales</span></div>
 
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
@@ -40,20 +39,25 @@ conectar();
 <table cellpadding="0" cellspacing="0"class="diseno_tablas centrado_tablas">
     <tbody>
     <tr>
-    <th class="titulo_tablas" width="300px">Reportes</th>
-    <th class="titulo_tablas" width="100px"><div align="center">Acci&oacute;n</div></th>    
+    <th class="titulo_tablas">N&uacute;mero Factura</th>
+    <th class="titulo_tablas">Cliente</th>    
+    <th class="titulo_tablas">Fecha</th>        
+    <th class="titulo_tablas">Imprimir</th>        
     </tr>
 <?
-$result=mysql_query("select * from tbl_reportes where estado=1");
+
+$result=mysql_query("select *,cli.nombre from tbl_facturas fac join tbl_clientes cli on fac.id_cliente=cli.id and  fac.impresa=1");
 while($row=mysql_fetch_object($result))
 {
-  if(in_array($row->id,$_SESSION['reportes'])){
-    echo'<tr>
-        <td class="datos_tablas"><a class="Texto14negro" id="ver" href="'.$row->link.'">'.utf8_encode($row->nombre).'</a></td>        
-        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="'.$row->link.'"><img src="img/chart.png" width="25" height="25" /></a></div></td>
+
+echo'<tr>
+        <td class="datos_tablas"><div align="center">'.utf8_encode($row->consecutivo_solicitud).'</div></td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="reimprime_factura.php?consecutivo='.$row->consecutivo_solicitud.'"><img src="img/check.png" width="25" height="25" /></a></div></td>        
     </tr>';
-  }
-}
+
+}//end while
 ?>
 </tbody>
 </table>

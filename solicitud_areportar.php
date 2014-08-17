@@ -23,7 +23,7 @@ conectar();
 <br><br>
 
 <div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
-<div class="titulo"><span id="texto_titulo_panel" >Reportes de Sistema</span></div>
+<div class="titulo"><span id="texto_titulo_panel" >An&aacute;lisis Pendientes</span></div>
 
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
@@ -37,22 +37,24 @@ conectar();
 <img src="img/separador.png">
 </div>
 <div class="panel_central">
-<table cellpadding="0" cellspacing="0"class="diseno_tablas centrado_tablas">
+<table cellpadding="0" cellspacing="0"class="diseno_tablas margen_izquierdo">
     <tbody>
     <tr>
-    <th class="titulo_tablas" width="300px">Reportes</th>
-    <th class="titulo_tablas" width="100px"><div align="center">Acci&oacute;n</div></th>    
+    <th class="titulo_tablas" width="100px">Consecutivo</th>
+    <th class="titulo_tablas" width="150px"><div align="center">Fecha Ingreso</div></th>    
+    <th class="titulo_tablas" width="300px"><div align="center">Cliente</div></th>    
+    <th class="titulo_tablas" width="50px"><div align="center">Reportar</div></th>    
     </tr>
 <?
-$result=mysql_query("select * from tbl_reportes where estado=1");
+$result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on  sol.estado=1 and cli.id=sol.id_cliente order by fecha_ingreso");
 while($row=mysql_fetch_object($result))
-{
-  if(in_array($row->id,$_SESSION['reportes'])){
+{  
     echo'<tr>
-        <td class="datos_tablas"><a class="Texto14negro" id="ver" href="'.$row->link.'">'.utf8_encode($row->nombre).'</a></td>        
-        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="'.$row->link.'"><img src="img/chart.png" width="25" height="25" /></a></div></td>
-    </tr>';
-  }
+        <td class="datos_tablas">'.$row->consecutivo.'</td>        
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>        
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>        
+        <td class="datos_tablas"><div align="center"><a class="Texto14negro" id="ver" href="analisis_pendientes.php?solicitud='.$row->consecutivo.'&cliente='.$row->nombre.'&fecha='.fecha_nacional($row->fecha_ingreso).'"><img src="img/search.png" width="25" height="25" /></a></div></td>
+    </tr>';  
 }
 ?>
 </tbody>

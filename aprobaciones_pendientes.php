@@ -48,7 +48,7 @@ conectar();
     <th class="titulo_tablas">Resultados</th>    
     </tr>
 <?
-$result=mysql_query("select ana.id,ana.id_analisis,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana join  tbl_categoriasanalisis  cat on ana.id_analisis=cat.id where ana.estado=0 and  ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' and ana.id_analisis not in (158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,180,181,182,183,184,185,189,190,191,192,193,200,201,202,203,204,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224)");
+$result=mysql_query("select ana.id,ana.id_analisis,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana join  tbl_categoriasanalisis  cat on ana.id_analisis=cat.id where ana.estado=1 and  ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' and ana.id_analisis not in (158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,180,181,182,183,184,185,189,190,191,192,193,200,201,202,203,204,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224)");
 while($row=mysql_fetch_object($result))
 {
 if ($row->fecha_rechazado!=''){
@@ -65,19 +65,19 @@ echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_solicitud).'</td>';
         if($row->id_analisis==1){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_hematologia.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_hematologia.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
         }elseif($row->id_analisis==206){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_urianalisis.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_urianalisis.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
         }elseif($row->id_analisis==138){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_aclaramiento.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_aclaramiento.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
         }elseif($row->id_analisis==25){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_lipidos.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_lipidos.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
         }elseif($row->id_analisis==68){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_aglutinaciones.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_aglutinaciones.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
         }elseif($row->id_analisis==179){
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados_ena.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados_ena.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';            
         }else{
-            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="ingresa_resultados.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
+            echo '<td class="datos_tablas"><div align="center"><a id="ver" href="aprueba_resultados.php?id='.$row->id.'&consecutivo='.$row->consecutivo_solicitud.'&nombre='.utf8_encode($row->nombre).'&unidades='.$row->unidades.'"><img src="img/check.png" width="25" height="25" /></a></div></td>';
         }
     echo '</tr>';
 }

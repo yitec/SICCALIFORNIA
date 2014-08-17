@@ -13,7 +13,8 @@ conectar();
 
 <link href="css/general.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
-<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
+
+<link href='http://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -44,12 +45,12 @@ conectar();
     <? if (in_array(2, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="analisis_pendientes.php"><div id="cuadro_anaranjado"></div></a>An&aacute;lisis Pendientes</div>
+    <div align="center" class="Arial14Negro"><a href="solicitud_areportar.php"><div id="cuadro_anaranjado"></div></a>An&aacute;lisis Pendientes</div>
     </div>
     <? } ?>
     <? if (in_array(3, $_SESSION['perfil'])){?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="resultados_pendientes.php"><div id="cuadro_azul"></div></a>Resultados An&aacute;lisis</div>
+    <div align="center" class="Arial14Negro"><a href="solicitud_aaprobar.php"><div id="cuadro_azul"></div></a>Resultados An&aacute;lisis</div>
     </div>
     <? } ?>
     <? if (in_array(4, $_SESSION['perfil'])){?>
@@ -93,25 +94,43 @@ conectar();
     <? if (in_array(11, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Análisis Sumerhill</div>
+    <div align="center" class="Arial14Negro"><a href="informes_finales.php?pendientes=1"><div id="cuadro_red"></div></a>Informes Pendientes</div>
     </div>
     <? } ?>
     <? if (in_array(12, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="analisis_cotizacion.php"><div id="cuadro_azul2"></div></a>Crear Cotización</div>
+    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Análisis Sumerhill</div>
     </div>
     <? } ?>
     <? if (in_array(13, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="r_selector_cotizacion.php"><div id="cuadro_anaranjado"></div></a>Ver Cotización</div>
+    <div align="center" class="Arial14Negro"><a href="analisis_cotizacion.php"><div id="cuadro_azul2"></div></a>Crear Cotización</div>
     </div>
     <? } ?>
     <? if (in_array(14, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="informes_finales.php?pendientes=1"><div id="cuadro_red"></div></a>Informes Pendientes</div>
+    <div align="center" class="Arial14Negro"><a href="r_selector_cotizacion.php"><div id="cuadro_anaranjado"></div></a>Ver Cotización</div>
+    </div>
+    <? } ?>    
+    <? if (in_array(15, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="selecciona_factura.php"><div id="cuadro_verde2"></div></a>Reimprime Factura</div>
+    </div>
+    <? } ?>
+    <? if (in_array(16, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php"><div id="cuadro_verde2"></div></a>Modifica Solicitud</div>
+    </div>
+    <? } ?>
+    <? if (in_array(17, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php?total=1"><div id="cuadro_azul"></div></a>Elimina Solicitud</div>
     </div>
     <? } ?>
 </div><!-- fin div panel Central-->

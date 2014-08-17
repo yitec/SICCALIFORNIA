@@ -1,50 +1,116 @@
 $(document).ready(function(){
 
+if ($('#txt_fecha_ini').length){
+
+
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+}
+
+
+
+/*************************************
+Reporte=Analisis por Año y solicitude por año
+*************************************/
+
+$("#btn_generar_year").click(function(){
+  var solicitudes = GetURLParameter('solicitudes');
+  if (solicitudes==1){
+    top.location.href = 'r_analisis_x_year.php?year='+$('#cmb_year').val()+'&solicitudes=1';
+  }else{
+    top.location.href = 'r_analisis_x_year.php?year='+$('#cmb_year').val();
+  }
+});
+/*************************************
+Reporte=Solicitudes por cliente
+*************************************/
+$("#btn_generarcli").click(function(){
+    top.location.href = 'r_solicitudes_x_cliente.php?cliente='+$('#txt_buscarcli').val();
+});
+/*************************************
+Reporte=Solicitudes por doctor
+*************************************/
+$("#btn_generardoc").click(function(){
+    top.location.href = 'r_solicitudes_x_doctor.php?doctor='+$('#txt_buscardoc').val();
+});
+
+$("#btn_generar_fechas").click(function(){
+    top.location.href = 'r_ingresos_x_year.php?fecha_ini='+$('#txt_fecha_ini').val()+'&fecha_fin='+$('#txt_fecha_fin').val();
+});
+
 $(function() {
-    $( "#txt_fechaini" ).datepicker();
-  });	
+  if ($('#txt_fecha_ini').length){
+    $( "#txt_fecha_ini" ).datepicker();    
+  }
+  });
+
 $(function() {
-    $( "#txt_fechafin" ).datepicker();
-  }); 
-
-
-/**********************************************
-Accion:Busca un usuario numero o nombre
-Parametros:datos del input txt_buscar
-Ivocación:click img_buscar
-/**********************************************/
-
-$('#btn_generar_pagos').click(function(){
-/**********************************************Despliega Cobros************************************************************/
-/**********************************************
-Accion:Despliega el listado de los cobros asignado a un expedientte
-Parametros:id del expediente y numero del expediente
-Ivocación:Boton buscar 
-/**********************************************/
-
-	var vhtml='';	
-	var total=0;
-	var parametros=$('#txt_fechaini').val()+","+$('#txt_fechafin').val();
-  $.ajax({ data: "metodo=obtiene_pagos&parametros="+parametros,
-    type: "POST",
-    async:false,
-    dataType: "json",
-    url: "../operaciones/Clase_Reportes.php",
-    success: function (data){
-      var dataJson = eval(data);          
-      vhtml='<div id="header_expediente"> <table class="punteado"><tr class="subtitulos"><td width="400">Expediente</td><td width="400">Fecha Creación</td><td width="400">Fecha Pago</td><td width="300">Monto</td></tr>';
-      for(var i in dataJson){
-		vhtml=vhtml+'<tr><td>'+dataJson[i].id_expediente+'</td><td>'+dataJson[i].fecha_creacion+'</td><td>'+dataJson[i].fecha_pago+'</td><td>'+dataJson[i].monto+'</td>';
-        total=total+parseInt(dataJson[i].monto);
-      }
-      vhtml=vhtml+'</table><table ><tr class="subtitulos"><td width="400">Total</td></td><td width="100">'+parseInt(total)+'</td></tr></table></div>';
-      $('.box_contenidos').append(vhtml);
-    }  
+  if ($('#txt_fecha_fin').length){
+    $( "#txt_fecha_fin" ).datepicker();
+  }
   });
 
 
-});
-
-
-
 })// Document ready Final
+
+function GetURLParameter(sParam){
+     var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}
+ 
+//**********************************cargo el vector de usuarios ****************************************************************/
+
+
+function busca_nombres(){
+    $.ajax({ data: "metodo=autocompleta_clientes",
+        type: "POST",
+        async: false,
+        url: "../SICCALIFORNIA/operaciones/Clase_Clientes.php",        
+        success: function(data){     
+          availableTags =data;      
+        }//end succces function
+    });//end ajax function  
+    availableTags=availableTags.split(",");
+    $( "#txt_buscarcli" ).autocomplete({
+      source: availableTags
+    });
+}
+
+function busca_doctores(){
+    $.ajax({ data: "metodo=autocompleta_doctores",
+        type: "POST",
+        async: false,
+        url: "../SICCALIFORNIA/operaciones/Clase_Doctores.php",        
+        success: function(data){     
+          availableTags =data;      
+        }//end succces function
+    });//end ajax function  
+    availableTags=availableTags.split(",");
+    $( "#txt_buscardoc" ).autocomplete({
+      source: availableTags
+    });
+}

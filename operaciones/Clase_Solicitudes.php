@@ -39,7 +39,7 @@ function autocompleta_clientes(){
 function autocompleta_doctores(){
 		$result=mysql_query("select nombre from tbl_doctores");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector.",".utf8_decode($row->nombre); 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -53,19 +53,23 @@ function autocompleta_doctores(){
 ********************************************************/
 
 function guarda_solicitud($parametros,$hoy){
-	//$v_datos=explode(",",$parametros);
+	$v_datos=explode(",",$parametros);
 	$sql1="select id from tbl_clientes where nombre='".$_SESSION['cliente']."'";
 	$result=mysql_query($sql1);
 	$row=mysql_fetch_object($result);
-	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$_SESSION['total']."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$_SESSION['doctor']."',NOW(),1)";	
+	$sql2="select id from tbl_doctores where nombre='".$_SESSION['doctor']."'";
+	$result2=mysql_query($sql2);
+	$row2=mysql_fetch_object($result2);
+	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_original,porcentage_descuento,monto_descuento,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values
+	('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$row2->id."',NOW(),1)";	
 	$result=mysql_query($sql);				
 
 	//$jsondata=mysql_insert_id();	
 	//$jsondata=$sql;	
 	$sql="insert into tbl_consecutivos (id,estado)values('".$_SESSION['consecutivo']."',1)";
 	$result=mysql_query($sql);
-	$sql="insert into tbl_facturas (consecutivo_solicitud,id_cliente,id_doctor,monto_total,fecha_ingreso)values(
-	'".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['doctor']."','".$_SESSION['total']."',NOW())";
+	$sql="insert into tbl_facturas (consecutivo_solicitud,id_cliente,id_doctor,monto_original,porcentage_descuento,monto_descuento,monto_total,fecha_ingreso)values(
+	'".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['doctor']."','".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."',NOW())";
 	$result=mysql_query($sql);
 
 	echo json_encode($jsondata);
@@ -181,11 +185,190 @@ function guarda_resultados($parametros,$hoy){
 		$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."',NOW(),0)";		
 	}
 	$result=mysql_query($sql);
-	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");					
+	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");	
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo_solicitud='".$v_datos[0]."'  ");
+	}				
 	$jsondata="Success";	
 	echo json_encode($jsondata);
 }
 
+/*******************************************************
+	accion="Guarda los resultados de hemograma"
+	parametros="resultados y unidades de todos los que componen hemograma"
+
+********************************************************/
+
+function guarda_resultados_hematologia($parametros,$hoy){
+	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[33]);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 30; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[31]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (1,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172)");						
+	//evaluo si ya se repotaron todos los analisis
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}
+	$jsondata="Success";	
+	echo json_encode($jsondata);
+}
+/*******************************************************
+	accion="Guarda los resultados de urianalisis"
+	parametros="resultados y unidades de todos los que componen urianalisis"
+
+********************************************************/
+
+function guarda_resultados_urianalisis($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[34]);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 32; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[35]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222)");						
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}	
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
+	accion="Guarda los resultados de perfil de lipidos"
+	parametros="resultados y unidades de todos los que componen perfil de lipidos"
+
+********************************************************/
+
+function guarda_resultados_lipidos($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[12]);
+	$v_datos[12];
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 10; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[15]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (25,189,190,191,192,193)");						
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}		
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
+	accion="Guarda los resultados de perfil de aglutinamientos"
+	parametros="resultados y unidades de todos los que componen aglutinamientos febriles"
+
+********************************************************/
+
+function guarda_resultados_aglutinaciones($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[14]);
+	$v_datos[14];
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 11; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[15]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (68,173,174,175,176,178)");						
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}		
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
+	accion="Guarda los resultados de aclaramiento"
+	parametros="resultados y unidades de todos los que componen aclaramiento"
+
+********************************************************/
+
+function guarda_resultados_aclaramiento($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[12]);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 10; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[15]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (138,200,201,202,203,204,205)");						
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}		
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
+	accion="Guarda los resultados de aclaramiento"
+	parametros="resultados y unidades de todos los que componen aclaramiento"
+
+********************************************************/
+
+function guarda_resultados_ena($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[12]);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 10; $i++) {
+		if ($i==$h){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[15]."',NOW(),0)";
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (179,180,181,182,183,184,185)");						
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}		
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
 /*******************************************************
 	accion="Busca el sisguiente analisis para reportar"
 	parametros="id analisis"
@@ -195,7 +378,14 @@ function guarda_resultados($parametros,$hoy){
 
 function busca_siguiente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
-	$result=mysql_query("select ana.id,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana, tbl_categoriasanalisis cat where ana.estado=0 and ana.id_analisis=cat.id and cat.fantasma!=1 and consecutivo_solicitud='".$v_datos[0]."' limit 1");
+	if($v_datos[1]==1){//si es uno es porque busco un resultado si no, es un analisis
+		$result=mysql_query("select res.id,res.consecutivo_solicitud,cat.nombre from 
+tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id	
+join tbl_categoriasanalisis cat on ana.id_analisis=cat.id
+where res.estado=0 and cat.fantasma!=1 and res.consecutivo_solicitud='".$v_datos[0]."' limit 1");
+	}else{
+		$result=mysql_query("select ana.id,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana, tbl_categoriasanalisis cat where ana.estado=0 and ana.id_analisis=cat.id and cat.fantasma!=1 and consecutivo_solicitud='".$v_datos[0]."' limit 1");
+	}
 	if (mysql_num_rows($result)>=1){
 		$row=mysql_fetch_object($result);
 		$jsondata['resultado'] = "Success";        	
@@ -219,7 +409,7 @@ function busca_siguiente($parametros,$hoy){
 ********************************************************/
 
 
-function aprueba_resultados($parametros,$hoy){
+function aprueba_resultados_hemo($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where id='".$v_datos[1]."'";
 	$result=mysql_query($sql);	
@@ -237,21 +427,72 @@ function aprueba_resultados($parametros,$hoy){
 		//echo "Entro";
 		$result3=mysql_query("update tbl_solicitudes set fecha_terminado='".$hoy."', estado='"."4"."' where consecutivo='".$v_datos[0]."'");
 		 		date_default_timezone_set('America/Denver');
-       /*
+       
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
-       $dest  = 'kmadrigal@feednet.ucr.ac.cr' . ', ';
-	   $dest .= 'sergio.barrantes@hotmail.com';
-       $head = "From: info@siccina.ucr.ac.cr<info@siccina.ucr.ac.cr>\r\n";
-	   $asunto = "Contrato Termindado = ".$_REQUEST['contrato'];
-	   $email = "info@siccina.ucr.ac.cr";
-		$msg="El contrato ".$_REQUEST['contrato']." ha finalizado su proceso, por favor genere el informe";
+       $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
+	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   $dest .= 'mizard6@yahoo.es';	   
+       $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
+	   $asunto = "Solicitud Termindado = ".$v_datos[0];
+	   $email = "notificaciones@laboratorioescalantelacalifornia.com";
+		$msg="La solicitud ".$v_datos[0]." ha finalizado su proceso, por favor genere el informe";
 		if (mail($dest, $asunto, $msg, $head)) {
       
 	   $jsondata="Success";
        } else {
        	$jsondata="Error";
 	   }
-	   */
+	   
+	}
+
+	$jsondata="Success";	
+	//$jsondata=$sql;
+
+	echo json_encode($jsondata);
+
+}	
+
+/*******************************************************
+	accion="Aprueba los resultados de un analisis hemograma  "
+	parametros="id analisis"
+
+********************************************************/
+
+
+function aprueba_resultados($parametros,$hoy){
+	$v_datos=explode(",",$parametros);
+	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud id='".$v_datos[0]."' and analisis_padre=1";
+	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 consecutivo_solicitud where consecutivo_solicitud='".$v_datos[0]."'  and id_analisis in (1,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,223,224) ";
+	$result=mysql_query($sql);	
+	//estas consultas evaluan si ya todos los analisis tienen un resultado y marcan la solicitud
+	$result3=mysql_query("select COUNT(1) as total from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and estado='"."1"."'");
+	$row3=mysql_fetch_assoc($result3);
+	$total_res=$row3['total'];
+	$result3=mysql_query("select COUNT(1) as total from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."'");	
+	$row3=mysql_fetch_assoc($result3);
+	$total_an=$row3['total'];
+
+	if($total_res==$total_an){
+		//echo "Entro";
+		$result3=mysql_query("update tbl_solicitudes set fecha_terminado='".$hoy."', estado='"."4"."' where consecutivo='".$v_datos[0]."'");
+		 		date_default_timezone_set('America/Denver');
+       
+       //$dest = "kmadrigal@feednet.ucr.ac.cr";
+       $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
+	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   $dest .= 'mizard6@yahoo.es';	   
+       $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
+	   $asunto = "Solicitud Termindado = ".$v_datos[0];
+	   $email = "notificaciones@laboratorioescalantelacalifornia.com";
+		$msg="La solicitud ".$v_datos[0]." ha finalizado su proceso, por favor genere el informe";
+		if (mail($dest, $asunto, $msg, $head)) {
+      
+	   $jsondata="Success";
+       } else {
+       	$jsondata="Error";
+	   }
+	   
 	}
 
 	$jsondata="Success";	

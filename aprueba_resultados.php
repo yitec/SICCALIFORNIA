@@ -49,7 +49,15 @@ $row=mysql_fetch_object($result);
         </tr>
         <tr>
         <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado?>" /></td>        
+        <?
+        if ($_REQUEST['unidad']=='x106/ul'){
+                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;x10<sup>6</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$row->unidades.'" /></td>';
+        }elseif($_REQUEST['unidad']=='/mm3'){
+                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$row->unidades.'" /></td>';
+        }else{
+        ?>
         <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$row->unidades?>" /></td>        
+        <?}?>
         </tr>
 </tbody>
 </table>        
@@ -68,7 +76,7 @@ $row=mysql_fetch_object($result);
         </tr>
 </tbody>
 </table>
-<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_aprobarres" type="submit" value="Aprobar" name="submit" class="submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_rechazarres" type="submit" value="Rechazar" name="submit" class="submit" /></div>    
+<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_aprobarres" type="submit" value="Aprobar" name="submit" class="submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_rechazarres" type="submit" value="Rechazar" name="submit" class="submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_siguienteap" type="submit" value="Siguiente" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
 <br />
 </body>

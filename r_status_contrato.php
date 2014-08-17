@@ -40,10 +40,14 @@ conectar();
 </div>
 <div class="panel_central">
 <br>
-<div align="left" class="margin20"><span class="Texto20negro">Cliente:&nbsp;</span><span class="Texto20celeste"> <?=$_REQUEST['cliente']?></span></div>
-<div align="left" class="margin20"><span class="Texto20negro">Solicitud:&nbsp;</span><span class="Texto20celeste"> <?=$_REQUEST['solicitud']?></div>
-<div align="left" class="margin20"><span class="Texto20negro">Fecha Ingreso:&nbsp;</span><span class="Texto20celeste"> <?=$_REQUEST['fecha']?></div>
-
+<div  class="titulo_anaranjado" >
+<div>
+    Cliente:&nbsp;<?=$_REQUEST['cliente']?><br>
+    Solicitud:&nbsp; <?=$_REQUEST['solicitud']?><br>
+    Fecha Ingreso:&nbsp;<?=$_REQUEST['fecha']?>
+</div>
+</div>
+<br>
 <table cellpadding="0" cellspacing="0"class="diseno_tablas margen_izquierdo">
     <tbody>
     <tr>

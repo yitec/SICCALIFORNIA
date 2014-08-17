@@ -63,7 +63,7 @@ on ana.id_analisis=cat.id where cat.imprimir_contrato=1 and ana.consecutivo_coti
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
 	$pdf->Cell(133,5,$row->nombre,0,0,'L');		
-	$pdf->Cell(64,5,number_format($row->precio),0,1,'C');
+	$pdf->Cell(64,5,'¢'.number_format($row->precio),0,1,'C');
 	$tot=$tot+$row->precio;
 }
 $tot = number_format($tot);
@@ -76,7 +76,7 @@ $pdf->Cell(0,10,'_______________________________________________________________
 $pdf->SetTextColor(0,0,0);
 $pdf->SetFont('Arial','B',14);
 $pdf->Cell(133,5,'Total',0,0,'L');
-$pdf->Cell(64,5,$tot,0,1,'C');
+$pdf->Cell(64,5,'¢'.$tot,0,1,'C');
 
 $pdf->SetFont('Arial','B',14);
 $pdf->Ln(0);

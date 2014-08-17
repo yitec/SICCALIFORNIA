@@ -1,18 +1,26 @@
 VERSION 5.00
 Begin VB.Form Frm_imprimir 
    Caption         =   "Form2"
-   ClientHeight    =   2340
+   ClientHeight    =   624
    ClientLeft      =   108
    ClientTop       =   432
    ClientWidth     =   3624
    LinkTopic       =   "Form2"
-   ScaleHeight     =   2340
+   ScaleHeight     =   624
    ScaleWidth      =   3624
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer Timer1 
       Interval        =   500
       Left            =   1560
       Top             =   480
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Modulo Impresión"
+      Height          =   372
+      Left            =   1200
+      TabIndex        =   0
+      Top             =   120
+      Width           =   1332
    End
 End
 Attribute VB_Name = "Frm_imprimir"
@@ -38,7 +46,7 @@ Private Sub Timer1_Timer()
 Dim rs As New ADODB.Recordset
 Dim rs2 As New ADODB.Recordset
 
-rs.Open "select *,cli.nombre from tbl_facturas fac join tbl_clientes cli on fac.id_cliente=cli.id where fac.impresa=0 LIMIT 1 ", db
+rs.Open "select fac.id,fac.consecutivo_solicitud,fac.monto_original,fac.monto_descuento,fac.monto_total,cli.nombre from tbl_facturas fac join tbl_clientes cli on fac.id_cliente=cli.id where fac.impresa=0 LIMIT 1 ", db
 
 If rs.EOF = False Then
 
@@ -76,7 +84,7 @@ If rs.EOF = False Then
 
     
     Printer.Print "" & rs2!nombre & " "
-    Printer.Print "                     " & rs2!precio
+    Printer.Print "                     " & "¢" & rs2!precio
     Printer.Print ""
     
     rs2.MoveNext
@@ -84,27 +92,31 @@ If rs.EOF = False Then
     Wend
     
     Printer.Print "-------------------------"
-    Printer.Print "Monto Total:        " & rs!monto_total
+    Printer.Print "Sub Total:          " & Chr(189) & rs!monto_original
+    Printer.Print "Descuento:          " & Chr(189) & rs!monto_descuento
+    Printer.Print "Monto Total:        " & Chr(189) & rs!monto_total '
+    'Printer.Print "Monto Total:        " & "¢" & rs!monto_total '
     Printer.Print ""
     Printer.Print "-------------------------"
-    Printer.Print "  Gracias por su compra  "
+    Printer.Print "  Gracias por su visita  "
     Printer.Print ""
-    Printer.Print "Barrio La California San Jose"
-    Printer.Print "  DRA. LILLIAM ESCALANTE S.A "
-    Printer.Print "Avenida Central, calles 23-25"
-    Printer.Print "    Condominio Dallas        "
-    Printer.Print " Centro Medico La California "
-    Printer.Print "Telefono: 2257-5124/2222-7006"
+    Printer.Print ""
+    Printer.Print ""
+    Printer.Print ""
+    Printer.Print ""
+    Printer.Print ""
+    Printer.Print "          --             "
+    
+    Printer.Print ""
     Printer.EndDoc
     
     App.Title = sPrevAppTitle
-
-
-End If
 db.Execute "update tbl_facturas set impresa=1 where id='" & rs!id & "' "
+rs.MoveNext
 rs.Close
 
 
+End If
 
 
 End Sub

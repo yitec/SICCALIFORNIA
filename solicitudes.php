@@ -3,7 +3,7 @@ session_start();
 require_once('includes/fpdf.php');
 include('cnx/conexion.php');
 conectar();
-require_once('cnx/session_activa.php');
+//require_once('cnx/session_activa.php');
 setlocale(LC_MONETARY, 'en_US');
 $contrato=$_REQUEST['contrato'];
 
@@ -20,6 +20,7 @@ $pdf->Ln(40);
 $sql="Select *,cli.nombre from tbl_solicitudes sol inner join tbl_clientes cli where sol.consecutivo='".$_REQUEST['consecutivo']."' and sol.id_cliente=cli.id";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
+$monto_descuento=$row->monto_descuento;
 $pdf->SetTextColor(89,177,255);
 $pdf->Cell(185,3,'SOLICITUD DE ANÁLISIS',0,1,'C');
 $pdf->SetTextColor(225,0,0);
@@ -56,10 +57,10 @@ on ana.id_analisis=cat.id where cat.imprimir_contrato=1 and ana.consecutivo_soli
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
 	$pdf->Cell(133,5,$row->nombre,0,0,'L');		
-	$pdf->Cell(64,5,number_format($row->precio),0,1,'C');
+	$pdf->Cell(64,5,'¢'.number_format($row->precio),0,1,'C');
 	$tot=$tot+$row->precio;
 }
-$tot = number_format($tot);
+//$tot = number_format($tot);
 
 
 $pdf->Ln(0);
@@ -69,8 +70,16 @@ $pdf->SetFont('Arial','B',14);
 $pdf->Cell(0,10,'_________________________________________________________________________________________________________________________________________________________________________________',0,1,'C');
 $pdf->SetTextColor(0,0,0);
 $pdf->SetFont('Arial','B',14);
-$pdf->Cell(133,5,'Total',0,0,'L');
-$pdf->Cell(64,5,$tot,0,1,'C');
+if ($monto_descuento>0){
+	$pdf->Cell(133,5,'Descuento',0,0,'L');
+	$pdf->Cell(64,5,'¢'.number_format($monto_descuento),0,1,'C');	
+	$pdf->Cell(133,5,'Total',0,0,'L');
+	$tot=$tot-$monto_descuento;
+	$pdf->Cell(64,5,'¢'.number_format($tot),0,1,'C');
+}else{
+	$pdf->Cell(133,5,'Total',0,0,'L');
+	$pdf->Cell(64,5,'¢'.number_format($tot),0,1,'C');
+}
 
 $pdf->SetFont('Arial','B',14);
 $pdf->Ln(0);

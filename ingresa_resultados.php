@@ -61,14 +61,25 @@ $row2=mysql_fetch_object($result2);
         <td class="Arial14Negro">Unidad</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
-        <? if($_REQUEST['unidades']=='undefined'){?>
-        <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="" /></td>        
-        <?}else{?>
-        <td class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$_REQUEST['unidades'];?>" /></td>        
-</tbody><?}?>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <?
+        if ($_REQUEST['unidades']=='x106/ul'){
+                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;x10<sup>6</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" /></td>';
+        }elseif($_REQUEST['unidades']=='/mm3'){
+                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" /></td>';
+        }else{
+                if($_REQUEST['unidades']=='undefined'){
+        ?>
+                <td valign="center" class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="" /></td>        
+        <?
+        }else{
+        ?>
+                <td valign="center" class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$_REQUEST['unidades'];?>" /></td>        
+        <?}}?>   
+</tbody>
 </table>
-<div align="center" class="titulo_sombreado">Referencias</div>
+<div align="center" class="titulo_sombreado">Referencias </div>
 <br>
 <table class="margen_izquierdo">
 <tbody>             

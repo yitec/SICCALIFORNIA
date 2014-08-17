@@ -302,6 +302,18 @@ h2{
   
 }
 
+.titulo_anaranjado {      
+    position: relative;
+    height: 78px;
+    color: #fff; 
+    background-color: #ff253f;    
+    border: none;    
+    -webkit-transition: -webkit-box-shadow 0.3s linear;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff8400), to(#ff9c00)); 
+    background:  -moz-linear-gradient(25% 75% 90deg,#ff8400, #ff9c00); 
+}
+
+
 /********************************************Formularios**********************************************************/
 .separacion{
   margin-top: 10px;
@@ -585,3 +597,12 @@ font-size:14px;
 color:#F00000;
 }
 
+.TextoCentrado{
+  text-align: center;
+}
+
+.texto_anaranjado{
+  text-align: center;
+  font-size: 20px;
+  padding: 30px;
+}
