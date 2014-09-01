@@ -76,6 +76,7 @@ $row=mysql_fetch_object($result);
         </tr>
 </tbody>
 </table>
+<input type="hidden" id="txt_id_analisis" value="<?=$row->id_analisis?>">
 <div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_aprobarres" type="submit" value="Aprobar" name="submit" class="submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_rechazarres" type="submit" value="Rechazar" name="submit" class="submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btn_siguienteap" type="submit" value="Siguiente" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
 <br />

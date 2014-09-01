@@ -41,9 +41,15 @@ conectar();
 <input id="txt_consecutivo" type="hidden" value="<?=$_REQUEST['consecutivo']?>" />
 <?
 //busco si es un resultado rechazado y si es así imprimo los valores anteriores
-$sql="select resultado,observaciones_gerente from tbl_resultados where id_analisis='".$_REQUEST['id']."'";
+$sql="select resultado,observaciones_analista,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=25";
 $result=mysql_query($sql);
-$row=mysql_fetch_object($result);
+
+while ($row=mysql_fetch_object($result)){
+    $v_resultados[]=$row->resultado;
+    $gerente=$row->observaciones_gerente;
+}
+
+
 
 $sql2="select ref.referencia_hombre,referencia_mujer,ref.referencia_general from tbl_referencias ref join tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id and ref.id_analisis=cat.id 
 where ana.id='".$_REQUEST['id']."'";
@@ -90,6 +96,7 @@ while($row=mysql_fetch_object($result)){
 //print_r($v_referecias);
 
 ?>
+<input id="txt_rechazado" type="hidden" value="<?=$_REQUEST['rechazado']?>" />
 <input id="txt_ids" type="hidden" value="<?=$v_ids?>" />
 <div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS COLESTEROL</div>
 <div align="left">
@@ -102,7 +109,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_col" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <input id="txt_resultado_col" class="inputbox" type="text" value="<?=$v_resultados[0];?>" /></td>        
         <td valign="top" class="Arial14Negro"><input id="txt_unidades_col" class="inputbox" type="text" value="mg/dl" /></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:40px; margin-top:10px;"><?=$v_referecias[0]?></div></td>                        
         </tr>
@@ -121,7 +128,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_hdl" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <input id="txt_resultado_hdl" class="inputbox" type="text" value="<?=$v_resultados[1];?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_hdl" class="inputbox" type="text" value="mg/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[1]?></div></td>                        
         </tr>
@@ -140,7 +147,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_ldl" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <input id="txt_resultado_ldl" class="inputbox" type="text" value="<?=$v_resultados[2];?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_ldl" class="inputbox" type="text" value="mg/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[2]?></div></td>                        
         </tr>
@@ -159,7 +166,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_tri" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <input id="txt_resultado_tri" class="inputbox" type="text" value="<?=$v_resultados[3];?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_tri" class="inputbox" type="text" value="mg/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[3]?></div></td>                        
         </tr>
@@ -178,9 +185,9 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
+        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
         <td valign="center" class="Arial14Negro"><input type="hidden" id="txt_unidades_rie" class="inputbox" type="text" value="ml/minuto" /></td>                        
-        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[5]?></div></td>                        
+        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
         </tr>        
 </tbody>
 </table>
@@ -191,7 +198,7 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro">Observaciones</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$row->observaciones_gerente;?></textarea></td>        
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$gerente;?></textarea></td>        
         </tr>
 </tbody>
 </table>
@@ -199,7 +206,7 @@ while($row=mysql_fetch_object($result)){
 <input id="btn_guardarreslip" type="submit" value="Guardar" name="submit" class="submit" />
 <input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
-
+<br>
 </div><!-- fin div panel Central-->
 <br />
 </body>

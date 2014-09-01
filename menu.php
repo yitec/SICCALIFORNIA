@@ -133,6 +133,12 @@ conectar();
     <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php?total=1"><div id="cuadro_azul"></div></a>Elimina Solicitud</div>
     </div>
     <? } ?>
+    <? if (in_array(18, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="formulario_espermograma.php?"><div id="cuadro_anaranjado"></div></a>Datos Espermograma</div>
+    </div>
+    <? } ?>
 </div><!-- fin div panel Central-->
 
 <br />

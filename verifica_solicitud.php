@@ -100,7 +100,7 @@ conectar();
 	</table>
 	
 
-	<div align="center" style="float: none; margin-top:10px; margin-bottom:0px;"><input id="btn_imprimir" type="submit"  value="Imprimir" name="submit" class="submit" /></div>    
+	<div align="center" style="float: none; margin-top:10px; margin-bottom:0px;"><input id="btn_imprimir" type="submit"  value="Finalizar" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
 </body>
 </html>

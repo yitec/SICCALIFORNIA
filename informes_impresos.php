@@ -37,13 +37,14 @@ $pdf->SetFont('Courier','B',14);
 $pdf->Cell(19,5,'FECHA:   ',0,0,'');
 $pdf->SetFont('Arial','',12);
 $pdf->SetTextColor(0,0,0);
-$pdf->Cell(40,5,fecha_nacional($row->fecha_ingreso),0,1,'');
+$pdf->Cell(60,5,fecha_nacional($row->fecha_ingreso),0,1,'');
 $pdf->Ln(10);
 $pdf->SetTextColor(89,177,255);
 $pdf->SetFont('Helvetica','B',14);
 $pdf->SetTextColor(0,0,0);
 $pdf->SetFont('Arial','B',12);
 $pdf->Ln(4);
+$impresos_maximos=22;//contador de resultados impresos
 $sql="select catm.nombre from tbl_analisis ana join tbl_categoriasanalisis cata on ana.id_analisis=cata.id join tbl_categoriasmuestras catm on cata.id_categoriamuestra=catm.id where ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' ";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
@@ -73,6 +74,44 @@ $result=mysql_query($sql);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
 	$tot_analisis++;
+		//verifico los subtitulos de espermogramas
+	if($row->id==251){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'MOVIMIENTO(1h.post.recoleccion)',0,1,'L');					
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==255){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'VITALIDAD(eosina)',0,1,'L');					
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==256){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'MORFOLOGIA',0,1,'L');					
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==258){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'ANORMALIDADES DE:',0,1,'C');					
+		$pdf->Cell(190,5,'CABEZA:',0,1,'L');					
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==267){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'CUELLO',0,1,'L');							
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==270){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'COLA',0,1,'L');							
+		$pdf->SetFont('Arial','',10);
+	}
+	if($row->id==275){
+		$pdf->SetFont('Arial','B',10);
+		$pdf->Cell(190,5,'CELURALIDAD',0,1,'L');							
+		$pdf->SetFont('Arial','',10);
+	}
+
 	$pdf->MultiCell(80,5,$row->nombre,0,1,'L');	
 	$pdf->Ln(-5);
 	$pdf->SetX(78);	
@@ -90,28 +129,32 @@ while($row=mysql_fetch_object($result)){
 		}
 	}
 	$pdf->MultiCell(30,5,$referencias,0,1,'L');
-	if($tot_analisis>15){	
+	if($tot_analisis>$impresos_maximos){	
 		$pdf->AddPage();
 		imprime_header($pdf,$pdf->GETY(),$nombre_categoria);
 		$tot_analisis=0;
+		$impresos_maximos=30;
 	}
 }
 if ($encontrado==1&&$sexo==1){
 	$pdf->SetFont('Arial','B',10);
 	$pdf->MultiCell(100,5,'** RIESGO CARDIACO H (CASTELLI)',0,1,'L');
-	$pdf->MultiCell(60,5,' 0.5 del normal…3.27
-   Normal….4.44
-  2 x normal…7.05
-  3 x Normal…11.04
-',0,1,'L');
+	$pdf->MultiCell(60,5,'0.5 del normal…3.27',0,1,'L');
+	$pdf->MultiCell(60,5,'Normal….4.44',0,1,'L');
+	$pdf->MultiCell(60,5,'2 x normal…7.05',0,1,'L');
+	$pdf->MultiCell(60,5,'3 x Normal…11.04',0,1,'L');
+	$pdf->MultiCell(100,5,'Suero de aspecto '.$suero,0,1,'L');	
+	$pdf->MultiCell(100,5,'Suero de aspecto '.$suero,0,1,'L');	
 }
 if ($encontrado==1&&$sexo==2){
 	$pdf->SetFont('Arial','B',10);
+	$pdf->SetFont('Arial','B',10);
 	$pdf->MultiCell(100,5,'** RIESGO CARDIACO H (CASTELLI)',0,1,'L');
-	$pdf->MultiCell(60,5,' 0.5 del normal…3.43
-   Normal….4.97
-  2 x normal…9.55
-  3 x Normal…24.0',0,1,'L');
+	$pdf->MultiCell(60,5,'0.5 del normal…3.43',0,1,'L');
+$pdf->MultiCell(60,5,'Normal….4.97',0,1,'L');
+$pdf->MultiCell(60,5,'2 x normal…9.55',0,1,'L');
+$pdf->MultiCell(60,5,'3 x Normal…24.0',0,1,'L');
+	$pdf->MultiCell(100,5,'Suero de aspecto '.$suero,0,1,'L');	
 }
 $pdf->Output();
 

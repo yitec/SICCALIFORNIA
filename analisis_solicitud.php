@@ -76,6 +76,7 @@ $hoy=date("d/m/Y");
 					if($nombrem!=$row->nombrem){
 							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
 							$nombrem=$row->nombrem;
+							echo '<div><input id="'.$row->id.'" class="p_1" type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
 					}else{
 							echo '<div><input id="'.$row->id.'" class="p_1" type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
 					}
@@ -92,6 +93,7 @@ $hoy=date("d/m/Y");
 					if($nombrem!=$row->nombrem){
 							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
 							$nombrem=$row->nombrem;
+							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
 					}else{
 							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" fantasma="'.$row->fantasma.'" title="'.$row->precio.'" ligados="'.$row->analisis_ligados.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
 					}
@@ -104,11 +106,12 @@ $hoy=date("d/m/Y");
 			<?
 			$nombrem="";
 			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,catm.nombre  as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=9 and cat.visible=1  order by catm.id");
-			while ($row=mysql_fetch_object($result)){
+			while ($row=mysql_fetch_object($result)){				
 					if($nombrem!=$row->nombrem){
 							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	
 							$nombrem=$row->nombrem;
-					}else{
+							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" title="'.$row->precio.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
+					}else{							
 							echo '<div><input id="'.$row->id.'" class="p_1"  type="checkbox" title="'.$row->precio.'" precio="'.$row->precio.'">'.utf8_encode($row->nombre).'</div>';
 					}
 			}	
@@ -125,7 +128,7 @@ $hoy=date("d/m/Y");
 
 	<div align="center" style="float: none; margin-top:10px; margin-bottom:0px;"><input id="btn_continuara" type="submit"  value="Siguiente" name="submit" class="submit" /></div>    
 	<input type="hidden" id="txt_consecutivo" value="<?=$_SESSION['consecutivo']?>">
-</div><!-- fin div panel Central-->
+	<br>
 </body>
 </html>
 <script src="includes/jquery-1.11.0.min.js" type="text/javascript"></script>

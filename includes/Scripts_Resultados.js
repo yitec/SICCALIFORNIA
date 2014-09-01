@@ -17,7 +17,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
           $("#txt_resultado").prop('disabled', true);
           $("#txt_observaciones_analista").prop('disabled', true);
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("menu.php")},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -62,7 +62,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         url: "operaciones/Clase_Solicitudes.php",      
         success: function(data){     
         if (data.resultado=="Success"){        
-          var direccion="ingresa_resultados.php?id="+data.id+"&consecutivo="+data.consecutivo+"&nombre="+data.nombre+"&unidades="+data.unidades;
+          var direccion="ingresa_resultados.php?id="+data.id+"&solicitud="+data.consecutivo+"&nombre="+data.nombre+"&unidades="+data.unidades;
           setInterval(function(){window.location.assign(direccion)},2000);              
         }else{
          notificacion('Error','Ya no hay mas analisis para reportar');         
@@ -121,7 +121,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_unidades_mpv').val()
     +','+$('#txt_observaciones_analista').val()
     +','+$('#txt_ids').val()
-    ;
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_hematologia&parametros="+parametros,
         type: "POST",
@@ -131,7 +131,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){     
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("menu.php")},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                           
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -183,7 +183,8 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_resultado_bac').val()
     +','+$('#txt_unidades_bac').val()
     +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val();
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_urianalisis&parametros="+parametros,
         type: "POST",
@@ -193,7 +194,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){         
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("analisis_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -225,7 +226,8 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_resultado_aclc').val()
     +','+$('#txt_unidades_aclc').val()    
     +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val();
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_aclaramiento&parametros="+parametros,
         type: "POST",
@@ -235,7 +237,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){         
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("analisis_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -265,7 +267,8 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_resultado_rie').val()
     +','+$('#txt_unidades_rie').val()
     +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val();
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_lipidos&parametros="+parametros,
         type: "POST",
@@ -275,7 +278,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){         
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("analisis_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -307,7 +310,8 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_resultado_salpro').val()
     +','+$('#txt_unidades_salpro').val()
     +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val();
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_aglutinaciones&parametros="+parametros,
         type: "POST",
@@ -317,7 +321,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){         
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("analisis_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -350,7 +354,8 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_resultado_jo1').val()
     +','+$('#txt_unidades_jo1').val()
     +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val();
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_ena&parametros="+parametros,
         type: "POST",
@@ -360,7 +365,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
         success: function(datos){         
         if (datos=="Success"){        
           notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
-          setInterval(function(){window.location.assign("analisis_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);              
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -373,6 +378,181 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     return;
 }
 });
+
+
+/************************************Boton guardar resultados analisis espermograma*********************************************/
+
+$(document).on('click', '#btn_guardarresespermo',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_proga').val()
+    +','+$('#txt_unidades_proga').val()
+    +','+$('#txt_resultado_progl').val()
+    +','+$('#txt_unidades_progl').val()
+    +','+$('#txt_resultado_noprog').val()
+    +','+$('#txt_unidades_noprog').val()
+    +','+$('#txt_resultado_nomot').val()
+    +','+$('#txt_unidades_nomot').val()
+    +','+$('#txt_resultado_vivo').val()
+    +','+$('#txt_unidades_vivo').val()
+    +','+$('#txt_resultado_norm').val()
+    +','+$('#txt_unidades_norm').val()
+    +','+$('#txt_resultado_anor').val()
+    +','+$('#txt_unidades_anor').val()
+    +','+$('#txt_resultado_aguz').val()
+    +','+$('#txt_unidades_aguz').val()
+    +','+$('#txt_resultado_gobu').val()
+    +','+$('#txt_unidades_gobu').val()
+    +','+$('#txt_resultado_piri').val()
+    +','+$('#txt_unidades_piri').val()
+    +','+$('#txt_resultado_mayo').val()
+    +','+$('#txt_unidades_mayo').val()
+    +','+$('#txt_resultado_macro').val()
+    +','+$('#txt_unidades_macro').val()
+    +','+$('#txt_resultado_bice').val()
+    +','+$('#txt_unidades_bice').val()
+    +','+$('#txt_resultado_amor').val()
+    +','+$('#txt_unidades_amor').val()
+    +','+$('#txt_resultado_acro').val()
+    +','+$('#txt_unidades_acro').val()
+    +','+$('#txt_resultado_pequ').val()
+    +','+$('#txt_unidades_pequ').val()
+    +','+$('#txt_resultado_torc').val()
+    +','+$('#txt_unidades_torc').val()
+    +','+$('#txt_resultado_cito').val()
+    +','+$('#txt_unidades_cito').val()
+    +','+$('#txt_resultado_anch').val()
+    +','+$('#txt_unidades_anch').val()
+    +','+$('#txt_resultado_angu').val()
+    +','+$('#txt_unidades_angu').val()
+    +','+$('#txt_resultado_arro').val()
+    +','+$('#txt_unidades_arro').val()
+    +','+$('#txt_resultado_bica').val()
+    +','+$('#txt_unidades_bica').val()
+    +','+$('#txt_resultado_cort').val()
+    +','+$('#txt_unidades_cort').val()
+    +','+$('#txt_resultado_ause').val()
+    +','+$('#txt_unidades_ause').val()
+    +','+$('#txt_resultado_leuco').val()
+    +','+$('#txt_unidades_leuco').val()
+    +','+$('#txt_resultado_esper').val()
+    +','+$('#txt_unidades_esper').val()
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_espermo&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
+/************************************Boton guardar resultados analisis proteina*********************************************/
+
+$(document).on('click', '#btn_guardarresprot',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_pro').val()
+    +','+$('#txt_unidades_pro').val()
+    +','+$('#txt_resultado_albu').val()
+    +','+$('#txt_unidades_albu').val()
+    +','+$('#txt_resultado_glob').val()
+    +','+$('#txt_unidades_glob').val()
+    +','+$('#txt_resultado_rela').val()
+    +','+$('#txt_unidades_rela').val()
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_proteina&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
+
+/************************************Boton guardar datos formulario espermograma*********************************************/
+
+$(document).on('click', '#btn_guardaespermo',function() {    
+if(confirm('¿Seguro que desea guardar estos datos para este espermograma?')){               
+    parametros=
+    $('#cmb_cliente').val()+','+$('#txt_resultado_hora').val()
+    +','+$('#txt_unidades_hora').val()
+    +','+$('#txt_resultado_volu').val()
+    +','+$('#txt_unidades_volu').val()
+    +','+$('#txt_resultado_visc').val()
+    +','+$('#txt_unidades_visc').val()
+    +','+$('#txt_resultado_aspec').val()
+    +','+$('#txt_unidades_aspec').val()
+    +','+$('#txt_resultado_ph').val()
+    +','+$('#txt_unidades_ph').val()
+    +','+$('#txt_resultado_esper').val()
+    +','+$('#txt_unidades_esper').val()    
+    +','+$('#txt_resultado_fruc').val()
+    +','+$('#txt_unidades_fruc').val()    
+    +','+$('#txt_resultado_colo').val()
+    +','+$('#txt_unidades_colo').val()    
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_formulario_espermo&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','Los datos fueron ingresados correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
 
 
 /************************************Boton aprobar resultados analisis y pasar al siguiente*********************************************/
@@ -430,7 +610,7 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
 
 $(document).on('click', '#btn_aprobarres',function() {    
 if(confirm('¿Seguro que desea aprobar este resultado?')){               
-    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val() +','+$('#txt_id_analisis').val();
     $.ajax({
         data: "metodo=aprueba_resultados&parametros="+parametros,
         type: "POST",
@@ -441,8 +621,8 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
         if (datos=="Success"){        
           $("#txt_resultado").prop('disabled', true);
           $("#txt_observaciones_analista").prop('disabled', true);
-          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');
-          setInterval(function(){window.location.assign("menu.php")},2000);              
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');          
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);        
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -471,7 +651,7 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
         if (datos=="Success"){        
           $("#txt_btn_aprobarreshemo").prop('disabled', true);          
           notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
-          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?consecutivo="+$('#txt_consecutivo').val())},2000);                      
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }
@@ -484,6 +664,212 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
     return;
 }
 });
+
+
+/************************************Boton aprobar resultados urianalisis*********************************************/
+
+$(document).on('click', '#btn_aprobarresuri',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_uri&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresuri").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados aclaramiento*********************************************/
+
+$(document).on('click', '#btn_aprobarresaclara',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_aclaramiento&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresaclara").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados aglutinaciones*********************************************/
+
+$(document).on('click', '#btn_aprobarresagluti',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_aglutinamiento&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresagluti").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados ena*********************************************/
+
+$(document).on('click', '#btn_aprobarresena',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_ena&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresena").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados lipidos*********************************************/
+
+$(document).on('click', '#btn_aprobarreslip',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_lipidos&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarreslip").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
+/************************************Boton aprobar resultados espermograma*********************************************/
+
+$(document).on('click', '#btn_aprobarresespermo',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_espermo&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#btn_aprobarresespermo").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados proteina*********************************************/
+
+$(document).on('click', '#btn_aprobarresprot',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_proteina&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresprot").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
 
 
 /************************************Boton rechazar resultados analisis*********************************************/
@@ -516,6 +902,36 @@ if(confirm('¿Seguro que desea rechazar este resultado?')){
 }
 });
 
+
+/************************************Boton rechazar resultados analisis compuesto*********************************************/
+
+$(document).on('click', '#btn_rechazarrescomp',function() {    
+if(confirm('¿Seguro que desea rechazar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val()+','+$('#txt_observaciones_gerente').val()+','+$('#txt_padre').val();
+    $.ajax({
+        data: "metodo=rechaza_resultados_compuesto&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_resultado").prop('disabled', true);
+          $("#txt_observaciones_analista").prop('disabled', true);
+          notificacion('Resultado Rechazado','El resultado fue rechazado correctamente','info');
+          setInterval(function(){window.location.assign("menu.php")},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
 
 
 

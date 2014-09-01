@@ -39,28 +39,39 @@ conectar();
 <div class="panel_central">
 <input id="txt_idanalisis" type="hidden" value="<?=$_REQUEST['id']?>" />
 <input id="txt_consecutivo" type="hidden" value="<?=$_REQUEST['consecutivo']?>" />
-<input id="txt_padre" type="hidden" value="179" />
-
-
 <?
 //busco si es un resultado rechazado y si es así imprimo los valores anteriores
-$sql="select resultado,observaciones_analista,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=179";
+//busco si es un resultado rechazado y si es así imprimo los valores anteriores
+$sql="select resultado,observaciones_analista,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=196";
 $result=mysql_query($sql);
 
 while ($row=mysql_fetch_object($result)){
     $v_resultados[]=$row->resultado;
     $gerente=$row->observaciones_gerente;
-    $analista=$row->observaciones_analista;
 }
 
+$sql2="select ref.referencia_hombre,referencia_mujer,ref.referencia_general from tbl_referencias ref join tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id and ref.id_analisis=cat.id 
+where ana.id='".$_REQUEST['id']."'";
+$result2=mysql_query($sql2);
+$row2=mysql_fetch_object($result2);
 
-
+//busco los ids de los análisis
+$sql="select id from tbl_analisis where id_analisis>=196 and id_analisis<=199 and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
+$result=mysql_query($sql);
+while($row=mysql_fetch_object($result)){
+        if($v_ids=='') {
+                $v_ids=$row->id;
+        }else{
+                $v_ids=$v_ids."|".$row->id;
+        }
+}
+//echo $v_ids;
 
 $result=mysql_query("select cli.sexo from tbl_clientes cli join tbl_solicitudes sol on cli.id=sol.id_cliente where sol.consecutivo='".$_REQUEST['consecutivo']."'");
 $row=mysql_fetch_object($result);
-$sexo=$row->sexo;
+//echo $sexo=$row->sexo;
 //busco las referencias de cada analisis
-$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=180 and id_analisis<=185 order by id asc";
+$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=197 and id_analisis<=199 order by id asc";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_referecias=='') {
@@ -84,8 +95,9 @@ while($row=mysql_fetch_object($result)){
 //print_r($v_referecias);
 
 ?>
+<input id="txt_rechazado" type="hidden" value="<?=$_REQUEST['rechazado']?>" />
 <input id="txt_ids" type="hidden" value="<?=$v_ids?>" />
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Sm</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS PROT. TOTALES</div>
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
@@ -96,15 +108,15 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_sm" class="inputbox" type="text" value="<?=$v_resultados[0];?>" /></td>        
-        <td valign="top" class="Arial14Negro"><input id="txt_unidades_sm" class="inputbox" type="text" value="U" /></td>                        
+        <input id="txt_resultado_pro" class="inputbox" type="text" value="<?=$v_resultados[0];?>" /></td>        
+        <td valign="top" class="Arial14Negro"><input id="txt_unidades_pro" class="inputbox" type="text" value="g/dl" /></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:40px; margin-top:10px;"><?=$v_referecias[0]?></div></td>                        
         </tr>
         
 </tbody>
 </table>
 </div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Sm / RNP</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS ALBUMINA</div>
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
@@ -115,15 +127,15 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_rnp" class="inputbox" type="text" value="<?=$v_resultados[1];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input id="txt_unidades_rnp" class="inputbox" type="text" value="U" /></td>                        
+        <input id="txt_resultado_albu" class="inputbox" type="text" value="<?=$v_resultados[1];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_albu" class="inputbox" type="text" value="g/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[1]?></div></td>                        
         </tr>
         
 </tbody>
 </table>
 </div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">SSA / Ro</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS GLOBULINA</div>
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
@@ -134,15 +146,15 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_ssa" class="inputbox" type="text" value="<?=$v_resultados[2];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input id="txt_unidades_ssa" class="inputbox" type="text" value="U" /></td>                        
+        <input id="txt_resultado_glob" class="inputbox" type="text" value="<?=$v_resultados[2];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_glob" class="inputbox" type="text" value="g/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[2]?></div></td>                        
         </tr>
         
 </tbody>
 </table>
 </div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">SSB /La</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS RELACION A /G</div>
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
@@ -153,52 +165,16 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_ssb" class="inputbox" type="text" value="<?=$v_resultados[3];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input id="txt_unidades_ssb" class="inputbox" type="text" value="U" /></td>                        
+        <input id="txt_resultado_rela" class="inputbox" type="text" value="<?=$v_resultados[3];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_rela" class="inputbox" type="text" value="ml" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[3]?></div></td>                        
         </tr>
         
 </tbody>
 </table>
 </div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Scl  - 70</div>
-<div align="left">
-<table class="margen_izquierdo">
-<tbody>
-        <tr>
-        <td class="Arial14Negro">Resultado</td>        
-        <td class="Arial14Negro">Unidad</td>
-        <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>        
-        </tr>
-        <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_scl" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input id="txt_unidades_scl" class="inputbox" type="text" value="U" /></td>                        
-        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
-        </tr>
-        
-</tbody>
-</table>
-</div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Jo - 1</div>
-<div align="left">
-<table class="margen_izquierdo">
-<tbody>
-        <tr>
-        <td class="Arial14Negro">Resultado</td>        
-        <td class="Arial14Negro">Unidad</td>
-        <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>        
-        </tr>
-        <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_jo1" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input id="txt_unidades_jo1" class="inputbox" type="text" value="U" /></td>                        
-        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[5]?></div></td>                        
-        </tr>
-        
-</tbody>
-</table>
-</div>
+
+
 
 
 <table class=" margen_izquierdo">
@@ -207,23 +183,14 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro">Observaciones</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$analista;?></textarea></td>        
-        </tr>
-        <tr>
-        <td class="Arial14Negro">Observaciones Gerente</td>        
-        </tr>
-        <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_gerente" cols="45" rows="2"><?=$gerente;?></textarea></td>        
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$gerente;?></textarea></td>        
         </tr>
 </tbody>
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
-<input id="btn_aprobarresena" type="submit" value="Aprobar" name="submit" class="submit" />
-<input id="btn_rechazarrescomp" type="submit" value="Rechazar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
-</div> 
-<br>   
-
+<input id="btn_guardarresprot" type="submit" value="Guardar" name="submit" class="submit" />
+</div>    
+<br>
 </div><!-- fin div panel Central-->
 <br />
 </body>

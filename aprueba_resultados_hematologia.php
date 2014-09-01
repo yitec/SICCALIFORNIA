@@ -39,17 +39,17 @@ conectar();
 <div class="panel_central">
 <input id="txt_idanalisis" type="hidden" value="<?=$_REQUEST['id']?>" />
 <input id="txt_consecutivo" type="hidden" value="<?=$_REQUEST['consecutivo']?>" />
+<input id="txt_padre" type="hidden" value="1" />
+
 <?
 //busco si es un resultado rechazado y si es así imprimo los valores anteriores
-echo $sql="select resultado,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=1";
+$sql="select resultado,observaciones_analista,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=1";
 $result=mysql_query($sql);
 while ($row=mysql_fetch_object($result)){
     $v_resultados[]=$row->resultado;
+    $comentarios=$row->observaciones_gerente;
+    $analista=$row->observaciones_analista;
 }
-$comentarios=$row->observaciones_gerente;
-
-
-
 
 
 
@@ -160,7 +160,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_vcm" class="inputbox" type="text" value="<?=$v_resultados[4]?>" /></td>        
+        <input id="txt_resultado_vcm" class="inputbox" type="text" value="<?=$v_resultados[3]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_vcm" class="inputbox" type="text" value="fl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[3]?></div></td>                        
         </tr>
@@ -179,7 +179,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_hcm" class="inputbox" type="text" value="<?=$v_resultados[5]?>" /></td>        
+        <input id="txt_resultado_hcm" class="inputbox" type="text" value="<?=$v_resultados[4]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_hcm" class="inputbox" type="text" value="pg" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
         </tr>
@@ -198,7 +198,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_ch" class="inputbox" type="text" value="<?=$v_resultados[6]?>" /></td>        
+        <input id="txt_resultado_ch" class="inputbox" type="text" value="<?=$v_resultados[5]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_ch" class="inputbox" type="text" value="g/dl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[5]?></div></td>                        
         </tr>        
@@ -216,7 +216,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_leuco" class="inputbox" type="text" value="<?=$v_resultados[7]?>" /></td>        
+        <input id="txt_resultado_leuco" class="inputbox" type="text" value="<?=$v_resultados[6]?>" /></td>        
         <td valign="top" class="Arial14Negro"><?echo '<div align="left" style="margin-top:5px;"  >&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades_leuco" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:195px;margin-top:10px;"><?=$v_referecias[6]?></div></td>                        
         </tr>        
@@ -234,7 +234,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_bas" class="inputbox" type="text" value="<?=$v_resultados[8]?>" /></td>        
+        <input id="txt_resultado_bas" class="inputbox" type="text" value="<?=$v_resultados[7]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_bas" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[7]?></div></td>
         </tr>        
@@ -252,7 +252,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_eon" class="inputbox" type="text" value="<?=$v_resultados[9]?>" /></td>        
+        <input id="txt_resultado_eon" class="inputbox" type="text" value="<?=$v_resultados[8]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_eon" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[8]?></div></td>
         </tr>        
@@ -270,7 +270,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_miel" class="inputbox" type="text" value="<?=$v_resultados[10]?>" /></td>        
+        <input id="txt_resultado_miel" class="inputbox" type="text" value="<?=$v_resultados[9]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_miel" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[9]?></div></td>
         </tr>        
@@ -288,7 +288,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_meta" class="inputbox" type="text" value="<?=$v_resultados[11]?>" /></td>        
+        <input id="txt_resultado_meta" class="inputbox" type="text" value="<?=$v_resultados[10]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_meta" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[10]?></div></td>
         </tr>        
@@ -306,7 +306,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_ban" class="inputbox" type="text" value="<?=$v_resultados[12]?>" /></td>        
+        <input id="txt_resultado_ban" class="inputbox" type="text" value="<?=$v_resultados[11]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_ban" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[11]?></div></td>
         </tr>        
@@ -324,7 +324,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_seg" class="inputbox" type="text" value="<?=$v_resultados[13]?>" /></td>        
+        <input id="txt_resultado_seg" class="inputbox" type="text" value="<?=$v_resultados[12]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_seg" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[12]?></div></td>
         </tr>        
@@ -342,7 +342,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_lin" class="inputbox" type="text" value="<?=$v_resultados[14]?>" /></td>        
+        <input id="txt_resultado_lin" class="inputbox" type="text" value="<?=$v_resultados[13]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_lin" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[13]?></div></td>
         </tr>        
@@ -360,7 +360,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_mon" class="inputbox" type="text" value="<?=$v_resultados[15]?>" /></td>        
+        <input id="txt_resultado_mon" class="inputbox" type="text" value="<?=$v_resultados[14]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_mon" class="inputbox" type="text" value="%" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[14]?></div></td>
         </tr>        
@@ -378,7 +378,7 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_pla" class="inputbox" type="text" value="<?=$v_resultados[16]?>" /></td>        
+        <input id="txt_resultado_pla" class="inputbox" type="text" value="<?=$v_resultados[15]?>" /></td>        
         <td valign="top" class="Arial14Negro"><?echo '<div valign="top" align="left" style="margin-top:5px;">&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades_pla" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:195px; margin-top:10px;"><?=$v_referecias[15]?></div></td>        
         </tr>        
@@ -396,30 +396,35 @@ if($sexo==1){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_mpv" class="inputbox" type="text" value="<?=$v_resultados[17]?>" /></td>        
+        <input id="txt_resultado_mpv" class="inputbox" type="text" value="<?=$v_resultados[16]?>" /></td>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_mon" class="inputbox" type="text" value="fl" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[16]?></div></td>
         </tr>        
 </tbody>
 </table>
 </div>
-
-
-
-
 <table class=" margen_izquierdo">
 <tbody>        
         <tr>
         <td class="Arial14Negro">Observaciones</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$comentarios?></textarea></td>        
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$analista?></textarea></td>        
+        </tr>
+        <tr>
+        <td class="Arial14Negro">Observaciones Gerente</td>        
+        </tr>
+        <tr>
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_gerente" cols="45" rows="2"><?=$gerente;?></textarea></td>        
         </tr>
 </tbody>
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_aprobarreshemo" type="submit" value="Guardar" name="submit" class="submit" />
-</div>    
+<input id="btn_rechazarrescomp" type="submit" value="Rechazar" name="submit" class="submit" />
+<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
+</div>   
+<br> 
 
 </div><!-- fin div panel Central-->
 <br />

@@ -25,13 +25,31 @@ $row=mysql_fetch_object($result);
 <script>
 function validar(){
 	exito=true;
+  var mensaje="";
 	if ($('#txt_cliente').val()==""||$('#txt_consecutivo').val()==""){
-		
 		alert("Debe indicar el cliente y el numero de consecutivo.");	
-		return ;
+		return;
+
 	}
+  $.ajax({
+        data: "metodo=busca_cliente&parametros="+$('#txt_cliente').val(),
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos!="Success"){       
+          alert("El cliente seleccionado no esta en la base de datos."); 
+          exito=false;  
+          return;
+
+        }
+      
+    }//end succces function
+    });//end ajax function
 	if (exito){
 		top.location.href = 'analisis_solicitud.php?txt_nombre='+$('#txt_nombre').val()+"&txt_cliente="+$('#txt_cliente').val()+"&txt_tipoCliente="+$('#txt_tipoCliente').val()+"&txt_nombreSolicitante="+$('#txt_nombreSolicitante').val()+"&txt_telefonoSolicitante="+$('#txt_telefonoSolicitante').val()+"&cmb_tipoPago="+$('#cmb_tipoPago').val()+"&cmb_xcorreo="+$('#cmb_xcorreo').val()+"&txt_consumible="+$('#txt_consumible').val()+"&txt_consecutivo="+$('#txt_consecutivo').val()+"&txt_doctor="+$('#txt_doctor').val()+"&cmb_years="+$('#cmb_years').val()+"&cmb_mes="+$('#cmb_mes').val()+"&cmb_dias="+$('#cmb_dias').val();
+    exito=true;
 	}
 }
 </script>
