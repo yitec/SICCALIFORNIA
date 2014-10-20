@@ -223,7 +223,6 @@ while($row=mysql_fetch_object($result)){
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_guardarresaglu" type="submit" value="Guardar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
 <br>
 

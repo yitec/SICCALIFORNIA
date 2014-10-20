@@ -573,6 +573,139 @@ while($row=mysql_fetch_object($result)){
 </tbody>
 </table>
 </div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Hora de recolección</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>        
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_hora" class="inputbox" type="text" value="<?=$v_resultados[26];?>" /></td>        
+        <td valign="top" class="Arial14Negro"><input id="txt_unidades_hora" class="inputbox" type="text" value="" /></td>                        
+        </tr>
+        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Volumen</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>         
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_volu" class="inputbox" type="text" value="<?=$v_resultados[27];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_volu" class="inputbox" type="text" value="ml" /></td>                        
+        </tr>
+        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Viscocidad</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>      
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_visc" class="inputbox" type="text" value="<?=$v_resultados[28];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_visc" class="inputbox" type="text" value="" /></td>                        
+        </tr>
+        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Aspecto:</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_aspec" class="inputbox" type="text" value="<?=$v_resultados[29];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_aspec" class="inputbox" type="text" value="" /></td>                        
+        </tr>
+        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">pH</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>              
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_ph" class="inputbox" type="text" value="<?=$v_resultados[30];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_ph" class="inputbox" type="text" value="" /></td>                        
+        </tr>        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;"># espermat/ml</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>            
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_espermat" class="inputbox" type="text" value="<?=$v_resultados[31];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_espermat" class="inputbox" type="text" value="" /></td>                        
+        </tr>        
+</tbody>
+</table>
+</div>
+
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Fructuosa</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>            
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_fruc" class="inputbox" type="text" value="<?=$v_resultados[32];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_fruc" class="inputbox" type="text" value="" /></td>                        
+        </tr>        
+</tbody>
+</table>
+</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">Color</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>            
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_colo" class="inputbox" type="text" value="<?=$v_resultados[33];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_colo" class="inputbox" type="text" value="" /></td>                        
+        </tr>        
+</tbody>
+</table>
+</div>
 <table class=" margen_izquierdo">
 <tbody>        
         <tr>

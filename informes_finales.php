@@ -55,25 +55,56 @@ if ($_REQUEST['pendientes']==1){
 }else{
   $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,sol.fecha_terminado,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
 }
+
+
+
 while($row=mysql_fetch_object($result))
 {
+  //busco si tiene psa
+$result2=mysql_query("select id_analisis from tbl_analisis where consecutivo_solicitud='".$row->consecutivo."' and id_analisis=152");
+$var=mysql_num_rows($result2);
+if(mysql_num_rows($result2)>0){
+  $encontrado=1;
+}
 if ($_REQUEST['pendientes']==1){
-echo'<tr>
+
+  if($encontrado==1){
+    echo'<tr>
+        <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+    </tr>';
+  } else{   
+    echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
+  }
 }else{
-echo'<tr>
+  if($encontrado==1){
+    echo'<tr>
+        <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+    </tr>';
+  } else{   
+    echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_terminado).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
-}    
+  }
+}
+$encontrado=0;    
 }//end while
 ?>
 </tbody>

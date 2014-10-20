@@ -24,7 +24,7 @@ conectar();
 <div id="barra_principal"></div>
 <br><br>
 <div  class="usuario" ><span><img src="img/user1.png"></span><span id="texto_usuario" >Usuario: <?=$_SESSION['nombre_usuario'];?></span></div>
-<div class="titulo"><span id="texto_titulo_panel" >Ingreso de Resultados</span></div>
+<div class="titulo"><span id="texto_titulo_panel" >Aprobaci&oacute;n de Resultados</span></div>
 <div class="panel_izquierdo backgroundlogo">
 <div><img src="img/separador.png"></div>
 <div  class="botones_izquierdos">&nbsp;&nbsp;Configuraci&oacute;n</div>
@@ -212,7 +212,6 @@ while($row=mysql_fetch_object($result)){
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_aprobarresaclara" type="submit" value="Guardar" name="submit" class="submit" />
 <input id="btn_rechazarrescomp" type="submit" value="Rechazar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
 <br>
 </div><!-- fin div panel Central-->

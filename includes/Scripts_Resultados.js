@@ -80,6 +80,48 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 }
 });
 
+/************************************Boton guardar resultados analisis PSA*********************************************/
+
+$(document).on('click', '#btn_guardarrespsa',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){    
+    
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idanalisis').val();
+    for (i = 1; i <= 14; i++) { 
+        parametros+=','+$("#tolerancia"+i+":checked" ).val();                
+    }
+
+    if ($("#rnd_uro:checked" ).val()=="positivo"){
+        parametros+=',Positivo más de 1 x105 '+$('#txt_resultado_uro').val()+','+$('#txt_observaciones_analista').val();        
+    }else{
+        parametros+=',Negativo,'+$('#txt_observaciones_analista').val();    
+    }
+
+    
+    $.ajax({
+        data: "metodo=guarda_resultados_psa&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#btn_guardarrespsa").prop('disabled', true);
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
 /************************************Boton guardar resultados analisis hemograma*********************************************/
 
 $(document).on('click', '#btn_guardarreshema',function() {    
@@ -380,6 +422,92 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 });
 
 
+/************************************Boton guardar resultados Curva 2 horas*********************************************/
+
+$(document).on('click', '#btn_guardarrescurva2',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_gluco0').val()
+    +','+$('#txt_unidades_gluco0').val()
+    +','+$('#txt_resultado_gluco1').val()
+    +','+$('#txt_unidades_gluco1').val()
+    +','+$('#txt_resultado_gluco2').val()
+    +','+$('#txt_unidades_gluco2').val()
+    +','+$('#txt_resultado_glucoso0').val()
+    +','+$('#txt_unidades_glucoso0').val()
+    +','+$('#txt_resultado_glucoso2').val()
+    +','+$('#txt_unidades_glucoso2').val()    
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_curva2&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
+/************************************Boton guardar resultados Curva 3 horas*********************************************/
+
+$(document).on('click', '#btn_guardarrescurva3',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_gluco0').val()
+    +','+$('#txt_unidades_gluco0').val()
+    +','+$('#txt_resultado_gluco1').val()
+    +','+$('#txt_unidades_gluco1').val()
+    +','+$('#txt_resultado_gluco2').val()
+    +','+$('#txt_unidades_gluco2').val()
+    +','+$('#txt_resultado_gluco3').val()
+    +','+$('#txt_unidades_gluco3').val()
+    +','+$('#txt_resultado_glucoso0').val()
+    +','+$('#txt_unidades_glucoso0').val()
+    +','+$('#txt_resultado_glucoso3').val()
+    +','+$('#txt_unidades_glucoso3').val()    
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_curva3&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
 /************************************Boton guardar resultados analisis espermograma*********************************************/
 
 $(document).on('click', '#btn_guardarresespermo',function() {    
@@ -438,9 +566,28 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_unidades_leuco').val()
     +','+$('#txt_resultado_esper').val()
     +','+$('#txt_unidades_esper').val()
-    +','+$('#txt_observaciones_analista').val()
-    +','+$('#txt_ids').val()
-    +','+$('#txt_rechazado').val();
+    +','+$('#txt_resultado_hora').val()
+    +','+$('#txt_unidades_hora').val()
+    +','+$('#txt_resultado_volu').val()
+    +','+$('#txt_unidades_volu').val()
+    +','+$('#txt_resultado_visc').val()
+    +','+$('#txt_unidades_visc').val()
+    +','+$('#txt_resultado_aspec').val()
+    +','+$('#txt_unidades_aspec').val()
+    +','+$('#txt_resultado_ph').val()
+    +','+$('#txt_unidades_ph').val()
+    +','+$('#txt_resultado_espermat').val()
+    +','+$('#txt_unidades_espermat').val()
+    +','+$('#txt_resultado_fruc').val()
+    +','+$('#txt_unidades_fruc').val()
+    +','+$('#txt_resultado_colo').val()
+    +','+$('#txt_unidades_colo').val()
+    +','+$('#txt_resultado_micro').val()//69
+    +','+$('#txt_unidades_micro').val()//70
+    +','+$('#txt_resultado_micro').val()//71
+    +','+$('#txt_observaciones_analista').val()//72
+    +','+$('#txt_ids').val()//73
+    +','+$('#txt_rechazado').val();//74    
     $.ajax({
         data: "metodo=guarda_resultados_espermo&parametros="+parametros,
         type: "POST",
@@ -484,6 +631,44 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_proteina&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
+
+/************************************Boton guardar resultados analisis proteina*********************************************/
+
+$(document).on('click', '#btn_guardarresvag',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_fresco').val()
+    +','+$('#txt_unidades_fresco').val()
+    +','+$('#txt_resultado_gram').val()
+    +','+$('#txt_unidades_cultivo').val()
+    +','+$('#txt_resultado_cultivo').val()
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_vaginal&parametros="+parametros,
         type: "POST",
         async:false,
         dataType: "json",        
@@ -812,6 +997,66 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
 });
 
 
+
+/************************************Boton aprobar resultados curva2*********************************************/
+
+$(document).on('click', '#btn_aprobarrescurva2',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_curva2&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarrescurva2").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
+/************************************Boton aprobar resultados curva3 horas*********************************************/
+
+$(document).on('click', '#btn_aprobarrescurva3',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_curva3&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarrescurva3").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
 /************************************Boton aprobar resultados espermograma*********************************************/
 
 $(document).on('click', '#btn_aprobarresespermo',function() {    
@@ -889,6 +1134,37 @@ if(confirm('¿Seguro que desea rechazar este resultado?')){
           $("#txt_observaciones_analista").prop('disabled', true);
           notificacion('Resultado Rechazado','El resultado fue rechazado correctamente','info');
           setInterval(function(){window.location.assign("menu.php")},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
+/************************************Boton aprobar resultados vaginal*********************************************/
+
+$(document).on('click', '#btn_aprobarresvag',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_vaginal&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresvag").prop('disabled', true);          
+          $("#txt_btn_rechazarrescomp").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
         }else{
          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
         }

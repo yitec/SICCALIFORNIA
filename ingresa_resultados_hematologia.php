@@ -439,7 +439,6 @@ if($sexo==1){
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_guardarreshema" type="submit" value="Guardar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
 <br>
 </div><!-- fin div panel Central-->

@@ -204,7 +204,6 @@ while($row=mysql_fetch_object($result)){
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_guardarreslip" type="submit" value="Guardar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
 <br>
 </div><!-- fin div panel Central-->
