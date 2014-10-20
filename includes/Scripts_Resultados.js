@@ -379,7 +379,6 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 
 
 /************************************Boton guardar resultados ENA*********************************************/
-
 $(document).on('click', '#btn_guardarresena',function() {    
 if(confirm('¿Seguro que desea procesar este análisis?')){               
     parametros=
