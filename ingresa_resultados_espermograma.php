@@ -54,7 +54,9 @@ $result2=mysql_query($sql2);
 $row2=mysql_fetch_object($result2);
 
 //busco los ids de los análisis
-$sql="select id from tbl_analisis where id_analisis>=251 and id_analisis<=284 and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
+//$sql="select id from tbl_analisis where id_analisis>=251 and id_analisis<=284 and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
+$sql="select id from tbl_analisis where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and
+ (id_analisis>=251 and id_analisis<=284)or(id_analisis>=293 and id_analisis<=294) ";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_ids=='') {
@@ -732,7 +734,8 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_nombre" class="inputbox" type="text" value="<?=$v_resultados[35];?>" /></td>                
+        <input id="txt_resultado_nombre" class="inputbox" type="text" value="<?=$v_resultados[35];?>" /></td>      
+        <input id="txt_unidades_nombre" class="inputbox" type="hidden" value="" /></td>                  
         </tr>        
 </tbody>
 </table>

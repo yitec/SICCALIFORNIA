@@ -114,28 +114,28 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 252:
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 253:
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 254:
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 255:
@@ -145,7 +145,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;		
 		case 256:
@@ -155,14 +155,14 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 257:
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 258:
@@ -194,7 +194,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SETX(175);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
-		case 261:
+		case 261:			
 			$pdf->SETX(105);
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
@@ -203,6 +203,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 262:
+			$pdf->SETY(122);		//Macrocefalo
 			$pdf->SETX(105);
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
@@ -238,7 +239,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Ln(3);
 			$pdf->SetFont('Arial','BU',8);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'COLA',0,1,'L');					
+			$pdf->Cell(190,3,'CUELLO',0,1,'L');					
 			$pdf->SetFont('Arial','',8);
 			$pdf->SETX(105);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
@@ -250,7 +251,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Ln(3);
 			$pdf->SetFont('Arial','BU',8);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'CUELLO',0,1,'L');					
+			$pdf->Cell(190,3,'COLA',0,1,'L');					
 			$pdf->SetFont('Arial','',8);
 			$pdf->SETX(105);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
@@ -339,62 +340,82 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SetTextColor(0,0,0);	
 			$pdf->SetFont('Arial','BU',12);
 			$pdf->Cell(175,3,"Espermograma",0,1,'C');
-			$pdf->SETY(105);
+			$pdf->SETY(107);
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');//hora de recoleccion
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 278:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 279:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 280:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 281:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 282:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 283:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 284:			
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
-			$pdf->SETX(80);
+			$pdf->SETX(65);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;							
+		case 293:			
+			$pdf->SETY(119);
+			$pdf->SETX(105);
+			$pdf->SetFont('Arial','',8);
+			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->Ln(-3);
+			$pdf->SETX(175);
+			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->SETY(189);
+		break;							
+		case 294:			
+			$pdf->SETY(104);
+			$pdf->SETX(10);
+			$pdf->SetFont('Arial','B',8);
+			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->Ln(-3);
+			$pdf->SETX(65);
+			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->SETY(189);
+		break;									
 
 		
 		default:
