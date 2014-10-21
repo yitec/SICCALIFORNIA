@@ -60,11 +60,17 @@ if ($_REQUEST['pendientes']==1){
 
 while($row=mysql_fetch_object($result))
 {
-  //busco si tiene psa
+//busco si tiene psa
 $result2=mysql_query("select id_analisis from tbl_analisis where consecutivo_solicitud='".$row->consecutivo."' and id_analisis=152");
 $var=mysql_num_rows($result2);
 if(mysql_num_rows($result2)>0){
   $encontrado=1;
+}
+//busco si tiene espermogram
+$result2=mysql_query("select id_analisis from tbl_analisis where consecutivo_solicitud='".$row->consecutivo."' and id_analisis=150");
+$var=mysql_num_rows($result2);
+if(mysql_num_rows($result2)>0){
+  $encontrado=2;
 }
 if ($_REQUEST['pendientes']==1){
 
@@ -76,7 +82,15 @@ if ($_REQUEST['pendientes']==1){
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
-  } else{   
+  }elseif($encontrado==2){
+    echo'<tr>
+        <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_espermograma.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+        <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_espermogram.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
+    </tr>';
+  }else{   
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
