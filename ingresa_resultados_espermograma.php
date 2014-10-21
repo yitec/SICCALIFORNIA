@@ -56,7 +56,7 @@ $row2=mysql_fetch_object($result2);
 //busco los ids de los análisis
 //$sql="select id from tbl_analisis where id_analisis>=251 and id_analisis<=284 and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
 $sql="select id from tbl_analisis where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and
- (id_analisis>=251 and id_analisis<=284)or(id_analisis>=293 and id_analisis<=294) ";
+ ((id_analisis>=251 and id_analisis<=284)or(id_analisis>=293 and id_analisis<=294))? ";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_ids=='') {

@@ -630,6 +630,8 @@ function guarda_resultados_espermo($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
 	$v_ids=explode("|",$v_datos[74]);
 	print_r($v_datos);
+	print_r($v_ids);
+
 	$h=1;
 	$k=0;
 	for ($i = 1; $i <= 72; $i++) {
