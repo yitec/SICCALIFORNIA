@@ -78,7 +78,7 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 
 	//imprimo nombre y resultados
 
-	if($row->id>=251&&$row->id<=284){//si es espermograma corro una rutina diferente
+	if($row->id>=251&&$row->id<=294){//si es espermograma corro una rutina diferente
 		busca_espermograma($pdf,$row->id,$row->resultado,$row->unidades,$row->nombre);		
 	}else{
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	

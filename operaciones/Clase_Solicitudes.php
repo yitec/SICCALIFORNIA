@@ -628,16 +628,18 @@ function guarda_resultados_curva3($parametros,$hoy){
 function guarda_resultados_espermo($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
 	$v_datos=explode(",",$parametros);
-	$v_ids=explode("|",$v_datos[73]);
-	//print_r($v_datos);
+	$v_ids=explode("|",$v_datos[74]);
+	print_r($v_datos);
+	print_r($v_ids);
+
 	$h=1;
 	$k=0;
-	for ($i = 1; $i <= 71; $i++) {
+	for ($i = 1; $i <= 72; $i++) {
 		if ($i==$h){
-			if($v_datos[74]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[72]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[75]==1){
+				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[73]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
 			}else{				
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[72]."',NOW(),150,0)";
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[73]."',NOW(),150,0)";
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;

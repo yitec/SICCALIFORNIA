@@ -583,10 +583,11 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_unidades_colo').val()
     +','+$('#txt_resultado_micro').val()//69
     +','+$('#txt_unidades_micro').val()//70
-    +','+$('#txt_resultado_micro').val()//71
-    +','+$('#txt_observaciones_analista').val()//72
-    +','+$('#txt_ids').val()//73
-    +','+$('#txt_rechazado').val();//74    
+    +','+$('#txt_resultado_nombre').val()//71
+    +','+$('#txt_unidades_nombre').val()//72
+    +','+$('#txt_observaciones_analista').val()//73
+    +','+$('#txt_ids').val()//74
+    +','+$('#txt_rechazado').val();//75
     $.ajax({
         data: "metodo=guarda_resultados_espermo&parametros="+parametros,
         type: "POST",
