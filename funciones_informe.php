@@ -10,6 +10,7 @@ $tot_analisis++;
 //busco si son analisis de vaginal
 
 if($id==285||$id==286||$id==287){
+	$pdf->SetTextColor(0,0,0);
 	switch ($id){		
 		case 285:
 			$pdf->SetFont('Arial','BU',10);
@@ -18,7 +19,7 @@ if($id==285||$id==286||$id==287){
 			$pdf->SetFont('Arial','BU',10);
 			$pdf->Cell(190,5,'AL FRESCO:',0,1,'L');					
 			$pdf->SetFont('Arial','',10);			
-			$v_texto=subrayado(utf8_decode($row->resultado));			
+			$v_texto=subrayado(utf8_decode($resultado));			
 			foreach ($v_texto as $valor) {				
     			$rest = substr($valor, 0, 1);
     			if($rest=="-"){
@@ -36,7 +37,7 @@ if($id==285||$id==286||$id==287){
 			$pdf->SetFont('Arial','BU',10);
 			$pdf->Cell(190,5,'GRAM:',0,1,'L');					
 			$pdf->SetFont('Arial','',10);
-			$v_texto=subrayado(utf8_decode($row->resultado));			
+			$v_texto=subrayado(utf8_decode($resultado));			
 			foreach ($v_texto as $valor) {				
     			$rest = substr($valor, 0, 1);
     			if($rest=="-"){
@@ -54,7 +55,7 @@ if($id==285||$id==286||$id==287){
 			$pdf->SetFont('Arial','BU',10);
 			$pdf->Cell(190,5,'CULTIVO:',0,1,'L');					
 			$pdf->SetFont('Arial','',10);
-			$v_texto=subrayado(utf8_decode($row->resultado));			
+			$v_texto=subrayado(utf8_decode($resultado));			
 			foreach ($v_texto as $valor) {				
     			$rest = substr($valor, 0, 1);
     			if($rest=="-"){
@@ -339,8 +340,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->SETX(175);
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;																																																															
-		case 277:					
-			
+		case 277:								
 			$pdf->SETY(107);
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');//hora de recoleccion
@@ -415,7 +415,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Ln(-3);
 			$pdf->SETX(65);
 			$pdf->Cell(10,3,utf8_decode($resultado),0,1,'L');
-			
+			$pdf->SETY(189);
 		break;									
 	}
 
