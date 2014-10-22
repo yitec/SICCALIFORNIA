@@ -107,6 +107,9 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 	//verifico los subtitulos de espermogramas
 	switch ($id) {
 		case 251:
+			$pdf->SetTextColor(0,0,0);	
+			$pdf->SetFont('Arial','BU',12);
+			$pdf->Cell(175,3,"Espermograma",0,1,'C');
 			$pdf->SetTextColor(0,0,0);
 			$pdf->SETY(150);
 			$pdf->SetFont('Arial','BU',8);
@@ -337,9 +340,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
 		break;																																																															
 		case 277:					
-			$pdf->SetTextColor(0,0,0);	
-			$pdf->SetFont('Arial','BU',12);
-			$pdf->Cell(175,3,"Espermograma",0,1,'C');
+			
 			$pdf->SETY(107);
 			$pdf->SetFont('Arial','',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');//hora de recoleccion
@@ -409,58 +410,15 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 		case 294:			
 			$pdf->SETY(104);
 			$pdf->SETX(10);
-			$pdf->SetFont('Arial','B',8);
+			$pdf->SetFont('Arial','BU',8);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
-			$pdf->SETY(189);
+			$pdf->Cell(10,3,utf8_decode($resultado),0,1,'L');
+			
 		break;									
+	}
 
-		
-		default:
-			# code...
-			break;
-	}
-/*
-
-	if($id==251){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,3,'MOVIMIENTO(1h.post.recoleccion)',0,1,'L');					
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==255){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'VITALIDAD(eosina)',0,1,'L');					
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==256){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'MORFOLOGIA',0,1,'L');					
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==258){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'ANORMALIDADES DE:',0,1,'L');					
-		$pdf->Cell(190,5,'CABEZA:',0,1,'L');					
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==267){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'CUELLO',0,1,'L');							
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==270){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'COLA',0,1,'L');							
-		$pdf->SetFont('Arial','',10);
-	}
-	if($id==275){
-		$pdf->SetFont('Arial','B',10);
-		$pdf->Cell(190,5,'CELURALIDAD',0,1,'L');							
-		$pdf->SetFont('Arial','',10);
-	}
-*/
 }
 
 ?>

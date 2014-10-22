@@ -629,8 +629,8 @@ function guarda_resultados_espermo($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
 	$v_datos=explode(",",$parametros);
 	$v_ids=explode("|",$v_datos[74]);
-	print_r($v_datos);
-	print_r($v_ids);
+	//print_r($v_datos);
+	//print_r($v_ids);
 
 	$h=1;
 	$k=0;
