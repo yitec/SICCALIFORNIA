@@ -47,6 +47,8 @@ conectar();
     <th class="titulo_tablas">Fecha Terminado</th>        
     <?}if($_REQUEST['total']==1){?>
     <th class="titulo_tablas">Eliminar</th>    
+    <?}elseif ($_REQUEST['resultados']==1) {?>
+    <th class="titulo_tablas">Modificar</th>    
     <?}else{?>
     <th class="titulo_tablas">Ver Informe</th>    
     <th class="titulo_tablas">Versión Impresa</th>    
@@ -54,12 +56,23 @@ conectar();
     </tr>
 <?
 if ($_REQUEST['pendientes']==1){
-  $result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=1");
+
+  $result=mysql_query("select sol.*,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=1");
+
 }elseif ($_REQUEST['total']==1) {
-  $result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id ");
+
+  $result=mysql_query("select sol.*,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id ");
+
+}
+elseif ($_REQUEST['resultados']==1) {
+
+  $result=mysql_query("select sol.*,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id ");
+
 }
 else{
-  $result=mysql_query("select *,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
+
+  $result=mysql_query("select sol.*,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
+
 }
 while($row=mysql_fetch_object($result))
 {
@@ -72,11 +85,19 @@ echo'<tr>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
     </tr>';
 }elseif ($_REQUEST['total']==1){
+
 echo'<tr>
         <td align="center"  class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
-        <td class="datos_tablas"><div align="center"><img type="submit" class="submit" src="img/delete_icon.png" width="25" height="25" /></div></td>
+        <td class="datos_tablas"><div align="center"><img type="submit" class="elimina" solicitud="'.$row->id.'" src="img/delete_icon.png" width="25" height="25" /></div></td>
+      </tr>';
+}elseif ($_REQUEST['resultados']==1){
+echo'<tr>
+        <td align="center"  class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
+        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
+        <td class="datos_tablas"><div align="center"><a target="_self"id="ver" href="resultados_solicitud.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
       </tr>';
 }else{
 echo'<tr>
@@ -95,6 +116,11 @@ echo'<tr>
 <br />
 </body>
 </html>
+<script src="includes/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="includes/ui/jquery-ui.js"></script> 
+<script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
+<script src="includes/vendor/jquery.ui.widget.js"></script>
+<script src="includes/Scripts_Solicitudes.js" type="text/javascript"></script> 
 
 <?
 function fecha_nacional($fecha){

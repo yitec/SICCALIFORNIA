@@ -31,6 +31,37 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 }
 });
 
+/************************************Boton modificar resultados analisis*********************************************/
+
+$(document).on('click', '#btn_modificarres',function() {    
+if(confirm('¿Seguro que desea modificar este resultado?')){               
+    parametros=$('#id_resultado').val()+','+$('#txt_resultado').val()+','+$('#txt_unidades').val()+','+$('#txt_observaciones_analista').val();    
+    $.ajax({
+        data: "metodo=modifica_resultados&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_resultado").prop('disabled', true);
+          $("#txt_observaciones_analista").prop('disabled', true);
+          notificacion('Resultado Modificado','El resultado fue modificado correctamente','info');
+          setInterval(function(){window.location.assign("menu.php")},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+
 /************************************Boton guardar resultados analisis y pasar al siguiente*********************************************/
 
 $(document).on('click', '#btn_guardarsig',function() {    

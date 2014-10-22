@@ -211,6 +211,21 @@ function guarda_resultados($parametros,$hoy){
 }
 
 /*******************************************************
+	accion="Guarda los resultados de un analisis  "
+	parametros="id analisis"
+
+********************************************************/
+
+
+function modifica_resultados($parametros,$hoy){
+	$v_datos=explode(",",$parametros);
+	$sql="update tbl_resultados set resultado='".$v_datos[1]."',unidades='".$v_datos[2]."',observaciones_analista='".$v_datos[3]."' where id='".$v_datos[0]."'";
+	$result=mysql_query($sql);
+	$jsondata="Success";	
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
 	accion="Guarda los resultados de hemograma"
 	parametros="resultados y unidades de todos los que componen hemograma"
 
@@ -1454,6 +1469,24 @@ function rechaza_resultados_compuesto($parametros,$hoy){
 	//actualizo los analisis que comprenden el padre
 	mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0, observaciones='".$v_datos[2]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_datos[3]."'");
 	mysql_query("update tbl_solicitudes set  estado=1 where consecutivo='".$v_datos[0]."'");
+	$jsondata="Success";	
+	echo json_encode($jsondata);
+
+}
+
+
+/*******************************************************
+	accion="elimina solicitud"
+	parametros="id analisis"
+
+********************************************************/
+
+
+function elimina_solicitud($parametros,$hoy){
+	
+	$result=mysql_query("delete from tbl_resultados where consecutivo_solicitud='".$parametros."'");
+	$result=mysql_query("delete from tbl_analisis where consecutivo_solicitud='".$parametros."'");
+	$result=mysql_query("delete from tbl_solicitudes where consecutivo='".$parametros."'");
 	$jsondata="Success";	
 	echo json_encode($jsondata);
 

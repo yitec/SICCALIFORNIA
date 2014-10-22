@@ -121,12 +121,12 @@ conectar();
     <div align="center" class="Arial14Negro"><a href="selecciona_factura.php"><div id="cuadro_verde2"></div></a>Reimprime Factura</div>
     </div>
     <? } ?>
-    <? if (in_array(16, $_SESSION['perfil'])){
+    <?/* if (in_array(16, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
     <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php"><div id="cuadro_verde2"></div></a>Modifica Solicitud</div>
     </div>
-    <? } ?>
+    <? } */?>
     <? if (in_array(17, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
@@ -136,7 +136,7 @@ conectar();
     <? if (in_array(18, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="formulario_espermograma.php?"><div id="cuadro_anaranjado"></div></a>Datos Espermograma</div>
+    <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php?resultados=1"><div id="cuadro_anaranjado"></div></a>Modifica Resultados</div>
     </div>
     <? } ?>
 </div><!-- fin div panel Central-->

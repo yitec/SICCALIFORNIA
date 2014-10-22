@@ -144,14 +144,7 @@ Ivocación:click img_biscar
 
 
 
-function cargaAnalisis(tipo,copiar){
-    
-    //copiar me indica si estoy cargando chechbox copiados  
-    //guardo los valores de la categoria y subcategoari
-    //v_mActual[0]= $('#cmb_categoria_1_'+seleccionada).val();
-    //v_mActual[1]=$('#cmb_subcategoria_1_'+seleccionada).val();
-    //$('#loading'+tab_counter).html('cargando');
-//    $('#loading'+tab_counter).empty().html('<img src="img/loadingAnimation.gif" />').delay(2000).fadeIn(400);    
+function cargaAnalisis(tipo,copiar){  
     var repeticiones=1;
     var seleccionada=1;
     var parametros=$("#cmb_categoria").val()+",";
@@ -176,14 +169,12 @@ function cargaAnalisis(tipo,copiar){
               
               $('.analisis_1').append('<br><br><div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'" precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
               
-              //reagregaAnalisis(v_datos[0],$('#cmb_laboratorio_'+tipo+'_'+seleccionada).val(),seleccionada,v_datos[3]);                          
             }else{//else de reimprimiedo                        
               $('.analisis_1').append('<div align="left" style=" float:left; width:220px"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
             }//fin if reimprimiendo                            
           }else{//else de residuo o                                
               if(v_aAnterior.indexOf(parseFloat(v_datos[0]))>=0&&copiar==true){
               $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'" class="p_'+seleccionada+'" type="checkbox"  title="'+v_datos[3]+'"  precio="'+v_datos[3]+'"laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'" checked  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');
-              //reagregaAnalisis(v_datos[0],$('#cmb_laboratorio_'+tipo+'_'+seleccionada).val(),seleccionada,v_datos[3]);                      
             }else{//else reimprimiendo sin residuo 0                                        
               $('.analisis_1').append('<div align="left" style=" float:left; width:220px;"><input id="'+v_datos[0]+'"  class="p_'+seleccionada+'" type="checkbox" title="'+v_datos[3]+'"  precio="'+v_datos[3]+'" laboratorio="'+v_datos[1]+'" ligados="'+v_datos[4]+'"  value="'+v_datos[0]+'">'+v_datos[2]+'</div>');                      
             }//end if reimprimiedo sin residuo 0
@@ -195,18 +186,7 @@ function cargaAnalisis(tipo,copiar){
     });//end ajax function
 $('.analisis_1').append('<div class="titulo_sombreado">------------------------------------------------------</div>');
 $('.analisis_1').append('<div></div><br><div align="left"><br></div>  ');
-  //esta funcion es recursiva se llama a si misma 3 veces para cargar los en los divs los checkbox de los analisis  
-  /*if (repeticiones<=3){
-    repeticiones++;
-    if (copiar==true){
-      cargaAnalisis(repeticiones,true);
-    }else{  
-    cargaAnalisis(repeticiones);
-    }
-  }else{
-    repeticiones=1;
-    $('#loading'+tab_counter).empty();
-  }*/
+
 }//end function
 
 
@@ -231,24 +211,13 @@ function agregaAnalisis(id,laboratorio,tab,precio,ligados){
       }   
     } 
     if(encontrado==false){
-      posible=parseInt(monto)+parseInt(precio);
-      //pregunto si el cliente es investigacion y si es verifico que no este gastando mas del consumible
-     /* if(txt_tipoCliente=="Investigacion" && parseFloat(posible)>parseFloat(txt_consumible)){
-        alert("Se ha pasado del monto consumible ("+ txt_consumible+") lo sentimos.");
-        $("#"+id).removeAttr("checked");        
-        return;
-      }*/
+      posible=parseInt(monto)+parseInt(precio);      
       monto=parseInt(monto)+parseInt(precio);
       $('#monto').html("&nbsp;&nbsp;Total = "+monto);
       $("#txt_totAnalisis").attr("value",monto);
       v_analisis[i]=data;
       v_aActual[contAnalisis]=parseFloat(id);
       contAnalisis++;
-      /*if(ligados != 0) {  
-      marcaLigados(id,laboratorio,tab,precio,ligados);//si este checkbox tiene un analisis ligado lo marco con esta funcion 
-      }
-      //Si el analisis marcado es digestibilidad por pepsina o Solubilidad KOH deshabilito los analisis incluidos
-      deshabilita(pepsina,tab);*/
     } 
      
   $('#numero_analisis').html("&nbsp;&nbsp;Número Análisis = "+contAnalisis);
@@ -269,23 +238,7 @@ function marcaLigados(id,laboratorio,tab,precio,ligados){
     
     for (i=0;i<v_resultado.length;i++) { 
     //averiguo el precio del analisis ligado actual   
-    /*$.ajax({ data: "opcion=13&id="+parseInt(v_resultado[i]),
-    type: "POST",
-    async: false,
-    url: "operaciones/opr_contratos.php",
-    success: function(datos){ 
-      var v_res=datos.split("|");     
-      precio_n=parseInt(v_res[0]);
-      lab=v_res[1];   
-    } 
-    });
-    */
-      //si el analisis ligado es de pepsina le pongo precio 0
-     /* if (pepsina>0&&v_lpepsina.indexOf(parseFloat(v_resultado[i]))>=0){
-        precio_n=0;         
-        
-      }
-      */   
+
       //Primero pregunto si el analisis ligado ya esta dentro del vector de analisis seleccionados
       var data=v_resultado[i]+','+laboratorio+','+tab+','+precio_n+'|';
       for (j=0;j<v_analisis.length;j++) { 
@@ -314,11 +267,7 @@ function marcaLigados(id,laboratorio,tab,precio,ligados){
 
 /************************************Boton continuar hacia imprimir una cotizacion*********************************************/
 
-$(document).on('click', '#btn_continuarcoti',function() {      
-   
-    
-    
-    
+$(document).on('click', '#btn_continuarcoti',function() {                
      parametros=v_analisis+'/'+$('#txt_nombre').val();
     $.ajax({
         data: "metodo=guarda_analisis_cotizacion&parametros="+parametros,
@@ -327,13 +276,38 @@ $(document).on('click', '#btn_continuarcoti',function() {
         dataType: "json",        
         url: "operaciones/Clase_Solicitudes.php",      
         success: function(datos){     
-        alert(datos);
+        //alert(datos);
       
     }//end succces function
     });//end ajax function
     window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/cotizaciones.php?consecutivo="+$('#txt_consecutivo').val());
     top.location.href = 'menu.php';
 });
+
+/*************************************Elimino Solicitud**************************************************************/
+$(document).on('click', '.elimina',function() {      
+  if(confirm('¿Seguro que desea eliminar esta solicitud?')){ 
+    var solicitud=$( this ).attr("solicitud");  
+      $.ajax({
+        data: "metodo=elimina_solicitud&parametros="+solicitud,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",            
+        success: function(datos){     
+        if (datos=="Success"){ 
+          //alert(datos);
+          notificacion('Solicitud Eliminada','Solicitud eliminada correctamente','info');            
+          setInterval(function(){window.location.assign(direccion)},2000); 
+          top.location.href = 'selecciona_solicitud.php?total=1';
+        }else{
+          notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+        }//end succces function
+        });//end ajax function  
+    
+  }
+}); 
 
 
 /***************************************Optiene los parametros que vienen en la url***************************************/
