@@ -6,13 +6,14 @@ session_start();
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel ="stylesheet" href="css/general.css" type="text/css" />
+        <link rel ="stylesheet" href="css/general.css" type="text/css" />        
         <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css' />
         <title>SIC-CALIFORNIA</title>
     </head>
     <body >
     		<div id="barra_principal"></div>
     		<div class="box">
+            <div align="center"><img src="img/logo_lab.png" width="150" height="100"></div>
             <form action="recibe_login.php" method="post" >
         	<fieldset id="user-details">			
         		<label for="name">Usuario:</label>

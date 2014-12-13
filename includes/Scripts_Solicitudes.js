@@ -5,12 +5,20 @@ var v_aAnterior=new Array();//estos 4 vectores me sirven para copiar la muestra 
 var v_mAnterior=new Array();      
 var v_aActual=new Array();
 var v_mActual=new Array();	
+var v_solicitudes=new Array();  
 var contAnalisis=0;
 var monto=0;
 var analisis;
 
 var availableTagscli=busca_clientes();
 var availableTagsdoc=busca_doctores();
+oculta_sumerhill();
+
+function oculta_sumerhill(){
+  $('#sumerhill_label').hide(1000);
+  $('#sumerhill_text').hide(1000);
+  //$('#sumerhill_text').show();
+}
 
 function busca_clientes(){
     $.ajax({ data: "metodo=autocompleta_clientes",
@@ -42,6 +50,18 @@ function busca_doctores(){
     });
 }
 
+$("#cmb_tipoPago").change(function(event){
+
+  if ($("#cmb_tipoPago").val()=="Sumerhill"){
+    $('#sumerhill_label').show(1000);
+    $('#sumerhill_text').show(1000);
+  }else{
+    $('#sumerhill_label').hide(1000);
+    $('#sumerhill_text').hide(1000);
+  }
+
+
+});
 
 
 $('#cmb_categoria').change(function() {
@@ -62,6 +82,13 @@ $(document).on('click', '.p_1',function() {
    if (ligados!=0&&fantasma!=1){
    marcaLigados(id,1,1,precio,ligados);
    }
+});
+
+$(document).on('click', '.sumerhill',function() {      
+   var id=$( this ).attr("value");   
+   v_solicitudes[contAnalisis]=$( this ).attr("value");
+   contAnalisis++;
+   //alert(v_solicitudes);   
 });
 
 /************************************Guardar e imprimir el contrato*********************************************/
@@ -282,6 +309,14 @@ $(document).on('click', '#btn_continuarcoti',function() {
     });//end ajax function
     window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/cotizaciones.php?consecutivo="+$('#txt_consecutivo').val());
     top.location.href = 'menu.php';
+});
+
+/************************************Boton generar informe sumerhill*********************************************/
+
+$(document).on('click', '#btn_geninforme',function() {                
+     
+    window.open("informes_sumerhill.php?solicitudes="+v_solicitudes);
+    
 });
 
 /*************************************Elimino Solicitud**************************************************************/

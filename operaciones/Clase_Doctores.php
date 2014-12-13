@@ -34,7 +34,7 @@ class Doctores{
 
 function crea_doctor($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("insert into tbl_doctores(nombre,cedula,correo,tel_cel,tel_fijo,fax,direccion,clinica,estado)values('".utf8_encode($v_datos[0])."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','".utf8_encode($v_datos[6])."','".utf8_encode($v_datos[7])."','"."1"."')");
+	$result=mysql_query("insert into tbl_doctores(nombre,cedula,correo,tel_cel,tel_fijo,fax,direccion,clinica,estado)values('".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','".utf8_encode($v_datos[6])."','".utf8_encode($v_datos[7])."','"."1"."')");
 	if (!$result) {//si da error que me despliegue el error del query       		
        		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
         }else{
@@ -68,7 +68,7 @@ function busca_doctor($parametros,$hoy){
 
 function modifica_doctor($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("update tbl_doctores set nombre='".utf8_encode($v_datos[1])."',
+	$result=mysql_query("update tbl_doctores set nombre='".$v_datos[1]."',
 		cedula='".$v_datos[2]."',
 		correo='".$v_datos[3]."',		
 		tel_cel='".$v_datos[5]."',

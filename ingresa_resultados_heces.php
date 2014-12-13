@@ -41,77 +41,53 @@ conectar();
 <input id="txt_idanalisis" type="hidden" value="<?=$_REQUEST['id']?>" />
 <input id="txt_consecutivo" type="hidden" value="<?=$_REQUEST['consecutivo']?>" />
 <?
-//busco si es un resultado rechazado y si es así imprimo los valores anteriores
-$sql="select resultado,observaciones_gerente from tbl_resultados where id_analisis='".$_REQUEST['id']."'";
+$sql="select resultado,observaciones_analista,observaciones_gerente from tbl_resultados where consecutivo_solicitud='".$_REQUEST['consecutivo']."' and analisis_padre=140";
 $result=mysql_query($sql);
-$row=mysql_fetch_object($result);
 
+while ($row=mysql_fetch_object($result)){
+    $v_resultados[]=$row->resultado;
+    $gerente=$row->observaciones_gerente;
+}
 
-$sql2="select ref.referencia_hombre,referencia_mujer,ref.referencia_general from tbl_referencias ref join tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id and ref.id_analisis=cat.id 
-where ana.id='".$_REQUEST['id']."'";
-$result2=mysql_query($sql2);
-$row2=mysql_fetch_object($result2);
+//busco los ids de los análisis
+$sql="select id from tbl_analisis where id_analisis=299  and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
+$result=mysql_query($sql);
+while($row=mysql_fetch_object($result)){
+        if($v_ids=='') {
+                $v_ids=$row->id;
+        }else{
+                $v_ids=$v_ids."|".$row->id;
+        }
+}
 
 ?>
+<input id="txt_rechazado" type="hidden" value="<?=$_REQUEST['rechazado']?>" />
+<input id="txt_ids" type="hidden" value="<?=$v_ids?>" />
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
         <tr>
-        <td class="Arial14Negro">Resultado</td>        
-        <td class="Arial14Negro">Unidad</td>        
+        <td class="Arial14Negro">FROTIS:</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado" class="inputbox" type="text" value="<?=$row->resultado;?>" /></td>        
-        <?
-        if ($_REQUEST['unidades']=='x106/ul'){
-                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;x10<sup>6</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" /></td>';
-        }elseif($_REQUEST['unidades']=='/mm3'){
-                echo '<td valign="top"><div align="left"  class="Arial14Negro">&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" /></td>';
-        }else{
-                if($_REQUEST['unidades']=='undefined'){
-        ?>
-                <td valign="center" class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="" /></td>        
-        <?
-        }else{
-        ?>
-                <td valign="center" class="Arial14Negro"><input id="txt_unidades" class="inputbox" type="text" value="<?=$_REQUEST['unidades'];?>" /></td>        
-        <?}}?>   
-</tbody>
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_resultado_frotis" cols="45" rows="3"><?=$v_resultados[0];?></textarea></td>
+        <input type="hidden" id="txt_unidades_frotis" value="">
+        </tr>
+</tbody>        
 </table>
-<div align="center" class="titulo_sombreado">Referencias </div>
-<br>
-<table class="margen_izquierdo">
-<tbody>             
-        <tr>
-        <td class="Texto10celeste" width="215" align="center">Referencia General</td>
-        <td class="Texto10celeste" width="215" align="center">Referencia Hombre</td>
-        <td class="Texto10celeste" width="215" align="center">Referencia Mujer</td>
-        </tr>        
-        <tr>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_general?></td>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_hombre?></td>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_mujer?></td>         
-        </tr>
-        <tr>
 
-        </tr>
-</tbody>
-</table>
-</div>
 <table class=" margen_izquierdo">
 <tbody>        
         <tr>
         <td class="Arial14Negro">Observaciones</td>        
         </tr>
         <tr>
-        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$row->observaciones_gerente;?></textarea></td>        
+        <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$gerente;?></textarea></td>        
         </tr>
 </tbody>
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
-<input id="btn_guardarres" type="submit" value="Guardar" name="submit" class="submit" />
-
+<input id="btn_guardarreshec" type="submit" value="Guardar" name="submit" class="submit" />
 </div>    
 
 </div><!-- fin div panel Central-->

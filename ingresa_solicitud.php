@@ -48,7 +48,7 @@ function validar(){
     }//end succces function
     });//end ajax function
 	if (exito){
-		top.location.href = 'analisis_solicitud.php?txt_nombre='+$('#txt_nombre').val()+"&txt_cliente="+$('#txt_cliente').val()+"&txt_tipoCliente="+$('#txt_tipoCliente').val()+"&txt_nombreSolicitante="+$('#txt_nombreSolicitante').val()+"&txt_telefonoSolicitante="+$('#txt_telefonoSolicitante').val()+"&cmb_tipoPago="+$('#cmb_tipoPago').val()+"&cmb_xcorreo="+$('#cmb_xcorreo').val()+"&txt_consumible="+$('#txt_consumible').val()+"&txt_consecutivo="+$('#txt_consecutivo').val()+"&txt_doctor="+$('#txt_doctor').val()+"&cmb_years="+$('#cmb_years').val()+"&cmb_mes="+$('#cmb_mes').val()+"&cmb_dias="+$('#cmb_dias').val();
+		top.location.href = 'analisis_solicitud.php?txt_nombre='+$('#txt_nombre').val()+"&txt_cliente="+$('#txt_cliente').val()+"&txt_tipoCliente="+$('#txt_tipoCliente').val()+"&txt_nombreSolicitante="+$('#txt_nombreSolicitante').val()+"&txt_telefonoSolicitante="+$('#txt_telefonoSolicitante').val()+"&cmb_tipoPago="+$('#cmb_tipoPago').val()+"&cmb_xcorreo="+$('#cmb_xcorreo').val()+"&txt_consumible="+$('#txt_consumible').val()+"&txt_consecutivo="+$('#txt_consecutivo').val()+"&txt_doctor="+$('#txt_doctor').val()+"&cmb_years="+$('#cmb_years').val()+"&cmb_mes="+$('#cmb_mes').val()+"&cmb_dias="+$('#cmb_dias').val()+"&tubo_sumerhill="+$('#txt_tsumerhill').val()+"&tubo_escalante="+$('#txt_tescalante').val();
     exito=true;
 	}
 }
@@ -138,17 +138,30 @@ function validar(){
     	<td height="25" valign="top" class="Arial14Morado">Nombre Solicitante</td>
         <td><input name="txt_nombreSolicitante" id="txt_nombreSolicitante" size="50" class="inputbox" type="text" /></td>
     </tr>
-    <tr>
-    	<td height="25" valign="top" class="Arial14Morado">Tel&eacute;fono Solicitante</td>
-        <td><input name="txt_telefonoSolicitante" id="txt_telefonoSolicitante" class="inputbox" type="text" /></td>
-    </tr>    -->    
+    
+  <tr>
+    	<td height="25" valign="top" class="Arial14Morado">Sumerhill</td>
+        <td><input name="chk_summer" id="chk_summer"  type="checkbox" /></td>
+  </tr>    -->    
 	<tr>
     	<td height="25" valign="top" class="Arial14Morado">Tipo Pago</td>
         <td><select class="combos" id="cmb_tipoPago" name="cmb_tipoPago">
-          <option selected="selected">Contado</option>
-          <option >Tarjeta</option>          
+          <option value="Contado" selected="selected">Contado</option>
+          <option value="Tarjeta" >Tarjeta</option>          
+          <option value="Sumerhill" >Sumerhill</option>          
         </select></td>
-    </tr>
+  </tr>
+
+  <tr id="sumerhill_label">
+        <td height="25" valign="bottom" class="Arial14Morado"></td>
+        <td height="25" valign="bottom" class="Arial14Morado">#Tubo Sumerhill</td>
+        <td height="25" valign="bottom" class="Arial14Morado">#Tubo Escalante</td>        
+  </tr>
+  <tr id="sumerhill_text">
+        <td height="25" valign="top" class="Arial14Morado"></td>
+        <td valign="top"><div style="float:left;"><input id="txt_tsumerhill" size="40"  class="inputbox" type="text" /></div></td>
+        <td valign="top"><div style="float:left;"><input id="txt_tescalante" size="40"  class="inputbox" type="text" /></div></td>                            
+  </tr>
 	<tr>
 	  <td height="25" valign="top" class="Arial14Morado"><br>Envio por correo</td>
 	  <td><br><select class="combos" id="cmb_xcorreo" name="cmb_xcorreo">
