@@ -18,7 +18,7 @@ class Clientes{
 	function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_decode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -50,7 +50,7 @@ function busca_cliente($parametros,$hoy){
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
 		$jsondata['id_cliente']=$row->id;		
-		$jsondata['nombre']=utf8_decode($row->nombre);		
+		$jsondata['nombre']=$row->nombre;		
 		$jsondata['cedula']=$row->cedula;
 		$jsondata['correo']=$row->correo;		
 		$jsondata['fax']=$row->fax;
@@ -82,7 +82,7 @@ function busca_padron($parametros,$hoy){
 
 function modifica_cliente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("update tbl_clientes set nombre='".utf8_encode($v_datos[1])."',
+	$result=mysql_query("update tbl_clientes set nombre='".$v_datos[1]."',
 		cedula='".$v_datos[2]."',
 		correo='".$v_datos[3]."',		
 		tel_cel='".$v_datos[4]."',

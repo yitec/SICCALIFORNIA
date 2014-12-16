@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+$("#ver").fancybox({
+        'width'       : '75%',
+        'height'      : '75%',
+        'autoScale'     : false,
+        'transitionIn'    : 'none',
+        'transitionOut'   : 'none',
+        'type'        : 'iframe'
+});  
+
 var v_analisis=new Array();
 var v_aAnterior=new Array();//estos 4 vectores me sirven para copiar la muestra anterior
 var v_mAnterior=new Array();      
@@ -14,11 +23,16 @@ var availableTagscli=busca_clientes();
 var availableTagsdoc=busca_doctores();
 oculta_sumerhill();
 
+            
+
 function oculta_sumerhill(){
   $('#sumerhill_label').hide(1000);
   $('#sumerhill_text').hide(1000);
   //$('#sumerhill_text').show();
 }
+
+
+
 
 function busca_clientes(){
     $.ajax({ data: "metodo=autocompleta_clientes",
@@ -62,6 +76,7 @@ $("#cmb_tipoPago").change(function(event){
 
 
 });
+
 
 
 $('#cmb_categoria').change(function() {

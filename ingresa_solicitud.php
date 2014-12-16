@@ -22,6 +22,7 @@ $row=mysql_fetch_object($result);
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="includes/themes/base/jquery-ui-1.10.0.custom.css" />
 <link href="css/jquery.pnotify.default.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 <script>
 function validar(){
 	exito=true;
@@ -94,7 +95,7 @@ function validar(){
     <tr>
     	<td height="25" valign="top" class="Arial14Morado">Cliente</td>
         <td valign="top"><div style="float:left;"><div class="ui-widget"><input id="txt_cliente" name="txt_cliente"  size="40"  class="inputbox" type="text" /></div></div>
-          
+        <div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div> 
           <!--<div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>-->
           </td>
     </tr>
@@ -230,4 +231,5 @@ function validar(){
 <script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
 <script src="includes/vendor/jquery.ui.widget.js"></script>
 <script src="includes/Scripts_Solicitudes.js" type="text/javascript"></script> 
-
+<script type="text/javascript" src="includes/jquery.fancybox-1.3.4.pack.js"></script>
+<script src="includes/jquery.ui.position.js"></script>

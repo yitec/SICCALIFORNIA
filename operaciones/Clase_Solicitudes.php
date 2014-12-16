@@ -24,7 +24,7 @@ class Solicitudes{
 function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -39,7 +39,7 @@ function autocompleta_clientes(){
 function autocompleta_doctores(){
 		$result=mysql_query("select nombre from tbl_doctores");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_decode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -70,10 +70,10 @@ function busca_cliente($parametros){
 
 function guarda_solicitud($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
-	$sql1="select id from tbl_clientes where nombre='".utf8_encode($_SESSION['cliente'])."'";
+	$sql1="select id from tbl_clientes where nombre='".$_SESSION['cliente']."'";
 	$result=mysql_query($sql1);
 	$row=mysql_fetch_object($result);
-	$sql2="select id from tbl_doctores where nombre='".utf8_encode($_SESSION['doctor'])."'";
+	$sql2="select id from tbl_doctores where nombre='".$_SESSION['doctor']."'";
 	$result2=mysql_query($sql2);
 	$row2=mysql_fetch_object($result2);
 	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_original,porcentage_descuento,monto_descuento,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,sumerhill,tubo_sumerhill,tubo_escalante,estado)values
