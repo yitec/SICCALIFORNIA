@@ -24,7 +24,7 @@ class Solicitudes{
 function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -39,7 +39,7 @@ function autocompleta_clientes(){
 function autocompleta_doctores(){
 		$result=mysql_query("select nombre from tbl_doctores");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_decode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -70,14 +70,14 @@ function busca_cliente($parametros){
 
 function guarda_solicitud($parametros,$hoy){
 	$v_datos=explode(",",$parametros);
-	$sql1="select id from tbl_clientes where nombre='".utf8_encode($_SESSION['cliente'])."'";
+	$sql1="select id from tbl_clientes where nombre='".$_SESSION['cliente']."'";
 	$result=mysql_query($sql1);
 	$row=mysql_fetch_object($result);
-	$sql2="select id from tbl_doctores where nombre='".utf8_encode($_SESSION['doctor'])."'";
+	$sql2="select id from tbl_doctores where nombre='".$_SESSION['doctor']."'";
 	$result2=mysql_query($sql2);
 	$row2=mysql_fetch_object($result2);
-	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_original,porcentage_descuento,monto_descuento,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,estado)values
-	('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$row2->id."',NOW(),1)";	
+	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_original,porcentage_descuento,monto_descuento,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,sumerhill,tubo_sumerhill,tubo_escalante,estado)values
+	('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$row2->id."',NOW(),'".$_SESSION['sumerhill']."','".$_SESSION['tubo_sumerhill']."','".$_SESSION['tubo_escalante']."',1)";	
 	$result=mysql_query($sql);				
 
 	//$jsondata=mysql_insert_id();	
@@ -563,6 +563,42 @@ function guarda_resultados_vaginal($parametros,$hoy){
 }
 
 /*******************************************************
+	accion="Guarda los resultados de frotis heces"
+	parametros="resultados y unidades de todos los que componen frotis heces"
+
+********************************************************/
+
+function guarda_resultados_hec($parametros,$hoy){
+	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[4]);
+	//print_r($v_datos);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 2; $i++) {
+		if ($i==$h){
+
+			if($v_datos[4]==1){
+				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[3]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."'";
+			}else{
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[3]."',NOW(),140,0)";
+			}
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (140,299)");						
+	//si ya reportaron todos los analisis cambio el estado de la solicitud para que aparezca en aprobacion
+	$result=mysql_query("select consecutivo_solicitud from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0 limit 1");	
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}		
+	$jsondata="Success";		
+	echo json_encode($jsondata);
+}
+
+/*******************************************************
 	accion="Guarda los resultados de curva 2 horas"
 	parametros="resultados y unidades de todos los que componen hemograma"
 
@@ -589,6 +625,43 @@ function guarda_resultados_curva2($parametros,$hoy){
 		}
 	}
 	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (17,239,240,241,243,248)");						
+	//evaluo si ya se repotaron todos los analisis
+	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");
+	if (mysql_num_rows($result)==0){
+		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
+	}
+	$jsondata="Success";	
+	echo json_encode($jsondata);
+}
+
+
+/*******************************************************
+	accion="Guarda los resultados de Cardiopilinas"
+	parametros="resultados y unidades de todos los que componen hemograma"
+
+********************************************************/
+
+function guarda_resultados_cardiopilinas($parametros,$hoy){
+	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
+	$v_datos=explode(",",$parametros);
+	$v_ids=explode("|",$v_datos[6]);
+	//print_r($v_datos);
+	$h=1;
+	$k=0;
+	for ($i = 1; $i <= 3; $i++) {
+		if ($i==$h){
+			if($v_datos[7]==1){
+				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[5]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+
+			}else{
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[5]."',NOW(),70,0)";
+			}
+			$result=mysql_query($sql);
+			$h=$h+2;
+			$k++;
+		}
+	}
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (70,296,297)");						
 	//evaluo si ya se repotaron todos los analisis
 	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");
 	if (mysql_num_rows($result)==0){
@@ -903,6 +976,59 @@ function aprueba_resultados_uri($parametros,$hoy){
 	echo json_encode($jsondata);
 
 }	
+
+/*******************************************************
+	accion="Aprueba los resultados de un analisis anticardiopilinas"
+	parametros="id analisis"
+
+********************************************************/
+
+
+function aprueba_resultados_cardio($parametros,$hoy){
+	$v_datos=explode(",",$parametros);
+	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=70";
+	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=70) ";
+	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 where id_analisis=70 and consecutivo_solicitud='".$v_datos[0]."'";
+	$result=mysql_query($sql);	
+	//estas consultas evaluan si ya todos los analisis tienen un resultado y marcan la solicitud
+	$result3=mysql_query("select COUNT(1) as total from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and estado='"."1"."'");
+	$row3=mysql_fetch_assoc($result3);
+	$total_res=$row3['total'];
+	$result3=mysql_query("select COUNT(1) as total from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and id_analisis not in(1,17,18,206,25,68,138,179,150,143,196,70)");	
+	$row3=mysql_fetch_assoc($result3);
+	$total_an=$row3['total'];
+
+	if($total_res==$total_an){
+		//echo "Entro";
+		$result3=mysql_query("update tbl_solicitudes set fecha_terminado='".$hoy."', estado='"."4"."' where consecutivo='".$v_datos[0]."'");
+		 		date_default_timezone_set('America/Denver');
+       
+       //$dest = "kmadrigal@feednet.ucr.ac.cr";
+       $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
+	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   $dest .= 'mizard6@yahoo.es';	   
+       $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
+	   $asunto = "Solicitud Termindado = ".$v_datos[0];
+	   $email = "notificaciones@laboratorioescalantelacalifornia.com";
+		$msg="La solicitud ".$v_datos[0]." ha finalizado su proceso, por favor genere el informe";
+		if (mail($dest, $asunto, $msg, $head)) {
+      
+	   $jsondata="Success";
+       } else {
+       	$jsondata="Error";
+	   }
+	   
+	}
+
+	$jsondata="Success";	
+	//$jsondata=$sql;
+
+	echo json_encode($jsondata);
+
+}	
+
 
 /*******************************************************
 	accion="Aprueba los resultados de un analisis aclaramiento"
@@ -1272,7 +1398,9 @@ function aprueba_resultados_curva3($parametros,$hoy){
 
 	echo json_encode($jsondata);
 
-}	
+}
+
+
 
 
 /*******************************************************
@@ -1327,6 +1455,59 @@ function aprueba_resultados_vaginal($parametros,$hoy){
 
 }	
 
+
+
+/*******************************************************
+	accion="Aprueba los resultados de un analisis heces
+	parametros="id analisis"
+
+********************************************************/
+
+
+function aprueba_resultados_heces($parametros,$hoy){
+	$v_datos=explode(",",$parametros);
+	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=140";
+	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=140) ";
+	$result=mysql_query($sql);	
+	$sql="update tbl_analisis set  estado=2 where id_analisis=196 and consecutivo_solicitud='".$v_datos[0]."'";
+	$result=mysql_query($sql);	
+	//estas consultas evaluan si ya todos los analisis tienen un resultado y marcan la solicitud
+	$result3=mysql_query("select COUNT(1) as total from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and estado='"."1"."'");
+	$row3=mysql_fetch_assoc($result3);
+	$total_res=$row3['total'];
+	$result3=mysql_query("select COUNT(1) as total from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and id_analisis not in(1,17,18,206,25,68,138,179,150,143,196,140)");	
+	$row3=mysql_fetch_assoc($result3);
+	$total_an=$row3['total'];
+
+	if($total_res==$total_an){
+		//echo "Entro";
+		$result3=mysql_query("update tbl_solicitudes set fecha_terminado='".$hoy."', estado='"."4"."' where consecutivo='".$v_datos[0]."'");
+		 		date_default_timezone_set('America/Denver');
+       
+       //$dest = "kmadrigal@feednet.ucr.ac.cr";
+       $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
+	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   $dest .= 'mizard6@yahoo.es';	   
+       $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
+	   $asunto = "Solicitud Termindado = ".$v_datos[0];
+	   $email = "notificaciones@laboratorioescalantelacalifornia.com";
+		$msg="La solicitud ".$v_datos[0]." ha finalizado su proceso, por favor genere el informe";
+		if (mail($dest, $asunto, $msg, $head)) {
+      
+	   $jsondata="Success";
+       } else {
+       	$jsondata="Error";
+	   }
+	   
+	}
+
+	$jsondata="Success";	
+	//$jsondata=$sql;
+
+	echo json_encode($jsondata);
+
+}	
 
 
 /*******************************************************

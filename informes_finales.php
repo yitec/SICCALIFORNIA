@@ -51,9 +51,9 @@ conectar();
     </tr>
 <?
 if ($_REQUEST['pendientes']==1){
-  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id WHERE sol.estado=1 OR sol.estado=2");
+  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id WHERE sol.sumerhill=0 and (sol.estado=1 OR sol.estado=2)");
 }else{
-  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,sol.fecha_terminado,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id and  sol.estado=4");
+  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,sol.fecha_terminado,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id where sol.sumerhill=0 and  sol.estado=4");
 }
 
 
@@ -77,7 +77,7 @@ if ($_REQUEST['pendientes']==1){
   if($encontrado==1){
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.$row->nombre.'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
@@ -85,7 +85,7 @@ if ($_REQUEST['pendientes']==1){
   }elseif($encontrado==2){
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.$row->nombre.'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_espermograma.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_espermogram.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
@@ -93,7 +93,7 @@ if ($_REQUEST['pendientes']==1){
   }else{   
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.$row->nombre.'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
@@ -103,7 +103,7 @@ if ($_REQUEST['pendientes']==1){
   if($encontrado==1){
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.$row->nombre.'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos_psa.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
@@ -111,7 +111,7 @@ if ($_REQUEST['pendientes']==1){
   } else{   
     echo'<tr>
         <td class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
-        <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
+        <td class="datos_tablas">'.$row->nombre.'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_terminado).'</td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>
         <td class="datos_tablas"><div align="center"><a target="_blank"id="ver" href="informes_impresos.php?solicitud='.$row->consecutivo.'&nombre='.utf8_encode($row->nombre).'"><img src="img/check.png" width="25" height="25" /></a></div></td>

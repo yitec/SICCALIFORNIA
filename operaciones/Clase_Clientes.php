@@ -18,7 +18,7 @@ class Clientes{
 	function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_decode($row->nombre); 
+			$vector=$vector.",".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -34,7 +34,7 @@ class Clientes{
 
 function crea_cliente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("insert into tbl_clientes(nombre,cedula,correo,tel_cel,tel_fijo,fax,direccion,sexo,fecha_nacimiento,estado)values('".utf8_encode($v_datos[0])."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','".utf8_encode($v_datos[6])."','".$v_datos[7]."','".$v_datos[8]."',1)");
+	$result=mysql_query("insert into tbl_clientes(nombre,cedula,correo,tel_cel,tel_fijo,fax,direccion,sexo,fecha_nacimiento,estado)values('".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[5]."','".utf8_encode($v_datos[6])."','".$v_datos[7]."','".$v_datos[8]."',1)");
 	if (!$result) {//si da error que me despliegue el error del query       		
        		$jsondata['resultado'] = 'Query invalido: ' . mysql_error() ;
         }else{
@@ -46,11 +46,11 @@ function crea_cliente($parametros,$hoy){
 	
 function busca_cliente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("select * from tbl_clientes where nombre='".utf8_encode($v_datos[0])."'");
+	$result=mysql_query("select * from tbl_clientes where nombre='".$v_datos[0]."'");
 	$row=mysql_fetch_object($result);
 	if (mysql_num_rows($result)>=1){
 		$jsondata['id_cliente']=$row->id;		
-		$jsondata['nombre']=utf8_decode($row->nombre);		
+		$jsondata['nombre']=$row->nombre;		
 		$jsondata['cedula']=$row->cedula;
 		$jsondata['correo']=$row->correo;		
 		$jsondata['fax']=$row->fax;
@@ -82,7 +82,7 @@ function busca_padron($parametros,$hoy){
 
 function modifica_cliente($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("update tbl_clientes set nombre='".utf8_encode($v_datos[1])."',
+	$result=mysql_query("update tbl_clientes set nombre='".$v_datos[1]."',
 		cedula='".$v_datos[2]."',
 		correo='".$v_datos[3]."',		
 		tel_cel='".$v_datos[4]."',

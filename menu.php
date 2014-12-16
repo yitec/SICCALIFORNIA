@@ -100,7 +100,7 @@ conectar();
     <? if (in_array(12, $_SESSION['perfil'])){
     ?>
     <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
-    <div align="center" class="Arial14Negro"><a href="ingresa_sumerhill.php"><div id="cuadro_negro"></div></a>Análisis Sumerhill</div>
+    <div align="center" class="Arial14Negro"><a href="pendientes_sumerhill.php"><div id="cuadro_negro"></div></a>Informes Sumerhill</div>
     </div>
     <? } ?>
     <? if (in_array(13, $_SESSION['perfil'])){

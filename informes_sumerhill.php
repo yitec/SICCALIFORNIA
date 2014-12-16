@@ -14,25 +14,28 @@ include('funciones_informe.php');
 
 conectar();
 
-$contrato=$_REQUEST['contrato'];
-
+//Imprimo un informe por cada uno de las solicitudes que me enviaron
 $pdf=new FPDF();
+$v_datos=explode(',',$_REQUEST['solicitudes']);	
+
+
+foreach ($v_datos as $solicitud) {
+
+
+
+$contrato=$solicitud;
+
 
 $pdf->AddPage();
 
-header_principal($pdf);
+header_principal($pdf,$solicitud);
 
 $impresos_maximos=15;//contador de resultados impresos
-
-//$nombre_categoria=primer_header($pdf);
 
 $nombre_categoria='';
 
 $subtitulo='';
 
-//header_especiales($pdf,$nombre_categoria);
-
-//header_fantasma($pdf);
 
 /************************** imprime resultados***********************************
 
@@ -41,15 +44,15 @@ $subtitulo='';
 
 //busco el total de resultados
 $pdf->SetFont('Arial','',10);
-$sql="select count(1) as total from tbl_resultados where consecutivo_solicitud='".$_REQUEST['solicitud']."' ";
+$sql="select count(1) as total from tbl_resultados where consecutivo_solicitud='".$solicitud."' ";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 $tot_resultados=$row->total;
 
 //busco todos los resultados
-$sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by CAST(cat.id_categoriamuestra AS UNSIGNED),cat.orden_impresion,res.analisis_padre,ana.id ASC";
-$result=	mysql_query($sql);
+$sql="select res.resultado,cat.nombre,cat.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
+on res.consecutivo_solicitud='".$solicitud."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by CAST(cat.id_categoriamuestra AS UNSIGNED),cat.orden_impresion,res.analisis_padre,ana.id ASC";
+$result=mysql_query($sql);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
 $cont_general++;
@@ -85,19 +88,13 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	if($row->id>=251&&$row->id<=294){//si es espermograma corro una rutina diferente
 		busca_espermograma($pdf,$row->id,$row->resultado,$row->unidades,$row->nombre);		
 	}else{
-		if($row->id==215){
-			$pdf->SetFont('Arial','U',10);
-			$pdf->MultiCell(68,5,'SEDIMENTO URINARIO',0,1,'L');		
-			$pdf->SetFont('Arial','',10);
-			
-		}
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
-		$pdf->SetX(90);	
+		$pdf->SetX(95);	
 		imprime_resultados($pdf,$row->id,$row->resultado,$row->unidades);
 		$pdf->Ln(-5);
 		//imprimo referencias
-		$pdf->SetX(155);
+		$pdf->SetX(158);
 		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
 	}
 
@@ -108,7 +105,12 @@ busca_riesgo_cardiaco($pdf);
 if ($pdf->GETY()>20){
 	imprime_footer($pdf,$pdf->GETY());
 }
+
+
+}//end for each
+
 $pdf->Output();
+
 
 
 
@@ -140,13 +142,13 @@ function fecha_nacional($fecha){
 
 
 
-function header_principal($pdf){
+function header_principal($pdf,$solicitud){
 $pdf->Ln(0);
 $pdf->Image('img/logo_papeleria.jpg',35,0,125);
 //$pdf->Image('img/cina_informe.png',180,17,17);
 $pdf->SetFont('Arial','B',14);
 $pdf->Ln(40);
-$sql="Select sol.fecha_ingreso,cli.nombre as nombre_cliente,cli.sexo,doc.nombre as nombre_doctor from tbl_solicitudes sol inner join tbl_clientes cli on sol.consecutivo='".$_REQUEST['solicitud']."' and sol.id_cliente=cli.id join tbl_doctores doc on sol.doctor_referente=doc.id";
+$sql="Select sol.fecha_ingreso,sol.tubo_sumerhill,cli.nombre as nombre_cliente,cli.sexo,doc.nombre as nombre_doctor from tbl_solicitudes sol inner join tbl_clientes cli on sol.consecutivo='".$solicitud."' and sol.id_cliente=cli.id join tbl_doctores doc on sol.doctor_referente=doc.id";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 global $sexo;
@@ -174,7 +176,13 @@ $pdf->SetFont('Courier','B',12);
 $pdf->Cell(18,5,'MEDICO:',0,0,'L');
 $pdf->SetFont('Arial','',10);
 $pdf->SetTextColor(0,0,0);
-$pdf->Cell(103,5,utf8_decode($row->nombre_doctor),0,0,'');
+$pdf->Cell(108,5,utf8_decode($row->nombre_doctor),0,0,'');
+$pdf->SetTextColor(89,177,255);
+$pdf->SetFont('Courier','B',12);	
+$pdf->Cell(16,5,'#Tubo:',0,0,'L');
+$pdf->SetFont('Arial','',10);
+$pdf->SetTextColor(0,0,0);
+$pdf->Cell(103,5,utf8_decode($row->tubo_sumerhill),0,0,'');
 $pdf->Ln(10);
 $pdf->SetTextColor(225,0,0);
 $pdf->SetFont('Arial','B',14);
@@ -193,7 +201,7 @@ $pdf->SetTextColor(89,177,255);
 $pdf->SetFont('Helvetica','B',14);
 $pdf->Cell(185,3,'Resultados',0,1,'C');
 //imprimo el titulo de la categoria
-$sql="select catm.nombre from tbl_analisis ana join tbl_categoriasanalisis cata on ana.id_analisis=cata.id join tbl_categoriasmuestras catm on cata.id_categoriamuestra=catm.id where ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' ";
+$sql="select catm.nombre from tbl_analisis ana join tbl_categoriasanalisis cata on ana.id_analisis=cata.id join tbl_categoriasmuestras catm on cata.id_categoriamuestra=catm.id where ana.consecutivo_solicitud='".$solicitud."' ";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 $pdf->SetTextColor(0,0,0);
@@ -211,7 +219,7 @@ function header_especiales($pdf,$nombre_categoria,$padre){
 global $subtitulo;
 //busco si tiene hemograma o urianalisis
 $result2=mysql_query("select id,nombre from tbl_categoriasanalisis where id='".$padre."' ");
-//$result2=mysql_query("select id_analisis from tbl_analisis where consecutivo_solicitud='".$_REQUEST['solicitud']."'  and (id_analisis=1 or id_analisis=206)");
+//$result2=mysql_query("select id_analisis from tbl_analisis where consecutivo_solicitud='".$solicitud."'  and (id_analisis=1 or id_analisis=206)");
 	if (mysql_num_rows($result2)>0){
 	$row2=mysql_fetch_object($result2);
 	if ($row2->nombre!=$subtitulo){
@@ -237,7 +245,7 @@ function header_fantasma($pdf){
 
 $sql="select cat.id,cat.nombre from tbl_analisis ana join tbl_categoriasanalisis cat 
 on ana.id_analisis=cat.id
-where ana.id_analisis in (1,17,18,206,25,68,138,179,150,143,196) and consecutivo_solicitud='".$_REQUEST['solicitud']."'";
+where ana.id_analisis in (1,17,18,206,25,68,138,179,150,143,196) and consecutivo_solicitud='".$solicitud."'";
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 $fantasma=$row->id;
@@ -320,8 +328,8 @@ function imprime_categoria($pdf,$vary,$nombre_categoria,$id_categoria,$padre){
 		$pdf->SetFont('Arial','U',10);
 		header_especiales($pdf,$nombre_categoria,$padre);
 		$pdf->Cell(63,5,'Parametro',0,0,'L');
-		$pdf->Cell(60,5,'Resultado',0,0,'C');
-		$pdf->Cell(60,5,'Referencia',0,1,'C');
+		$pdf->Cell(63,5,'Resultado',0,0,'C');
+		$pdf->Cell(64,5,'Referencia',0,1,'C');
 		$pdf->SetFont('Arial','',10);
 		return $nombre_categoria=$row->nombre;
 	}else{
@@ -338,8 +346,8 @@ function imprime_header($pdf,$vary,$nombre_categoria){
 	$pdf->SetFont('Arial','U',10);
 	$pdf->Cell(190,5,$nombre_categoria,0,1,'C');	
 	$pdf->Cell(63,5,'Parametro',0,0,'L');
-	$pdf->Cell(60,5,'Resultado',0,0,'C');
-	$pdf->Cell(60,5,'Referencia',0,1,'C');
+	$pdf->Cell(63,5,'Resultado',0,0,'C');
+	$pdf->Cell(64,5,'Referencia',0,1,'C');
 	$pdf->SetFont('Arial','',10);
 }
 

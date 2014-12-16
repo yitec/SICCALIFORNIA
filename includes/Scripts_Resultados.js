@@ -538,6 +538,41 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 }
 });
 
+/************************************Boton guardar resultados cardiopilinas*********************************************/
+
+$(document).on('click', '#btn_guardarrescar',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()+','+$('#txt_resultado_igg').val()
+    +','+$('#txt_unidades_igg').val()
+    +','+$('#txt_resultado_igm').val()
+    +','+$('#txt_unidades_igm').val()    
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_cardiopilinas&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
 /************************************Boton guardar resultados analisis espermograma*********************************************/
 
 $(document).on('click', '#btn_guardarresespermo',function() {    
@@ -684,7 +719,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
 });
 
 
-/************************************Boton guardar resultados analisis proteina*********************************************/
+/************************************Boton guardar resultados analisis frotis vaginal*********************************************/
 
 $(document).on('click', '#btn_guardarresvag',function() {    
 if(confirm('¿Seguro que desea procesar este análisis?')){               
@@ -700,6 +735,41 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_rechazado').val();
     $.ajax({
         data: "metodo=guarda_resultados_vaginal&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){         
+        if (datos=="Success"){        
+          notificacion('Resultado Ingresado','El resultado fue ingresado correctamente','info');
+          setInterval(function(){window.location.assign("analisis_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);              
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    
+}else{
+    return;
+}
+});
+
+
+/************************************Boton guardar resultados analisis frotis heces*********************************************/
+
+$(document).on('click', '#btn_guardarreshec',function() {    
+if(confirm('¿Seguro que desea procesar este análisis?')){               
+    parametros=
+    $('#txt_consecutivo').val()
+    +','+$('#txt_resultado_frotis').val()
+    +','+$('#txt_unidades_frotis').val()
+    +','+$('#txt_observaciones_analista').val()
+    +','+$('#txt_ids').val()
+    +','+$('#txt_rechazado').val();
+    $.ajax({
+        data: "metodo=guarda_resultados_hec&parametros="+parametros,
         type: "POST",
         async:false,
         dataType: "json",        
@@ -911,6 +981,34 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
 }
 });
 
+/************************************Boton aprobar resultados cardiopilinas*********************************************/
+
+$(document).on('click', '#btn_aprobarrescardio',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_cardio&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarrescardio").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
 /************************************Boton aprobar resultados aclaramiento*********************************************/
 
 $(document).on('click', '#btn_aprobarresaclara',function() {    
@@ -1193,6 +1291,66 @@ if(confirm('¿Seguro que desea aprobar este resultado?')){
         success: function(datos){     
         if (datos=="Success"){        
           $("#txt_btn_aprobarresvag").prop('disabled', true);          
+          $("#txt_btn_rechazarrescomp").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados heces*********************************************/
+
+$(document).on('click', '#btn_aprobarreshec',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_heces&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresheg").prop('disabled', true);          
+          $("#txt_btn_rechazarrescomp").prop('disabled', true);          
+          notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
+          setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      
+        }else{
+         notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+        }
+      
+    }//end succces function
+    });//end ajax function
+    
+    //top.location.href = 'menu.php';
+}else{
+    return;
+}
+});
+
+/************************************Boton aprobar resultados heces*********************************************/
+
+$(document).on('click', '#btn_aprobarreshec',function() {    
+if(confirm('¿Seguro que desea aprobar este resultado?')){               
+    parametros=$('#txt_consecutivo').val()+','+$('#txt_idresultado').val();
+    $.ajax({
+        data: "metodo=aprueba_resultados_heces&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+        if (datos=="Success"){        
+          $("#txt_btn_aprobarresheg").prop('disabled', true);          
           $("#txt_btn_rechazarrescomp").prop('disabled', true);          
           notificacion('Resultado Aprobado','El resultado fue aprobado correctamente','info');            
           setInterval(function(){window.location.assign("aprobaciones_pendientes.php?solicitud="+$('#txt_consecutivo').val())},2000);                      

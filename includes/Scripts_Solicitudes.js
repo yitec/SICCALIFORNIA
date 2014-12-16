@@ -1,16 +1,30 @@
 $(document).ready(function(){
 
+
 var v_analisis=new Array();
 var v_aAnterior=new Array();//estos 4 vectores me sirven para copiar la muestra anterior
 var v_mAnterior=new Array();      
 var v_aActual=new Array();
 var v_mActual=new Array();	
+var v_solicitudes=new Array();  
 var contAnalisis=0;
 var monto=0;
 var analisis;
 
 var availableTagscli=busca_clientes();
 var availableTagsdoc=busca_doctores();
+oculta_sumerhill();
+
+            
+
+function oculta_sumerhill(){
+  $('#sumerhill_label').hide(1000);
+  $('#sumerhill_text').hide(1000);
+  //$('#sumerhill_text').show();
+}
+
+
+
 
 function busca_clientes(){
     $.ajax({ data: "metodo=autocompleta_clientes",
@@ -42,6 +56,54 @@ function busca_doctores(){
     });
 }
 
+$('#agregar_cliente').click (function() {
+        
+        opendialog("http://jsbooks.revolunet.com/");
+        function opendialog(page) {
+  var $dialog = $('#contenido')
+  .html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
+  .dialog({
+    title: "Page",
+    autoOpen: false,
+    dialogClass: 'dialog_fixed,ui-widget-header',
+    modal: true,
+    height: 500,
+    minWidth: 400,
+    minHeight: 400,
+    draggable:true,
+    /*close: function () { $(this).remove(); },*/
+    buttons: { "Ok": function () {         $(this).dialog("close"); } }
+  });
+  $dialog.dialog('open');
+} 
+        /*$('#contenido').load ('mantenimiento_clientes.php').dialog();
+          $('#contenido').dialog({
+                title: 'Mantenimiento Clientes',
+                resizable: true,
+                modal: true,
+                hide: 'fade',
+                width:1280,
+                height:600,
+                close: function() {                
+            }
+            });//end dialog */
+
+        
+    });
+
+$("#cmb_tipoPago").change(function(event){
+
+  if ($("#cmb_tipoPago").val()=="Sumerhill"){
+    $('#sumerhill_label').show(1000);
+    $('#sumerhill_text').show(1000);
+  }else{
+    $('#sumerhill_label').hide(1000);
+    $('#sumerhill_text').hide(1000);
+  }
+
+
+});
+
 
 
 $('#cmb_categoria').change(function() {
@@ -62,6 +124,13 @@ $(document).on('click', '.p_1',function() {
    if (ligados!=0&&fantasma!=1){
    marcaLigados(id,1,1,precio,ligados);
    }
+});
+
+$(document).on('click', '.sumerhill',function() {      
+   var id=$( this ).attr("value");   
+   v_solicitudes[contAnalisis]=$( this ).attr("value");
+   contAnalisis++;
+   //alert(v_solicitudes);   
 });
 
 /************************************Guardar e imprimir el contrato*********************************************/
@@ -282,6 +351,14 @@ $(document).on('click', '#btn_continuarcoti',function() {
     });//end ajax function
     window.open("http://laboratorioescalantelacalifornia.com/SICCALIFORNIA/cotizaciones.php?consecutivo="+$('#txt_consecutivo').val());
     top.location.href = 'menu.php';
+});
+
+/************************************Boton generar informe sumerhill*********************************************/
+
+$(document).on('click', '#btn_geninforme',function() {                
+     
+    window.open("informes_sumerhill.php?solicitudes="+v_solicitudes);
+    
 });
 
 /*************************************Elimino Solicitud**************************************************************/
