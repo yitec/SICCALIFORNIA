@@ -58,7 +58,7 @@ function busca_doctores(){
 
 $('#agregar_cliente').click (function() {
         
-        opendialog("http://jsbooks.revolunet.com/");
+        opendialog("crea_cliente.php");
         function opendialog(page) {
   var $dialog = $('#contenido')
   .html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
@@ -71,10 +71,21 @@ $('#agregar_cliente').click (function() {
     minWidth: 400,
     minHeight: 400,
     draggable:true,
-    /*close: function () { $(this).remove(); },*/
-    buttons: { "Ok": function () {         $(this).dialog("close"); } }
+   buttons: {
+        "Crear nuevo expediente": function() {
+         $dialog .dialog( "close" );
+          $( this ).dialog( "close" );
+        },
+        Cancelar: function() {
+          $dialog.dialog( "close" );
+          $( this ).dialog( "close" );
+        }
+      },
+      close: function() {
+        allFields.val( "" ).removeClass( "ui-state-error" );
+      }
   });
-  $dialog.dialog('open');
+  
 } 
         /*$('#contenido').load ('mantenimiento_clientes.php').dialog();
           $('#contenido').dialog({
