@@ -146,6 +146,7 @@ function validar(){
   </tr>
     </table>
 	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" onclick="validar()" value="Siguiente" name="submit" class="submit" /></div>    
+  <div id="dialog" title="Basic dialog"> </div>
 </div><!-- fin div panel Central-->
 </body>
 </html>
@@ -153,4 +154,4 @@ function validar(){
 <script src="includes/ui/jquery-ui.js"></script> 
 <script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
 <script src="includes/Scripts_Solicitudes.js" type="text/javascript"></script> 
-<script src="includes/jquery.ui.position.js"></script>
+

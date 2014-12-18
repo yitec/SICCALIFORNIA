@@ -56,51 +56,31 @@ function busca_doctores(){
     });
 }
 
-$('#agregar_cliente').click (function() {
-        
-        opendialog("crea_cliente.php");
-        function opendialog(page) {
-  var $dialog = $('#contenido')
-  .html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
-  .dialog({
-    title: "Page",
-    autoOpen: false,
-    dialogClass: 'dialog_fixed,ui-widget-header',
-    modal: true,
-    height: 500,
-    minWidth: 400,
-    minHeight: 400,
-    draggable:true,
-   buttons: {
-        "Crear nuevo expediente": function() {
-         $dialog .dialog( "close" );
-          $( this ).dialog( "close" );
-        },
-        Cancelar: function() {
-          $dialog.dialog( "close" );
-          $( this ).dialog( "close" );
-        }
-      },
-      close: function() {
-        allFields.val( "" ).removeClass( "ui-state-error" );
-      }
-  });
-  
-} 
-        /*$('#contenido').load ('mantenimiento_clientes.php').dialog();
-          $('#contenido').dialog({
-                title: 'Mantenimiento Clientes',
-                resizable: true,
-                modal: true,
-                hide: 'fade',
-                width:1280,
-                height:600,
-                close: function() {                
-            }
-            });//end dialog */
 
-        
+
+  
+
+
+$('#agregar_cliente').click (function() {
+  $('#dialog').empty();
+  $('#dialog').load ('crea_cliente.php');
+   $( "#dialog" ).dialog({
+      title: 'Crea Cliente',
+      autoOpen: false,
+      width:800,
+      height:475,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
     });
+ $( "#dialog" ).dialog( "open" );
+        
+});
 
 $("#cmb_tipoPago").change(function(event){
 
