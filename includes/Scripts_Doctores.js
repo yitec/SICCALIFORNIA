@@ -63,10 +63,10 @@ $('#btn_buscar').click(function(){
 $("#btn_guardar").click(function(event){
     
     event.preventDefault(); 
-    if($("#txt_correo").val().indexOf('@', 0) == -1 || $("#txt_correo").val().indexOf('.', 0) == -1) {  
+    /*if($("#txt_correo").val().indexOf('@', 0) == -1 || $("#txt_correo").val().indexOf('.', 0) == -1) {  
           notificacion("Error","El correo debe contener @ y un .","error");          
           return false;  
-      }  
+      }  */
   
     
     if($('#opcion').val()==1){      
