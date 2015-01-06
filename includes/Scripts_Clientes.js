@@ -91,6 +91,7 @@ $('#btn_buscarcli').click(function(){
 
 
 
+
 /********************************Guardo un nuevo cliente***************************************************************/
 
 $("#btn_guardar").click(function(event){

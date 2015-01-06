@@ -24,6 +24,64 @@ $row=mysql_fetch_object($result);
 <link href="css/jquery.pnotify.default.css" rel="stylesheet" type="text/css" />
 <script>
 
+/**********************************************
+Accion:Busca un cliente en el padron por numero de cedula
+Parametros:datos del input txt_buscar
+Ivocación:click img_buscar_cli
+/**********************************************/
+
+function buscar_cliente(){  
+    var parametros=$("#txt_cedula").val()+",";
+    $.ajax({ 
+    data: "metodo=busca_padron&parametros="+parametros,
+    type: "POST",
+    async:false,
+    dataType: "json",
+    url: "../SICCALIFORNIA/operaciones/Clase_Clientes.php",
+    success: function (data){      
+      if (data.resultado=="Success"){          
+          $("#txt_nombre").attr("value",data.nombre);
+          if (data.sexo==1){
+            jQuery("#masc").attr('checked', 'checked');
+          }else{
+            jQuery("#fem").attr('checked', 'checked');
+          }
+          
+          
+      }
+    }
+
+    });
+
+}
+
+function guarda_cliente(){
+    alert($('#txt_nombre').val());
+        var sexo=$('input:radio[name=rnd_sexo]:checked').val();
+    var fnacimiento=$("#cmb_year").val()+"-"+$("#cmb_mes").val()+"-"+$("#cmb_dia").val();    
+      var parametros=$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+sexo+","+fnacimiento;
+      $.ajax({
+        data: "metodo=crea_cliente&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Clientes.php",
+                   
+        success: function(data){     
+      if (data.resultado=="Success"){
+        notificacion("Nuevo cliente creado","El cliente fue creado!!","info");    
+        var cliente=$("#txt_nombre").val();        
+        $("#txt_cliente").attr("value",cliente);        
+        $( "#dialog" ).dialog( "close" );      
+      }else{
+        notificacion("Error","Intente de nuevo","error");                
+      }
+      }//end succces function
+      });//end ajax function      
+      //limpiar();              
+    
+}
+
 function validar(){
 
 	exito=true;
@@ -54,6 +112,26 @@ function validar(){
     exito=true;
 	}
 }
+
+/***************************************Limpiar todos los campos***************************************/
+function limpiar(){      
+      $('input[type=text]').each(function() {
+        $(this).val('');
+      });
+      $('#opcion').attr('value','1'); 
+
+}
+
+/************************************Notificaciones Jquery************************************************************/
+function notificacion(titulo,cuerpo,tipo){
+  $.pnotify({
+  pnotify_title: titulo,
+    pnotify_text: cuerpo,
+    pnotify_type: tipo,
+    pnotify_hide: true
+  }); 
+}
+
 </script>
 
 
@@ -96,7 +174,7 @@ function validar(){
     <tr>
     	<td height="25" valign="top" class="Arial14Morado">Cliente</td>
         <td valign="top"><div style="float:left;"><div class="ui-widget"><input id="txt_cliente" name="txt_cliente"  size="40"  class="inputbox" type="text" /></div></div>
-        <div style="margin-top:2px; float:left;"><a  ><img id="agregar_cliente" src="img/add_icon.png" width="20" height="20" /></a></div> 
+        <div style="margin-top:2px; float:left;">&nbsp;&nbsp;<a><img id="agregar_cliente" src="img/add_icon.png" width="20" height="20" /></a></div> 
         <div id="contenido"></div>
 
           <!--<div style="margin-top:2px; float:left;"><a id="ver" href="mantenimiento_clientes.php"><img src="img/add_icon.png" width="20" height="20" /></a></div>-->

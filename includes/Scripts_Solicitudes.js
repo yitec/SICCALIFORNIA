@@ -67,7 +67,7 @@ $('#agregar_cliente').click (function() {
    $( "#dialog" ).dialog({
       title: 'Crea Cliente',
       autoOpen: false,
-      width:800,
+      width:850,
       height:475,
       show: {
         effect: "blind",
@@ -156,6 +156,9 @@ $(document).on('click', '#btn_descuento',function() {
   $('#total_general').html("¢ "+agregar_comas(total_general)+".00");  
 });
 
+
+
+
 /************************************Boton continuar hacia revisar analisis*********************************************/
 
 $(document).on('click', '#btn_continuara',function() {      
@@ -189,6 +192,8 @@ $(document).on('click', '#btn_continuara',function() {
     
     top.location.href = 'verifica_solicitud.php?txt_totAnalisis='+$('#txt_totAnalisis').val()+"&txt_cliente="+$('#txt_nombre').val()+"&txt_tipoCliente="+$('#txt_tipoCliente').val()+"&txt_nombreSolicitante="+$('#txt_nombreSolicitante').val()+"&txt_telefonoSolicitante="+$('#txt_telefonoSolicitante').val()+"&cmb_tipoPago="+$('#cmb_tipoPago').val()+"&cmb_xcorreo="+$('#cmb_xcorreo').val()+"&txt_consumible="+$('#txt_consumible').val()+"&txt_consecutivo="+$('#txt_consecutivo').val();
 });
+
+
 
 
 
