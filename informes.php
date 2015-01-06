@@ -50,6 +50,7 @@ $tot_resultados=$row->total;
 $sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
 on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by CAST(cat.id_categoriamuestra AS UNSIGNED),cat.orden_impresion,res.analisis_padre,ana.id ASC";
 $result=	mysql_query($sql);
+$total_resultados=mysql_num_rows($result);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
 $cont_general++;
@@ -64,6 +65,16 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	}
 	if ($row->analisis_padre==''){
 		$pdf->Ln(5);	
+	}
+
+	//si el analisis es urianalisi debe imprimirse en una sola página
+	if ($row->id==207&&$cont_general!=1) {
+				
+		$pdf->AddPage();
+		header_principal($pdf);
+		$pdf->Ln(5);
+		imprime_header_salto($pdf,$pdf->GETY(),$nombre_categoria,$id_categoria);
+		$tot_analisis=0;	
 	}
 
 	//evaluo si ya imprimi el maximo de analisis x pagina

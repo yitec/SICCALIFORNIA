@@ -415,7 +415,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Ln(-3);
 			$pdf->SETX(65);
 			$pdf->Cell(10,3,utf8_decode($resultado),0,1,'L');
-			$pdf->SETY(189);
+			$pdf->SETY(189);		
 		break;									
 	}
 
