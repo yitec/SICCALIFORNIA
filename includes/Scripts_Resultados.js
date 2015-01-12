@@ -339,6 +339,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +','+$('#txt_unidades_tri').val()
     +','+$('#txt_resultado_rie').val()
     +','+$('#txt_unidades_rie').val()
+    +','+$('#txt_resultado_col').val()
     +','+$('#txt_observaciones_analista').val()
     +','+$('#txt_ids').val()
     +','+$('#txt_rechazado').val();

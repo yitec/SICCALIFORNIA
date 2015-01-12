@@ -78,27 +78,27 @@ if($id==285||$id==286||$id==287){
 
 function busca_riesgo_cardiaco($pdf){
 
-	global $encontrado,$sexo,$suero;
-
-	if ($encontrado==1&&$sexo==1){
+	global $encontrado,$sexo,$suero;	
+	if ($sexo==1){
 		$pdf->SetFont('Arial','B',10);
 		$pdf->MultiCell(100,5,'',0,1,'L');
 		$pdf->MultiCell(100,5,'** RIESGO CARDIACO H (CASTELLI)',0,1,'L');
-		$pdf->MultiCell(60,5,'0.5 del normal…3.27',0,1,'L');
-		$pdf->MultiCell(60,5,'Normal….4.44',0,1,'L');
-		$pdf->MultiCell(60,5,'2 x normal…7.05',0,1,'L');
-		$pdf->MultiCell(60,5,'3 x Normal…11.04',0,1,'L');
+		$pdf->MultiCell(60,5,'0.5 del normal...3.43',0,1,'L');
+		$pdf->MultiCell(60,5,'Normal...4.97',0,1,'L');
+		$pdf->MultiCell(60,5,'2 x normal...9.55',0,1,'L');
+		$pdf->MultiCell(60,5,'3 x Normal...24.0',0,1,'L');
 		$pdf->MultiCell(100,5,'Suero de aspecto '.$suero,0,1,'L');	
+		
 	}
 
-	if ($encontrado==1&&$sexo==2){
+	if ($sexo==2){
 		$pdf->SetFont('Arial','B',10);
-		$pdf->MultiCell(100,5,'',0,1,'L');
+		$pdf->MultiCell(100,5,'',0,1,'L');		
 		$pdf->MultiCell(100,5,'** RIESGO CARDIACO H (CASTELLI)',0,1,'L');
-		$pdf->MultiCell(60,5,'0.5 del normal…3.43',0,1,'L');
-		$pdf->MultiCell(60,5,'Normal….4.97',0,1,'L');
-		$pdf->MultiCell(60,5,'2 x normal…9.55',0,1,'L');
-		$pdf->MultiCell(60,5,'3 x Normal…24.0',0,1,'L');
+		$pdf->MultiCell(60,5,'0.5 del normal...3.27',0,1,'L');
+		$pdf->MultiCell(60,5,'Normal...4.44',0,1,'L');
+		$pdf->MultiCell(60,5,'2 x normal...7.05',0,1,'L');
+		$pdf->MultiCell(60,5,'3 x Normal...11.04',0,1,'L');
 		$pdf->MultiCell(100,5,'Suero de aspecto '.$suero,0,1,'L');	
 		}
 

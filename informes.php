@@ -110,12 +110,16 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		//imprimo referencias
 		$pdf->SetX(155);
 		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
+		if($row->id==193){
+			busca_riesgo_cardiaco($pdf,$sexo);							
+
+		}
 	}
 
 
 }//end while
 
-busca_riesgo_cardiaco($pdf);
+
 if ($pdf->GETY()>20){
 	imprime_footer($pdf,$pdf->GETY());
 }
@@ -293,6 +297,7 @@ function imprime_resultados($pdf,$id,$resultado,$unidades){
 }
 
 function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
+	
 	if ($hombre!=''&&$sexo==1){
 		$referencias="".$hombre;
 	}elseif($mujer!=''&&$sexo==2){
@@ -301,7 +306,7 @@ function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
 		$referencias=$general;
 		//{***Si encuentro riego cardiaco lo imprimo al final****}
 		if($row->id==193){
-			$encontrado=1;
+			
 			$suero=$resultado;
 		}
 	}

@@ -397,7 +397,7 @@ function guarda_resultados_lipidos($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
 	$v_datos=explode(",",$parametros);
 	$v_ids=explode("|",$v_datos[12]);
-	//print_r($v_datos);
+	print_r($v_datos);
 	$h=1;
 	$k=0;
 	for ($i = 1; $i <= 10; $i++) {

@@ -179,15 +179,34 @@ while($row=mysql_fetch_object($result)){
 <table class="margen_izquierdo">
 <tbody>
         <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>
+        <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>        
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input  id="txt_unidades_rie" class="inputbox" type="text" value="ml/minuto" /></td>                        
+        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
+        </tr>        
+</tbody>
+</table>
+</div>
+
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;"></div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
         <td class="Arial14Negro">Color Suero</td>        
         <td class="Arial14Negro"></td>
         <td class="Arial14Negro"><div style="margin-left:40px;"></div></td>        
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input type="hidden" id="txt_unidades_rie" class="inputbox" type="text" value="ml/minuto" /></td>                        
-        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
+        <input id="txt_resultado_col" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>        
+        <td valign="center" class="Arial14Negro"></td>                        
+        <td valign="center" class="Arial14Negro"></div></td>                        
         </tr>        
 </tbody>
 </table>
