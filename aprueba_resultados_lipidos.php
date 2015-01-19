@@ -56,7 +56,7 @@ $result=mysql_query("select cli.sexo from tbl_clientes cli join tbl_solicitudes 
 $row=mysql_fetch_object($result);
 $sexo=$row->sexo;
 //busco las referencias de cada analisis
-$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=189 and id_analisis<=193 order by id asc";
+$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis in (189,190,191,192,193,300) order by id asc";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_referecias=='') {
@@ -157,7 +157,26 @@ while($row=mysql_fetch_object($result)){
 </tbody>
 </table>
 </div>
-<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">ANALISIS RIESGO CARDIACO</div>
+<div align="center" class="titulo_sombreado" style="margin-bottom:10px; margin-top:10px;">RIESGO CARDIACO</div>
+<div align="left">
+<table class="margen_izquierdo">
+<tbody>
+        <tr>
+        <td class="Arial14Negro">Resultado</td>        
+        <td class="Arial14Negro">Unidad</td>
+        <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>        
+        </tr>
+        <tr>
+        <td class="Arial14Negro" valign="center">        
+        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
+        <td valign="center" class="Arial14Negro"><input id="txt_unidades_rie" class="inputbox" type="text" value="ml/minutos" /></td>                        
+        <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
+        </tr>
+        
+</tbody>
+</table>
+</div>
+
 <div align="left">
 <table class="margen_izquierdo">
 <tbody>
@@ -168,7 +187,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
+        <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>        
         <td valign="center" class="Arial14Negro"><input type="hidden" id="txt_unidades_rie" class="inputbox" type="text" value="ml/minuto" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[5]?></div></td>                        
         </tr>        
@@ -194,7 +213,7 @@ while($row=mysql_fetch_object($result)){
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_aprobarreslip" type="submit" value="Guardar" name="submit" class="submit" />
 <input id="btn_rechazarrescomp" type="submit" value="Rechazar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
+
 </div>    
 <br>
 </div><!-- fin div panel Central-->

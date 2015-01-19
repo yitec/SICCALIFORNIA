@@ -48,7 +48,7 @@ conectar();
     <th class="titulo_tablas">Resultados</th>    
     </tr>
 <?
-$result=mysql_query("select ana.id,ana.id_analisis,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana join  tbl_categoriasanalisis  cat on ana.id_analisis=cat.id  where ana.estado=1 and  ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' and ana.id_analisis not in (158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,180,181,182,183,184,185,189,190,191,192,193,197,198,199,200,201,202,203,204,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,239,240,241,242,243,247,248,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,296,297,299) ");
+$result=mysql_query("select ana.id,ana.id_analisis,ana.consecutivo_solicitud,ana.fecha_solicitud,ana.fecha_rechazado, cat.nombre,cat.unidades from tbl_analisis ana join  tbl_categoriasanalisis  cat on ana.id_analisis=cat.id  where ana.estado=1 and  ana.consecutivo_solicitud='".$_REQUEST['solicitud']."' and ana.id_analisis not in (158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,180,181,182,183,184,185,189,190,191,192,193,197,198,199,200,201,202,203,204,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,239,240,241,242,243,247,248,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,296,297,299,300) ");
 if(mysql_num_rows($result)==0){
     echo '<br><div align="center" class="Arial14rojo">Ha finalizado esta solicitud</div>';
     die();

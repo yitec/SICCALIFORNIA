@@ -75,9 +75,14 @@ function guarda_solicitud($parametros,$hoy){
 	$row=mysql_fetch_object($result);
 	$sql2="select id from tbl_doctores where nombre='".$_SESSION['doctor']."'";
 	$result2=mysql_query($sql2);
-	$row2=mysql_fetch_object($result2);
+	if (mysql_num_rows($result2)>0){
+		$row2=mysql_fetch_object($result2);	
+		$doctor=$row2->id;
+	}else{
+		$doctor=20;//este id de doctor es generico y despliega N/A
+	}
 	$sql="insert into tbl_solicitudes (consecutivo,id_cliente,edad_cliente,numero_muestras,monto_original,porcentage_descuento,monto_descuento,monto_total,tipo_pago,nombre_solicitante,telefono_solicitante,envio_correo,factura,doctor_referente,fecha_ingreso,sumerhill,tubo_sumerhill,tubo_escalante,estado)values
-	('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$row2->id."',NOW(),'".$_SESSION['sumerhill']."','".$_SESSION['tubo_sumerhill']."','".$_SESSION['tubo_escalante']."',1)";	
+	('".$_SESSION['consecutivo']."','".$row->id."','".$_SESSION['edad']."',1,'".$v_datos[0]."','".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$_SESSION['tipo_pago']."','".$_SESSION['nombre_solicitante']."','".$_SESSION['telefono_solicitante']."','".$_SESSION['correo']."','"."123"."','".$doctor."',NOW(),'".$_SESSION['sumerhill']."','".$_SESSION['tubo_sumerhill']."','".$_SESSION['tubo_escalante']."',1)";	
 	$result=mysql_query($sql);				
 
 	//$jsondata=mysql_insert_id();	
@@ -396,23 +401,23 @@ function guarda_resultados_urianalisis($parametros,$hoy){
 function guarda_resultados_lipidos($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
 	$v_datos=explode(",",$parametros);
-	$v_ids=explode("|",$v_datos[12]);
-	print_r($v_datos);
+	$v_ids=explode("|",$v_datos[13]);
+	//print_r($v_datos);
 	$h=1;
 	$k=0;
-	for ($i = 1; $i <= 10; $i++) {
+	for ($i = 1; $i <= 11; $i++) {
 		if ($i==$h){
-			if($v_datos[13]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[11]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[14]==1){
+				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[12]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[11]."',NOW(),25,0)";
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[12]."',NOW(),25,0)";
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
 			$k++;
 		}
 	}
-	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (25,189,190,191,192,193)");						
+	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (25,189,190,191,192,193,300)");						
 	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
 	if (mysql_num_rows($result)==0){
 		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");

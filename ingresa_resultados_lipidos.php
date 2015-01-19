@@ -57,7 +57,7 @@ $result2=mysql_query($sql2);
 $row2=mysql_fetch_object($result2);
 
 //busco los ids de los análisis
-$sql="select id from tbl_analisis where id_analisis>=189 and id_analisis<=193 and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
+$sql="select id from tbl_analisis where id_analisis in (189,190,191,192,193,300) and consecutivo_solicitud='".$_REQUEST['consecutivo']."'";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_ids=='') {
@@ -72,7 +72,7 @@ $result=mysql_query("select cli.sexo from tbl_clientes cli join tbl_solicitudes 
 $row=mysql_fetch_object($result);
 $sexo=$row->sexo;
 //busco las referencias de cada analisis
-$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=189 and id_analisis<=193 order by id asc";
+$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis in (189,190,191,192,193,300)  order by id asc";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_referecias=='') {
@@ -204,7 +204,7 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_col" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>        
+        <input id="txt_resultado_sue" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>        
         <td valign="center" class="Arial14Negro"></td>                        
         <td valign="center" class="Arial14Negro"></div></td>                        
         </tr>        

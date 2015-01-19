@@ -96,12 +96,17 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	if($row->id>=251&&$row->id<=294){//si es espermograma corro una rutina diferente
 		busca_espermograma($pdf,$row->id,$row->resultado,$row->unidades,$row->nombre);		
 	}else{
-		if($row->id==215){
+		if($row->id==215){//busco si es sedimento urinario
 			$pdf->SetFont('Arial','U',10);
 			$pdf->MultiCell(68,5,'SEDIMENTO URINARIO',0,1,'L');		
 			$pdf->SetFont('Arial','',10);
 			
 		}
+		if($row->id==300){//busco si es el color de suero
+			$pdf->Ln(-5);
+			$pdf->SetX(41);	
+			$pdf->MultiCell(40,5,$row->resultado,0,1,'L');
+		}else{
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
 		$pdf->SetX(90);	
@@ -110,12 +115,11 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		//imprimo referencias
 		$pdf->SetX(155);
 		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
-		if($row->id==193){
-			busca_riesgo_cardiaco($pdf,$sexo);							
-
+			if($row->id==193){			
+				busca_riesgo_cardiaco($pdf,$sexo);							
+			}
 		}
 	}
-
 
 }//end while
 
@@ -165,6 +169,7 @@ $sql="Select sol.fecha_ingreso,cli.nombre as nombre_cliente,cli.sexo,doc.nombre 
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 global $sexo;
+global $suero;
 $sexo=$row->sexo;
 $pdf->SetTextColor(89,177,255);
 $pdf->Cell(185,3,'Informe de Resultados',0,1,'C');
@@ -305,7 +310,7 @@ function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
 	}else{
 		$referencias=$general;
 		//{***Si encuentro riego cardiaco lo imprimo al final****}
-		if($row->id==193){
+		if($row->id==300){
 			
 			$suero=$resultado;
 		}
