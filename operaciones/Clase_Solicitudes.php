@@ -144,13 +144,17 @@ function guarda_muestras($parametros,$hoy){
 
 ********************************************************/
 
-function guarda_analisis($parametros,$hoy){
+function guarda_analisis($analisis,$hoy){
 	//$v_parametros=explode(",",$parametros);
-	$v_datos=explode('|',$parametros);	
+	//$analisis = trim($analisis, '|');
+	$v_datos=explode('|',$analisis);	
+	echo($analisis);
+	//print_r($v_datos);
 	$size = sizeof($v_datos);//TAMAÑO del vector
 	$size=$size-2;//resto posiciones en blanco
-			$jsondata=$v_datos;
-			echo $jsondata;
+			//$jsondata=$v_datos;
+			//echo $jsondata;
+			$jsondata="Success";
 
 	for($i=0;$i<=$size;$i++){
 		

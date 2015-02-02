@@ -92,9 +92,11 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 			
 		}
 		if($row->id==300){//busco si es el color de suero
-			$pdf->Ln(-5);
-			$pdf->SetX(41);	
-			$pdf->MultiCell(40,5,$row->resultado,0,1,'L');
+			global $suero;
+			$suero=$row->resultado;
+			busca_riesgo_cardiaco($pdf,$sexo);									
+			$pdf->AddPage();
+			header_principal($pdf);
 		}else{
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
@@ -104,9 +106,9 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		//imprimo referencias
 		$pdf->SetX(158);
 		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
-			if($row->id==193){
-				busca_riesgo_cardiaco($pdf,$sexo);							
-			}
+			//if($row->id==193){
+			//	busca_riesgo_cardiaco($pdf,$sexo);							
+			//}
 		}
 	}
 

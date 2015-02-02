@@ -103,9 +103,16 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 			
 		}
 		if($row->id==300){//busco si es el color de suero
-			$pdf->Ln(-5);
-			$pdf->SetX(41);	
-			$pdf->MultiCell(40,5,$row->resultado,0,1,'L');
+			//{***Si encuentro riego cardiaco lo imprimo al final****}
+		
+		
+			global $suero;
+			$suero=$row->resultado;
+			busca_riesgo_cardiaco($pdf,$sexo);							
+			imprime_footer($pdf,$pdf->GETY());
+			$pdf->AddPage();
+			header_principal($pdf);
+		
 		}else{
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
@@ -115,9 +122,9 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		//imprimo referencias
 		$pdf->SetX(155);
 		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
-			if($row->id==193){			
-				busca_riesgo_cardiaco($pdf,$sexo);							
-			}
+			//if($row->id==193){			
+			//	busca_riesgo_cardiaco($pdf,$sexo);							
+			//}
 		}
 	}
 
@@ -309,15 +316,11 @@ function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
 		$referencias="".$mujer;
 	}else{
 		$referencias=$general;
-		//{***Si encuentro riego cardiaco lo imprimo al final****}
-		if($row->id==300){
-			
-			$suero=$resultado;
-		}
+		
 	}
 	$pdf->MultiCell(40,5,$referencias,0,1,'L');
 	//si son los analisis que tienen multiples referencias imprimo espacio blanco
-	if($row->id==112||$row->id==113||$row->id==114||$row->id==116){
+	if($id==112||$id==113||$id==114||$id==116){
 		$pdf->Ln(5);
 	}
 }

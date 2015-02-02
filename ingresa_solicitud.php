@@ -39,16 +39,17 @@ function buscar_cliente(){
     dataType: "json",
     url: "../SICCALIFORNIA/operaciones/Clase_Clientes.php",
     success: function (data){      
-      if (data.resultado=="Success"){          
-          $("#txt_nombre").attr("value",data.nombre);
+      if (data.resultado=="Success"){                    
+          $("#txt_nombre").val(data.nombre);
           if (data.sexo==1){
             jQuery("#masc").attr('checked', 'checked');
           }else{
             jQuery("#fem").attr('checked', 'checked');
-          }
-          
-          
+          }                  
+      }else{
+        notificacion("Cliente no encontrado","","error"); 
       }
+
     }
 
     });
@@ -56,8 +57,12 @@ function buscar_cliente(){
 }
 
 function guarda_cliente(){
-    alert($('#txt_nombre').val());
+    
         var sexo=$('input:radio[name=rnd_sexo]:checked').val();
+        if (sexo==null){
+          notificacion("Debe indicar el sexo","","error"); 
+          return;
+        }
     var fnacimiento=$("#cmb_year").val()+"-"+$("#cmb_mes").val()+"-"+$("#cmb_dia").val();    
       var parametros=$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+sexo+","+fnacimiento;
       $.ajax({

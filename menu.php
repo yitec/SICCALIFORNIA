@@ -13,8 +13,7 @@ conectar();
 
 <link href="css/general.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
-
-<link href='http://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet'  />
 
 </head>
 <body>

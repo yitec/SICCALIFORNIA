@@ -113,7 +113,7 @@ $hoy=date("d/m/Y");
 		<div >
 			<?
 			$nombrem="";
-			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,catm.nombre  as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=9 and cat.visible=1  order by catm.id");
+			$result=mysql_query("select cat.id,cat.nombre,cat.precio,cat.analisis_ligados,cat.fantasma,catm.nombre  as nombrem  from tbl_categoriasanalisis cat join tbl_categoriasmuestras catm on cat.id_categoriamuestra=catm.id and catm.id>=9 and cat.visible=1  order by catm.id");
 			while ($row=mysql_fetch_object($result)){				
 					if($nombrem!=$row->nombrem){
 							echo '<div style="font-weight:bold; background-color:#A9D0F5; color:#fff;">'.utf8_encode($row->nombrem).'</div>';	

@@ -95,7 +95,7 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 
 }//end while
 
-busca_riesgo_cardiaco($pdf);
+//busca_riesgo_cardiaco($pdf);
 if ($pdf->GETY()>20){
 	imprime_footer($pdf,$pdf->GETY());
 }

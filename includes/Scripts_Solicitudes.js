@@ -74,7 +74,7 @@ $('#agregar_cliente').click (function() {
         duration: 1000
       },
       hide: {
-        effect: "explode",
+        effect: "blind",
         duration: 1000
       }
     });
@@ -178,6 +178,7 @@ $(document).on('click', '#btn_continuara',function() {
     });//end ajax function
     
      parametros=v_analisis;
+     //parametros = v_analisis.substring(0, v_analisis.length-1);
     $.ajax({
         data: "metodo=guarda_analisis&parametros="+parametros,
         type: "POST",
@@ -185,7 +186,7 @@ $(document).on('click', '#btn_continuara',function() {
         dataType: "json",        
         url: "operaciones/Clase_Solicitudes.php",      
         success: function(datos){     
-        alert(datos);
+        //alert(datos);
       
     }//end succces function
     });//end ajax function

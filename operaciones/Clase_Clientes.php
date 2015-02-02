@@ -61,6 +61,8 @@ function busca_cliente($parametros,$hoy){
 		$jsondata['credito']=$row->credito;	
 		$jsondata['sexo']=$row->sexo;	
 		$jsondata['resultado']="Success";	
+	}else{
+		$jsondata['resultado']="Error";	
 	}
 	echo json_encode($jsondata);
 }
@@ -75,8 +77,11 @@ function busca_padron($parametros,$hoy){
 		$jsondata['nombre']=utf8_decode(trim($row->Nombre)." ".trim($row->Apellido1)." ".trim($row->Apellido2));		
 		$jsondata['sexo']=$row->Sexo;		
 		$jsondata['resultado']="Success";	
+	}else{
+		$jsondata['resultado']="Error";		
 	}
-	$jsondata['resultado']="Success";	
+
+	
 	echo json_encode($jsondata);
 }
 
