@@ -22,7 +22,7 @@ class Solicitudes{
 
 ********************************************************/
 function autocompleta_clientes(){
-		$result=mysql_query("select nombre from tbl_clientes");
+		$result=mysql_query("select nombre from tbl_clientes order by nombre asc");
 		while ($row=mysql_fetch_object($result)){
 			$vector=$vector.",".$row->nombre; 
 		}
@@ -37,7 +37,7 @@ function autocompleta_clientes(){
 
 ********************************************************/
 function autocompleta_doctores(){
-		$result=mysql_query("select nombre from tbl_doctores");
+		$result=mysql_query("select nombre from tbl_doctores order by nombre asc");
 		while ($row=mysql_fetch_object($result)){
 			$vector=$vector.",".$row->nombre; 
 		}

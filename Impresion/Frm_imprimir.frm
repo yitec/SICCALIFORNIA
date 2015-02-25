@@ -1,13 +1,13 @@
 VERSION 5.00
 Begin VB.Form Frm_imprimir 
    Caption         =   "Form2"
-   ClientHeight    =   624
+   ClientHeight    =   960
    ClientLeft      =   108
    ClientTop       =   432
-   ClientWidth     =   3624
+   ClientWidth     =   3756
    LinkTopic       =   "Form2"
-   ScaleHeight     =   624
-   ScaleWidth      =   3624
+   ScaleHeight     =   960
+   ScaleWidth      =   3756
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer Timer1 
       Interval        =   500
@@ -84,7 +84,7 @@ If rs.EOF = False Then
 
     
     Printer.Print "" & rs2!nombre & " "
-    Printer.Print "                     " & "¢" & rs2!precio
+    Printer.Print "                     " & "c" & rs2!precio
     Printer.Print ""
     
     rs2.MoveNext
