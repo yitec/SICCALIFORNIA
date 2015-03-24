@@ -131,6 +131,8 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 }//end while
 
 
+
+$pdf->Write(5,$pdf->GETY());
 if ($pdf->GETY()>20){
 	imprime_footer($pdf,$pdf->GETY());
 }
@@ -384,7 +386,7 @@ function imprime_header_salto($pdf,$vary,$nombre_categoria,$id_categoria){
 
 function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria){
 
-	if ($vary>=194){
+	if ($vary>=224){
 		global $tot_analisis;
 		imprime_footer($pdf,$pdf->GETY());
 		$pdf->AddPage();
@@ -401,7 +403,7 @@ function imprime_footer($pdf,$vary){
 
 $pdf->SetFont('Arial','B',14);
 $var = $vary;
-$var=$var+10;
+$var=$var+23;
 $pdf->Ln($var);
 $pdf->Image('img/firma.jpg',160,$var,30);
 $pdf->SetY($var+5);
