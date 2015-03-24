@@ -71,7 +71,7 @@ $result=mysql_query("select cli.sexo from tbl_clientes cli join tbl_solicitudes 
 $row=mysql_fetch_object($result);
 //echo $sexo=$row->sexo;
 //busco las referencias de cada analisis
-$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=197 and id_analisis<=199 order by id asc";
+$sql="select referencia_general,referencia_hombre,referencia_mujer from tbl_referencias where id_analisis>=196 and id_analisis<=199 order by id asc";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
         if($v_referecias=='') {

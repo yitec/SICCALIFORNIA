@@ -53,7 +53,7 @@ $pdf->Cell(133,5,'Análisis',0,0,'L');
 $pdf->Cell(64,5,'Costo:',0,1,'C');
 $pdf->SetFont('Arial','',10);
 $sql="select *,cat.nombre from tbl_analisis ana inner join tbl_categoriasanalisis cat 
-on ana.id_analisis=cat.id where cat.imprimir_contrato=1 and ana.consecutivo_solicitud='".$_REQUEST['consecutivo']."'  ";
+on ana.id_analisis=cat.id where cat.imprimir_contrato=1 and ana.consecutivo_solicitud='".$_REQUEST['consecutivo']."' and cat.precio>0  ";
 $result=mysql_query($sql);
 while($row=mysql_fetch_object($result)){
 	$pdf->Cell(133,5,$row->nombre,0,0,'L');		

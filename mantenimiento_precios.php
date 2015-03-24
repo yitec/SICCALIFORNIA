@@ -62,7 +62,7 @@ conectar();
             	<option>Seleccione</option>
             </select>
         </td>
-	    <td widht="50" class="Arial14Negro"><input id="txt_precio" size="20"  type="text" /></td>
+	    <td widht="50" class="Arial14Negro"><input id="txt_precio" id_analisis="" size="20"  type="text" /></td>
 	    </tr>	  
 	  </table>
 	  <br>

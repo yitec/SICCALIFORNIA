@@ -23,7 +23,7 @@ class Analisis{
 	function analisis_categoria($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
 	$cant=0;
-	$result=mysql_query("select * from tbl_categoriasanalisis where ids_categoriamuestra='".$v_datos[0]."'  order by nombre ");
+	$result=mysql_query("select * from tbl_categoriasanalisis where id_categoriamuestra='".$v_datos[0]."'  order by nombre ");
 	while ($row=mysql_fetch_assoc($result))
 	{
 		if ($cant==0){
@@ -40,14 +40,21 @@ class Analisis{
 	
 	function precios_analisis($parametros,$hoy){
 	$v_datos=explode(",",$parametros);	
-	$result=mysql_query("select precio,metodo from tbl_categoriasanalisis where id='".$v_datos[0]."' order by nombre ");
+	$result=mysql_query("select id,precio from tbl_categoriasanalisis where id='".$v_datos[0]."' order by nombre ");
 	while ($row=mysql_fetch_assoc($result))
 	{
-		$resultado=$row['precio']."|"	;
+		$resultado=$row['id']."|".$row['precio']	;
 	}
 	$jsondata['resultado']=$resultado;
 	echo json_encode($jsondata);
 	}
+	
+	function guarda_precio($parametros,$hoy){
+	$v_datos=explode(",",$parametros);	
+	$result=mysql_query("update tbl_categoriasanalisis set precio='".$v_datos[1]."'  where id='".$v_datos[0]."' ");
+	$jsondata['resultado']='Success';
+	echo json_encode($jsondata);
+	}	
 
 }//end class
 

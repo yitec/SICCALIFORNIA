@@ -311,7 +311,7 @@ function guarda_resultados_psa($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -828,7 +828,7 @@ function guarda_formulario_espermo($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -912,7 +912,7 @@ function aprueba_resultados_hemo($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -964,7 +964,7 @@ function aprueba_resultados_uri($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1016,7 +1016,7 @@ function aprueba_resultados_cardio($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1069,7 +1069,7 @@ function aprueba_resultados_aclaramiento($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1121,7 +1121,7 @@ function aprueba_resultados_proteina($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1174,7 +1174,7 @@ function aprueba_resultados_aglutinamiento($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1228,7 +1228,7 @@ function aprueba_resultados_ena($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1281,7 +1281,7 @@ function aprueba_resultados_lipidos($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1335,7 +1335,7 @@ function aprueba_resultados_curva2($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1387,7 +1387,7 @@ function aprueba_resultados_curva3($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1442,7 +1442,7 @@ function aprueba_resultados_vaginal($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1496,7 +1496,7 @@ function aprueba_resultados_heces($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1549,7 +1549,7 @@ function aprueba_resultados_espermo($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];
@@ -1600,7 +1600,7 @@ function aprueba_resultados($parametros,$hoy){
        
        //$dest = "kmadrigal@feednet.ucr.ac.cr";
        $dest  = 'laboratorioescalante@ice.co.cr' . ', ';
-	   $dest .= 'lilliescalante@yahoo.es'. ', ';
+	   //$dest .= 'lilliescalante@yahoo.es'. ', ';
 	   $dest .= 'mizard6@yahoo.es';	   
        $head = "From: notificaciones@laboratorioescalantelacalifornia.com<info@laboratorioescalantelacalifornia.com>\r\n";
 	   $asunto = "Solicitud Termindado = ".$v_datos[0];

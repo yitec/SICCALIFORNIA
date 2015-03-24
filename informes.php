@@ -46,6 +46,12 @@ $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 $tot_resultados=$row->total;
 
+/*
+accion:esta funcion busca si es un hemograma mas 1 analisis, si es así lo imprime en una solo hoja.
+
+$solouno=busca_hemomasuno($_REQUEST['solicitud']);
+*/
+
 //busco todos los resultados
 $sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
 on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by CAST(cat.id_categoriamuestra AS UNSIGNED),cat.orden_impresion,res.analisis_padre,ana.id ASC";
@@ -61,21 +67,21 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 
 	if ($analisis_padre!=$row->analisis_padre){
 		$analisis_padre=$row->analisis_padre;
-		$pdf->Ln(5);
+		$pdf->Ln(2);
 	}
 	if ($row->analisis_padre==''){
-		$pdf->Ln(5);	
+		$pdf->Ln(0);	
 	}
 
 	//si el analisis es urianalisi debe imprimirse en una sola página
-	if ($row->id==207&&$cont_general!=1) {
+	/*if ($row->id==207&&$cont_general!=1) {
 				
 		$pdf->AddPage();
 		header_principal($pdf);
 		$pdf->Ln(5);
 		imprime_header_salto($pdf,$pdf->GETY(),$nombre_categoria,$id_categoria);
 		$tot_analisis=0;	
-	}
+	}*/
 
 	//evaluo si ya imprimi el maximo de analisis x pagina
 	if ($cont_general!=$tot_resultados){
@@ -321,6 +327,7 @@ function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
 		
 	}
 	$pdf->MultiCell(40,5,$referencias,0,1,'L');
+	//$pdf->MultiCell(40,5,$pdf->GETY(),0,1,'L');
 	//si son los analisis que tienen multiples referencias imprimo espacio blanco
 	if($id==112||$id==113||$id==114||$id==116){
 		$pdf->Ln(5);
@@ -386,7 +393,10 @@ function imprime_header_salto($pdf,$vary,$nombre_categoria,$id_categoria){
 
 function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria){
 
-	if ($vary>=224){
+
+		
+
+	if ($vary>=208){		
 		global $tot_analisis;
 		imprime_footer($pdf,$pdf->GETY());
 		$pdf->AddPage();

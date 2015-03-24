@@ -51,9 +51,9 @@ conectar();
     </tr>
 <?
 if ($_REQUEST['pendientes']==1){
-  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id WHERE sol.sumerhill=0 and (sol.estado=1 OR sol.estado=2)");
+  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id WHERE sol.sumerhill=0 and (sol.estado=1 OR sol.estado=2) order by sol.id DESC");
 }else{
-  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,sol.fecha_terminado,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id where sol.sumerhill=0 and  sol.estado=4");
+  $result=mysql_query("select sol.consecutivo,sol.fecha_ingreso,sol.fecha_terminado,cli.nombre from tbl_solicitudes sol join tbl_clientes cli on sol.id_cliente=cli.id where sol.sumerhill=0 and  sol.estado=4 order by sol.id DESC");
 }
 
 

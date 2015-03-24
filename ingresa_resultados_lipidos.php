@@ -186,7 +186,7 @@ while($row=mysql_fetch_object($result)){
         <tr>
         <td class="Arial14Negro" valign="center">        
         <input id="txt_resultado_rie" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>        
-        <td valign="center" class="Arial14Negro"><input  id="txt_unidades_rie" class="inputbox" type="text" value="ml/minuto" /></td>                        
+        <td valign="center" class="Arial14Negro"><input  id="txt_unidades_rie" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
         </tr>        
 </tbody>
