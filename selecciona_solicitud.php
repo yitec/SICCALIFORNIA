@@ -90,7 +90,7 @@ echo'<tr>
         <td align="center"  class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
-        <td class="datos_tablas"><div align="center"><img type="submit" class="elimina" solicitud="'.$row->id.'" src="img/delete_icon.png" width="25" height="25" /></div></td>
+        <td class="datos_tablas"><div align="center"><img type="submit" class="elimina" solicitud="'.$row->consecutivo.'" src="img/delete_icon.png" width="25" height="25" /></div></td>
       </tr>';
 }elseif ($_REQUEST['resultados']==1){
 echo'<tr>

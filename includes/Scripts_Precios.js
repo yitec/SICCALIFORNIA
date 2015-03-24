@@ -34,12 +34,52 @@ $("#cmb_analisis").change(function(event){
     dataType: "json",
     url: "../SICCALIFORNIA/operaciones/Clase_Analisis.php",
     success: function (data){                  
-        var array = data.resultado.split("|");     
-        $('#txt_precio').attr('value',array[0]);        
+        var array = data.resultado.split("|");             
+		$('#txt_precio').attr('id_analisis',array[0]);      
+		$('#txt_precio').attr('value',array[1]);        		
       }//end succces function
       });//end ajax function                    
 });
 
+$("#btn_guardar").click(function(event){
+	var parametros=$("#txt_precio").attr('id_analisis')+","+$("#txt_precio").val();  
+    $.ajax({ 
+    data: "metodo=guarda_precio&parametros="+parametros,
+    type: "POST",
+    async:false,
+    dataType: "json",
+    url: "../SICCALIFORNIA/operaciones/Clase_Analisis.php",
+    success: function (data){                  
+		if (data.resultado=="Success"){
+			notificacion("Precio Modificado"," Se modifico el precio correctamente","info");  
+			limpiar(); 			
+		}else{
+			notificacion("Error","Intente de nuevo","error");                
+		}  
+    }//end succces function
+    });//end ajax function                    
+});
+
+/************************************Notificaciones Jquery************************************************************/
+function notificacion(titulo,cuerpo,tipo){
+  $.pnotify({
+  pnotify_title: titulo,
+    pnotify_text: cuerpo,
+    pnotify_type: tipo,
+    pnotify_hide: true
+  }); 
+}
+
+/***************************************Limpiar todos los campos***************************************/
+function limpiar(){
+      $('input[type=text]').each(function() {
+        $(this).val('');
+      });     
+      $('.ck').each(function (index) {          
+        $(this).attr("checked",false);                      
+      });    
+      $('#opcion').attr('value','1'); 
+}
 
 
 })// Document ready Final

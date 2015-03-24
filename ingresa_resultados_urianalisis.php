@@ -144,7 +144,12 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_nit" class="inputbox" type="text" value="<?=Neg$v_resultados[2];?>" /></td>        
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_nit" class="inputbox" type="text" value="<?=$v_resultados[2];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_nit" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_nit" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[2]?></div></td>                        
         </tr>
@@ -163,7 +168,12 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_pro" class="inputbox" type="text" value="<?=Neg$v_resultados[3];?>" /></td>        
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_pro" class="inputbox" type="text" value="<?=$v_resultados[3];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_pro" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_pro" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[3]?></div></td>                        
         </tr>
@@ -182,7 +192,12 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_glu" class="inputbox" type="text" value="<?=Neg$v_resultados[4];?>" /></td>        
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_glu" class="inputbox" type="text" value="<?=$v_resultados[4];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_glu" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_glu" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[4]?></div></td>                        
         </tr>
@@ -201,7 +216,12 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_san" class="inputbox" type="text" value="<?=Neg$v_resultados[5];?>" /></td>        
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_san" class="inputbox" type="text" value="<?=$v_resultados[5];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_san" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_san" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[5]?></div></td>                        
         </tr>        
@@ -219,7 +239,12 @@ while($row=mysql_fetch_object($result)){
         </tr>
         <tr>
         <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_uro" class="inputbox" type="text" value="<?=Neg$v_resultados[6];?>" /></td>        
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_uro" class="inputbox" type="text" value="<?=$v_resultados[6];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_uro" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>
         <td valign="top" class="Arial14Negro"><input id="txt_unidades_uro" class="inputbox" type="text" value="" /></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:40px;margin-top:10px;"><?=$v_referecias[6]?></div></td>                        
         </tr>        
@@ -236,8 +261,13 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>        
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_cet" class="inputbox" type="text" value="<?=Neg$v_resultados[7];?>" /></td>        
+        <td class="Arial14Negro" valign="center"> 
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_cet" class="inputbox" type="text" value="<?=$v_resultados[7];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_cet" class="inputbox" type="text" value="Neg" /></td>';
+        }       
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_cet" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[7]?></div></td>
         </tr>        
@@ -308,8 +338,13 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>    
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_cil" class="inputbox" type="text" value="<?=No hay$v_resultados[11];?>" /></td>        
+        <td class="Arial14Negro" valign="center">
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_cil" class="inputbox" type="text" value="<?=$v_resultados[11];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_cil" class="inputbox" type="text" value="No hay" /></td>';
+        }        
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_cil" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[11]?></div></td>
         </tr>        
@@ -326,8 +361,13 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>    
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_fil" class="inputbox" type="text" value="<?=No Hay$v_resultados[12];?>" /></td>        
+        <td class="Arial14Negro" valign="center">   
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_fil" class="inputbox" type="text" value="<?=$v_resultados[12];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_fil" class="inputbox" type="text" value="No hay" /></td>';
+        }     
+        ?>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_fil" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[12]?></div></td>
         </tr>        
@@ -344,8 +384,14 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>    
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_sed" class="inputbox" type="text" value="<?=No Hay$v_resultados[13];?>" /></td>        
+        <td class="Arial14Negro" valign="center"> 
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_sed" class="inputbox" type="text" value="<?=$v_resultados[13];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_sed" class="inputbox" type="text" value="Neg" /></td>';
+        }
+        ?>       
+        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_sed" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[13]?></div></td>
         </tr>        
@@ -362,8 +408,13 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>    
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_cri" class="inputbox" type="text" value="<?=No Hay$v_resultados[14];?>" /></td>        
+        <td class="Arial14Negro" valign="center">    
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_cri" class="inputbox" type="text" value="<?=$v_resultados[14];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_cri" class="inputbox" type="text" value="Neg" /></td>';
+        }    
+        ?>
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_cri" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[14]?></div></td>
         </tr>        
@@ -381,8 +432,13 @@ while($row=mysql_fetch_object($result)){
         <td class="Arial14Negro"><div style="margin-left:40px;">Referencia</div></td>    
         </tr>
         <tr>
-        <td class="Arial14Negro" valign="center">        
-        <input id="txt_resultado_bac" class="inputbox" type="text" value="<?=No Hay$v_resultados[15];?>" /></td>        
+        <td class="Arial14Negro" valign="center">  
+        <?if (COUNT($v_resultados)>=1){
+            echo '<input id="txt_resultado_bac" class="inputbox" type="text" value="<?=$v_resultados[15];?>" /></td>';            
+        }else{
+            echo '<input id="txt_resultado_bac" class="inputbox" type="text" value="Neg" /></td>';
+        }      
+        ?>        
         <td valign="center" class="Arial14Negro"><input id="txt_unidades_bac" class="inputbox" type="text" value="" /></td>                        
         <td valign="center" class="Arial14Negro"><div style="margin-left:40px;"><?=$v_referecias[15]?></div></td>
         </tr>        

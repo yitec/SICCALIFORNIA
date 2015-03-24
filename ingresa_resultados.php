@@ -89,9 +89,9 @@ $row2=mysql_fetch_object($result2);
         <td class="Texto10celeste" width="215" align="center">Referencia Mujer</td>
         </tr>        
         <tr>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_general?></td>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_hombre?></td>
-        <td class="Texto14negro" align="center"><?=$row2->referencia_mujer?></td>         
+        <td class="Texto14negro" align="center"><?=utf8_encode($row2->referencia_general)?></td>
+        <td class="Texto14negro" align="center"><?=utf8_encode($row2->referencia_hombre)?></td>
+        <td class="Texto14negro" align="center"><?=utf8_encode($row2->referencia_mujer)?></td>         
         </tr>
         <tr>
 
