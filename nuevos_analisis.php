@@ -40,13 +40,13 @@ conectar();
 <br>
 	<table>
 	  <tr>
-	    <td width="100" class="Arial14Negro">Categoria</td>
-	    <td width="300" class="Arial14Negro">An&aacute;lisis</td>
+	    <td width="50" class="Arial14Negro">Categoria</td>
+	    <td width="50" class="Arial14Negro">An&aacute;lisis</td>
 	    <td width="50" class="Arial14Negro">Precio</td>
-	    <td width="50" class="Arial14Negro">Referencia</td>
+	    <td width="50" class="Arial14Negro">Unidades</td>	    
 	    </tr>
 	  <tr>
-	  	<td widht="100" class="Arial14Negro"><div style="margin-bottom:28px">
+	  	<td widht="50" class="Arial14Negro"><div style="margin-bottom:28px">
         <?
 		$result=mysql_query("select * from tbl_categoriasmuestras");
 		?>
@@ -58,13 +58,25 @@ conectar();
 		?>
 		</select></div>
 		</td>
-		<td widht="50" class="Arial14Negro"><input id="txt_analisis" class="inputbox" size="20"  type="text" /></td>
+		<td widht="50" class="Arial14Negro"><input id="txt_analisis" class="inputbox" size="15"  type="text" /></td>
 		<td widht="50" class="Arial14Negro"><input id="txt_precio" class="inputboxpeq" size="20"  type="text" /></td>
-		<td widht="50" class="Arial14Negro"><input id="txt_referencia" class="inputbox" size="20"  type="text" /></td>
+		<td widht="50" class="Arial14Negro"><input id="txt_unidades" class="inputboxpeq" size="20"  type="text" /></td>
+		</tr>
+		</table>
+		<table>
+		<tr>
+		<td width="50" class="Arial14Negro">Referencia General</td>
+		<td width="50" class="Arial14Negro">Referencia Hombre</td>
+		<td width="50" class="Arial14Negro">Referencia Mujer</td>
+		</tr>
+		<tr>
+		<td widht="50" class="Arial14Negro"><input id="txt_referencia" class="inputbox" size="15"  type="text" /></td>
+		<td widht="50" class="Arial14Negro"><input id="txt_referenciah" class="inputbox" size="15"  type="text" /></td>
+		<td widht="50" class="Arial14Negro"><input id="txt_referenciam" class="inputbox" size="15"  type="text" /></td>
 	    </tr>	  
 	  </table>
 	  <br>
-	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardar" type="submit" value="Guardar" name="submit" class="submit" /></div>    
+	<div align="center" style="margin-top:0px; margin-bottom:0px;"><input id="btn_guardarana" type="submit" value="Guardar" name="submit" class="submit" /></div>    
 </div><!-- fin div panel Central-->
 </body>
 </html>

@@ -18,7 +18,7 @@ class Expedientes{
 	function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector."^".utf8_encode($row->nombre); 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -34,7 +34,7 @@ class Expedientes{
 
 
 	function obtiene_cobros($parametros,$hoy){
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		$id_expediente=$v_datos[0];
 		$numero_expediente=$v_datos[1];
 		$result=mysql_query("select * from tbl_cobros where id_expediente='".$id_expediente."' order by fecha_creacion DESC");
@@ -68,7 +68,7 @@ class Expedientes{
 	function busca_header_expediente($parametros,$hoy){
 		
 				
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		//busco si lo que me estan dando es un numero de expediente
 		$result=mysql_query("select e.id,e.numero,e.id_tipoExpediente,e.fecha_creacion, e.fecha_modificacion,e.id_cliente,e.estado,c.nombre from tbl_expedientes e,tbl_clientes c where e.id='".$v_datos[0]."' and c.id=e.id_cliente");
 		if (mysql_num_rows($result)>0){
@@ -93,7 +93,7 @@ class Expedientes{
 
 	********************************************************/
 	function guardar_pago($parametros,$hoy){					
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		//busco si lo que me estan dando es un numero de expediente
 		$result=mysql_query("update tbl_cobros set fecha_pago='".$hoy."', estado=1 where id='".$v_datos[0]."'");
 		if (!$result) {//si da error que me despliegue el error del query       		
@@ -110,7 +110,7 @@ class Expedientes{
 
 	********************************************************/
 	function modificar_cobro($parametros,$hoy){					
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		//busco si lo que me estan dando es un numero de expediente
 		$result=mysql_query("update tbl_cobros set monto='".trim($v_datos[2])."' where id='".$v_datos[0]."'");
 		if (!$result) {//si da error que me despliegue el error del query       		
@@ -127,7 +127,7 @@ class Expedientes{
 
 	********************************************************/
 	function obtiene_nexpedientes($parametros,$hoy){
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		$id_cliente=$v_datos[0];		
 		$result=mysql_query("select * from tbl_expedientes where id_cliente='".$id_cliente."' order by titulo DESC");
 		if (!$result) {//si da error que me despliegue el error del query       		
@@ -152,7 +152,7 @@ class Expedientes{
 	function busca_expediente($parametros,$hoy){
 		
 				
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		//busco si lo que me estan dando es un numero de expediente
 		$result=mysql_query("select e.id,e.numero,e.id_tipoExpediente,e.fecha_creacion, e.fecha_modificacion,e.id_cliente,e.estado,c.nombre from tbl_expedientes e,tbl_clientes c where e.numero='".$v_datos[0]."' and c.id=e.id_cliente");
 		if (mysql_num_rows($result)>0){
@@ -194,7 +194,7 @@ class Expedientes{
 	/*******************************************************/
 
 	function crea_cobros($parametros,$hoy){
-		$v_datos=explode(",",$parametros);
+		$v_datos=explode("^",$parametros);
 		$id=$v_datos[0];
 		$tipo=$v_datos[1];
 		$titulo=$v_datos[2];

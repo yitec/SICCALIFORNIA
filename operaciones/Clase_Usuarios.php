@@ -18,7 +18,7 @@ class Expedientes{
 	function autocompleta_usuarios(){
 		$result=mysql_query("select nombre from tbl_usuarios");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".utf8_encode($row->nombre); 
+			$vector=$vector."^".utf8_encode($row->nombre); 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -32,7 +32,7 @@ class Expedientes{
 ********************************************************/
 
 function busca_usuario($parametros,$hoy){
-	$v_datos=explode(",",$parametros);	
+	$v_datos=explode("^",$parametros);	
 	$result=mysql_query("select * from tbl_usuarios where nombre='".$v_datos[0]."'");
 
 	$row=mysql_fetch_object($result);

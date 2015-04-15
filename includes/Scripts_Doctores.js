@@ -15,7 +15,7 @@ function busca_nombres(){
           availableTags =data;      
         }//end succces function
     });//end ajax function  
-    availableTags=availableTags.split(",");
+    availableTags=availableTags.split("^");
     $( "#txt_buscar" ).autocomplete({
       source: availableTags
     });
@@ -28,7 +28,7 @@ Ivocación:click img_biscar
 /**********************************************/
 
 $('#btn_buscar').click(function(){
-    var parametros=$("#txt_buscar").val()+",";
+    var parametros=$("#txt_buscar").val()+"^";
     $.ajax({ 
     data: "metodo=busca_doctor&parametros="+parametros,
     type: "POST",
@@ -64,13 +64,13 @@ $("#btn_guardar").click(function(event){
     
     event.preventDefault(); 
     /*if($("#txt_correo").val().indexOf('@', 0) == -1 || $("#txt_correo").val().indexOf('.', 0) == -1) {  
-          notificacion("Error","El correo debe contener @ y un .","error");          
+          notificacion("Error"^"El correo debe contener @ y un ."^"error");          
           return false;  
       }  */
   
     
     if($('#opcion').val()==1){      
-      var parametros=$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+$("#txt_clinica").val();
+      var parametros=$("#txt_nombre").val()+"^"+$("#txt_cedula").val()+"^"+$("#txt_correo").val()+"^"+$("#txt_tel_cel").val()+"^"+$("#txt_tel_fijo").val()+"^"+$("#txt_fax").val()+"^"+$("#txt_direccion").val()+"^"+$("#txt_clinica").val();
       $.ajax({
         data: "metodo=crea_doctor&parametros="+parametros,
         type: "POST",
@@ -91,7 +91,7 @@ $("#btn_guardar").click(function(event){
       busca_nombres();
       $('#txt_buscar').focus(); 
     }else{
-      var parametros=$("#txt_doctor").val()+","+$("#txt_nombre").val()+","+$("#txt_cedula").val()+","+$("#txt_correo").val()+","+$("#cmb_tipo").val()+","+$("#txt_tel_cel").val()+","+$("#txt_tel_fijo").val()+","+$("#txt_fax").val()+","+$("#txt_direccion").val()+","+$("#txt_clinica").val();
+      var parametros=$("#txt_doctor").val()+"^"+$("#txt_nombre").val()+"^"+$("#txt_cedula").val()+"^"+$("#txt_correo").val()+"^"+$("#cmb_tipo").val()+"^"+$("#txt_tel_cel").val()+"^"+$("#txt_tel_fijo").val()+"^"+$("#txt_fax").val()+"^"+$("#txt_direccion").val()+"^"+$("#txt_clinica").val();
       $.ajax({
         data: "metodo=modifica_doctor&parametros="+parametros,
         type: "POST",

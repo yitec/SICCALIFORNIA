@@ -13,13 +13,13 @@ var availableTags;
           availableTags =data;      
         }//end succces function
     });//end ajax function  
-    availableTags=availableTags.split(",");
+    availableTags=availableTags.split("^");
     $( "#txt_buscar" ).autocomplete({
       source: availableTags
     });
 /**********************************Acutalizo el Combo de expedientes*********************************************************/
 $('#cmb_cliente').change(function () {
-var parametros=$('#cmb_cliente').val()+",";
+var parametros=$('#cmb_cliente').val()+"^";
   $('#cmb_expediente').find('option').remove();
   $.ajax({ data: "metodo=obtiene_nexpedientes&parametros="+parametros,
     type: "POST",
@@ -48,7 +48,7 @@ var parametros=$('#cmb_cliente').val()+",";
       modal: true,
       buttons: {
         "Crear nuevo cobro": function() {
-        	var parametros=$("#cmb_expediente").val()+","+$("#txt_concepto").val()+","+$("#txt_monto").val();
+        	var parametros=$("#cmb_expediente").val()+"^"+$("#txt_concepto").val()+"^"+$("#txt_monto").val();
         	$.ajax({ data: "metodo=crea_cobros&parametros="+parametros,
 			     type: "POST",
 			     dataType: "json",
@@ -157,7 +157,7 @@ Parametros:id del cobro
 Ivocación:Boton upload_file y guard_archivo busca_archivos.
 /**********************************************/
 function guardar_pago(id_cobro,id_expediente){
-    var parametros=id_cobro+","+id_expediente;
+    var parametros=id_cobro+"^"+id_expediente;
     $.ajax({ data: "metodo=guardar_pago&parametros="+parametros,
      type: "POST",
      dataType: "json",
@@ -179,7 +179,7 @@ Ivocación:Boton upload_file y guard_archivo busca_archivos.
 /**********************************************/
 function modificar_pago(id_cobro,id_expediente,monto){
     monto=fTrim(monto);
-    var parametros=id_cobro+","+id_expediente+","+monto;
+    var parametros=id_cobro+"^"+id_expediente+"^"+monto;
     $.ajax({ data: "metodo=modificar_cobro&parametros="+parametros,
      type: "POST",
      async:false,
@@ -208,7 +208,7 @@ Ivocación:Boton buscar
 /**********************************************/
 function despliega_cobros(id,numero){
 	var vhtml='';
-	var parametros=id+","+numero;
+	var parametros=id+"^"+numero;
   $.ajax({ data: "metodo=obtiene_cobros&parametros="+parametros,
     type: "POST",
     async:false,
@@ -240,7 +240,7 @@ Parametros:datos del header
 Ivocación:Buscar expediente
 /**********************************************/
 function despliega_header_expediente(id,numero){
-    var parametros=id+","+numero;
+    var parametros=id+"^"+numero;
     $.ajax({ 
     data: "metodo=busca_header_expediente&parametros="+parametros,
     type: "POST",
@@ -293,7 +293,7 @@ Ivocación:click img_biscar
 /**********************************************/
 
 $('#btn_buscar').click(function(){
-    var parametros=$("#txt_buscar").val()+",";
+    var parametros=$("#txt_buscar").val()+"^";
     $.ajax({ 
     data: "metodo=busca_expediente&parametros="+parametros,
     type: "POST",

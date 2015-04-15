@@ -1,33 +1,4 @@
 <?
-
-
-
-//******************busca si es hemograma mas un analisis***************************************
-function busca_hemomasuno($solicitud){
-
-$sql="select cat.id,cat.nombre from tbl_analisis ana join tbl_categoriasanalisis cat on ana.id_analisis=cat.id where ana.consecutivo_solicitud='".$solicitud."' and cat.id in (1,2,3,4,5,14,15,16)";
-$result=mysql_query($sql);
-if (mysql_num_rows($result)==2){
-	while ($row=mysql_fetch_object($result)){
-		if ($row->id=1){
-			$hemo=1;
-		}		
-	}	
-}
-
-if ($hemo==1){
-	return 1;
-}else{
-	return 0;
-}
-
-
-}
-
-
-
-
-
 //******************busca si es vaginal***************************************
 
 function busca_vaginal($pdf,$id,$resultado){
@@ -41,6 +12,7 @@ if($id==285||$id==286||$id==287){
 	$pdf->SetTextColor(0,0,0);
 	switch ($id){		
 		case 285:
+			$pdf->MultiCell(190,5,'',0,1,'L');
 			$pdf->SetFont('Arial','BU',10);
 			$pdf->MultiCell(190,5,'FROTIS Y CULTIVO VAGINAL:',0,1,'L');
 			$pdf->MultiCell(190,5,'',0,1,'L');

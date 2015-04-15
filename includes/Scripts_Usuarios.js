@@ -17,7 +17,7 @@ function busca_nombres(){
           availableTags =data;      
         }//end succces function
     });//end ajax function  
-    availableTags=availableTags.split(",");
+    availableTags=availableTags.split("^");
     $( "#txt_buscar" ).autocomplete({
       source: availableTags
     });
@@ -31,7 +31,7 @@ Ivocación:click img_buscar
 
 $('#btn_buscar').click(function(){
     var numero;
-    var parametros=$("#txt_buscar").val()+",";
+    var parametros=$("#txt_buscar").val()+"^";
     $.ajax({ 
     data: "metodo=busca_usuario&parametros="+parametros,
     type: "POST",
@@ -51,8 +51,8 @@ $('#btn_buscar').click(function(){
           $("#opcion").attr("value","2");
           $("#cmb_estado option[value='"+data.estado+"']").attr("selected","selected");
           var sql=data.sql;
-          var v_accesos=data.accesos.split(",");
-          var v_reportes=data.reportes.split(",");
+          var v_accesos=data.accesos.split("^");
+          var v_reportes=data.reportes.split("^");
           $('.ck').each(function (index) {          
             if(v_accesos.indexOf($(this).attr("numero"))>=0){        
               $(this).attr("checked","checked");          
@@ -86,12 +86,12 @@ $("#btn_guardar").click(function(event){
       var reportes=0;
       $('.ck').each(function (index) {          
         if ($(this).is(":checked")){
-        accesos=accesos+","+$(this).attr("numero");
+        accesos=accesos+"^"+$(this).attr("numero");
         }      
       });    
       $('.rp').each(function (index) {          
         if ($(this).is(":checked")){
-        reportes=reportes+","+$(this).attr("numero");
+        reportes=reportes+"^"+$(this).attr("numero");
         }      
       });
       var parametros=$("#txt_nombre").val()+"/"+$("#txt_cedula").val()+"/"+$("#txt_correo").val()+"/"+$("#txt_usuario").val()+"/"+$("#txt_pass").val()+"/"+$("#txt_fecha").val()+"/"+accesos+"/"+reportes;
@@ -115,12 +115,12 @@ $("#btn_guardar").click(function(event){
       var reportes=0;
       $('.ck').each(function (index) {          
         if ($(this).is(":checked")){
-        accesos=accesos+","+$(this).attr("numero");
+        accesos=accesos+"^"+$(this).attr("numero");
         }      
       });    
       $('.rp').each(function (index) {          
         if ($(this).is(":checked")){
-        reportes=reportes+","+$(this).attr("numero");
+        reportes=reportes+"^"+$(this).attr("numero");
         }      
       });      
       parametros=

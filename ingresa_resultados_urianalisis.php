@@ -286,7 +286,7 @@ while($row=mysql_fetch_object($result)){
         <tr>
         <td class="Arial14Negro" valign="center">        
         <input id="txt_resultado_leu" class="inputbox" type="text" value="<?=$v_resultados[8];?>" /></td>        
-        <td valign="top" class="Arial14Negro"><?echo '<div align="left" style="margin-top:5px;"  >&nbsp;&nbsp;/mm<sup>3</sup></div><input id="txt_unidades_leu" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
+        <td valign="top" class="Arial14Negro"><?echo '<div align="left" style="margin-top:5px;"  ></div><input id="txt_unidades_leu" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:195px;margin-top:10px;"><?=$v_referecias[8]?></div></td>
         </tr>        
 </tbody>
@@ -304,7 +304,7 @@ while($row=mysql_fetch_object($result)){
         <tr>
         <td class="Arial14Negro" valign="center">        
         <input id="txt_resultado_eri" class="inputbox" type="text" value="<?=$v_resultados[9];?>" /></td>        
-        <td valign="top" class="Arial14Negro"><?echo '<div valign="top" align="left" style="margin-top:5px;"   >&nbsp;&nbsp;x10<sup>6</sup></div><input id="txt_unidades_eri" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
+        <td valign="top" class="Arial14Negro"><?echo '<div valign="top" align="left" style="margin-top:5px;"   ></div><input id="txt_unidades_eri" class="inputbox" type="hidden" value="'.$_REQUEST['unidades'].'" />';?></td>                        
         <td valign="top" class="Arial14Negro"><div style="margin-left:195px;margin-top:10px;"><?=$v_referecias[9]?></div></td>
         </tr>        
 </tbody>

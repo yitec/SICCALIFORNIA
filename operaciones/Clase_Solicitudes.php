@@ -24,7 +24,7 @@ class Solicitudes{
 function autocompleta_clientes(){
 		$result=mysql_query("select nombre from tbl_clientes order by nombre asc");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".$row->nombre; 
+			$vector=$vector."^".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -39,7 +39,7 @@ function autocompleta_clientes(){
 function autocompleta_doctores(){
 		$result=mysql_query("select nombre from tbl_doctores order by nombre asc");
 		while ($row=mysql_fetch_object($result)){
-			$vector=$vector.",".$row->nombre; 
+			$vector=$vector."^".$row->nombre; 
 		}
 		echo $vector;
 		mysql_free_result($result);
@@ -69,7 +69,7 @@ function busca_cliente($parametros){
 ********************************************************/
 
 function guarda_solicitud($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql1="select id from tbl_clientes where nombre='".$_SESSION['cliente']."'";
 	$result=mysql_query($sql1);
 	$row=mysql_fetch_object($result);
@@ -104,7 +104,7 @@ function guarda_solicitud($parametros,$hoy){
 ********************************************************/
 
 function buscar_analisis($parametros,$hoy){
-	$v_datos=explode(",",$parametros);	
+	$v_datos=explode("^",$parametros);	
 	$sql="select * from tbl_categoriasanalisis where id_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre";	
 	$result=mysql_query("select * from tbl_categoriasanalisis where id_categoriaMuestra='".$v_datos[0]."'  and precio>=0 order by nombre");
 	if (!$result) {//si da error que me despliegue el error del query
@@ -114,7 +114,7 @@ function buscar_analisis($parametros,$hoy){
 		} 
 	$var=mysql_num_rows($result);
 		while ($row=mysql_fetch_assoc($result)){			
-			//$vector=$vector."|".$row['id'].",".$row['id_laboratorio'].','.$row['nombre'].','.$row['precio'].','.$row['analisis_ligados']; 
+			//$vector=$vector."|".$row['id']."^".$row['id_laboratorio'].','.$row['nombre'].','.$row['precio'].','.$row['analisis_ligados']; 
 			//$var="entro";	
 		}
 	$jsondata['resultado']=$message;	
@@ -130,7 +130,7 @@ function buscar_analisis($parametros,$hoy){
 
 
 function guarda_muestras($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="insert into tbl_muestras (consecutivo_contrato,id_categoria,fecha_ingreso,estado)values('".$v_datos[0]."','".$v_datos[1]."','".$hoy."','"."0"."')";	
 	$result=mysql_query($sql);				
 	$jsondata=mysql_insert_id();	
@@ -145,7 +145,7 @@ function guarda_muestras($parametros,$hoy){
 ********************************************************/
 
 function guarda_analisis($analisis,$hoy){
-	//$v_parametros=explode(",",$parametros);
+	//$v_parametros=explode("^",$parametros);
 	//$analisis = trim($analisis, '|');
 	$v_datos=explode('|',$analisis);	
 	echo($analisis);
@@ -201,7 +201,7 @@ function guarda_analisis($analisis,$hoy){
 
 
 function guarda_resultados($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$result=mysql_query("select id from tbl_resultados where id_analisis='".$v_datos[1]."'");
 	if (mysql_num_rows($result)>=1){
 		$row=mysql_fetch_object($result);
@@ -227,7 +227,7 @@ function guarda_resultados($parametros,$hoy){
 
 
 function modifica_resultados($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set resultado='".$v_datos[1]."',unidades='".$v_datos[2]."',observaciones_analista='".$v_datos[3]."' where id='".$v_datos[0]."'";
 	$result=mysql_query($sql);
 	$jsondata="Success";	
@@ -242,7 +242,7 @@ function modifica_resultados($parametros,$hoy){
 
 function guarda_resultados_psa($parametros,$hoy){
 	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	//print_r($v_datos);
 	//$v_ids=explode("|",$v_datos[18]);
 	$h=1;
@@ -335,7 +335,7 @@ function guarda_resultados_psa($parametros,$hoy){
 
 function guarda_resultados_hematologia($parametros,$hoy){
 	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	//print_r($v_datos);
 	$v_ids=explode("|",$v_datos[36]);
 	$h=1;
@@ -370,7 +370,7 @@ function guarda_resultados_hematologia($parametros,$hoy){
 
 function guarda_resultados_urianalisis($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[34]);
 	//print_r($v_datos);
 	$h=1;
@@ -404,7 +404,7 @@ function guarda_resultados_urianalisis($parametros,$hoy){
 
 function guarda_resultados_lipidos($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[13]);
 	//print_r($v_datos);
 	$h=1;
@@ -438,7 +438,7 @@ function guarda_resultados_lipidos($parametros,$hoy){
 
 function guarda_resultados_aglutinaciones($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[14]);
 	//print_r($v_datos);
 	$h=1;
@@ -472,7 +472,7 @@ function guarda_resultados_aglutinaciones($parametros,$hoy){
 
 function guarda_resultados_aclaramiento($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[14]);
 	//print_r($v_datos);
 	$h=1;
@@ -506,7 +506,7 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 
 function guarda_resultados_ena($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[14]);
 	//print_r($v_datos);
 	$h=1;
@@ -543,7 +543,7 @@ function guarda_resultados_ena($parametros,$hoy){
 
 function guarda_resultados_vaginal($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[7]);
 	//print_r($v_datos);
 	$h=1;
@@ -579,7 +579,7 @@ function guarda_resultados_vaginal($parametros,$hoy){
 
 function guarda_resultados_hec($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[4]);
 	//print_r($v_datos);
 	$h=1;
@@ -615,7 +615,7 @@ function guarda_resultados_hec($parametros,$hoy){
 
 function guarda_resultados_curva2($parametros,$hoy){
 	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[12]);
 	//print_r($v_datos);
 	$h=1;
@@ -652,7 +652,7 @@ function guarda_resultados_curva2($parametros,$hoy){
 
 function guarda_resultados_cardiopilinas($parametros,$hoy){
 	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[6]);
 	//print_r($v_datos);
 	$h=1;
@@ -688,7 +688,7 @@ function guarda_resultados_cardiopilinas($parametros,$hoy){
 
 function guarda_resultados_curva3($parametros,$hoy){
 	//los ids de los analisis estan quemadso si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[14]);
 	//print_r($v_datos);
 	$h=1;
@@ -724,7 +724,7 @@ function guarda_resultados_curva3($parametros,$hoy){
 
 function guarda_resultados_espermo($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[74]);
 	//print_r($v_datos);
 	//print_r($v_ids);
@@ -754,7 +754,7 @@ function guarda_resultados_espermo($parametros,$hoy){
 
 function guarda_resultados_proteina($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$v_ids=explode("|",$v_datos[10]);
 	//print_r($v_datos);
 	$h=1;
@@ -789,7 +789,7 @@ function guarda_resultados_proteina($parametros,$hoy){
 
 function guarda_formulario_espermo($parametros,$hoy){
 	//los ids de los analisis estan quemados si se cambian en base de datos deben cambiarse aqui
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="select id from tbl_analisis where id_analisis>=277 and id_analisis<=284 and consecutivo_solicitud='".$v_datos[0]."'";
 	$result=mysql_query($sql);
 	while($row=mysql_fetch_object($result)){
@@ -857,7 +857,7 @@ function guarda_formulario_espermo($parametros,$hoy){
 
 
 function busca_siguiente($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	if($v_datos[1]==1){//si es uno es porque busco un resultado si no, es un analisis
 		$result=mysql_query("select res.id,res.consecutivo_solicitud,cat.nombre from 
 tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id	
@@ -890,7 +890,7 @@ where res.estado=0 and cat.fantasma!=1 and res.consecutivo_solicitud='".$v_datos
 
 
 function aprueba_resultados_hemo($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=1";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=1) ";
@@ -942,7 +942,7 @@ function aprueba_resultados_hemo($parametros,$hoy){
 
 
 function aprueba_resultados_uri($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=206";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=206) ";
@@ -994,7 +994,7 @@ function aprueba_resultados_uri($parametros,$hoy){
 
 
 function aprueba_resultados_cardio($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=70";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=70) ";
@@ -1047,7 +1047,7 @@ function aprueba_resultados_cardio($parametros,$hoy){
 
 
 function aprueba_resultados_aclaramiento($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=138";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=138) ";
@@ -1099,7 +1099,7 @@ function aprueba_resultados_aclaramiento($parametros,$hoy){
 
 
 function aprueba_resultados_proteina($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=196";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=196) ";
@@ -1152,7 +1152,7 @@ function aprueba_resultados_proteina($parametros,$hoy){
 
 
 function aprueba_resultados_aglutinamiento($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=68";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=68) ";
@@ -1206,7 +1206,7 @@ function aprueba_resultados_aglutinamiento($parametros,$hoy){
 
 
 function aprueba_resultados_ena($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=179";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=179) ";
@@ -1259,7 +1259,7 @@ function aprueba_resultados_ena($parametros,$hoy){
 
 
 function aprueba_resultados_lipidos($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=25";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=25) ";
@@ -1313,7 +1313,7 @@ function aprueba_resultados_lipidos($parametros,$hoy){
 
 
 function aprueba_resultados_curva2($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=17";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=17) ";
@@ -1365,7 +1365,7 @@ function aprueba_resultados_curva2($parametros,$hoy){
 
 
 function aprueba_resultados_curva3($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=18";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=18) ";
@@ -1420,7 +1420,7 @@ function aprueba_resultados_curva3($parametros,$hoy){
 
 
 function aprueba_resultados_vaginal($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=143";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=143) ";
@@ -1474,7 +1474,7 @@ function aprueba_resultados_vaginal($parametros,$hoy){
 
 
 function aprueba_resultados_heces($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=140";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=140) ";
@@ -1527,7 +1527,7 @@ function aprueba_resultados_heces($parametros,$hoy){
 
 
 function aprueba_resultados_espermo($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=150";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where id in (select id_analisis from tbl_resultados where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre=150) ";
@@ -1580,7 +1580,7 @@ function aprueba_resultados_espermo($parametros,$hoy){
 
 
 function aprueba_resultados($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set fecha_aprobacion='".$hoy."', estado=1 where consecutivo_solicitud='".$v_datos[0]."'  and  id='".$v_datos[1]."'";
 	$result=mysql_query($sql);	
 	$sql="update tbl_analisis set  estado=2 where consecutivo_solicitud='".$v_datos[0]."'  and  id='".$v_datos[2]."'";
@@ -1630,7 +1630,7 @@ function aprueba_resultados($parametros,$hoy){
 
 
 function rechaza_resultados($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set estado=2, observaciones_gerente='".$v_datos[2]."' where id='".$v_datos[1]."'";	
 	$result=mysql_query($sql);
 	$result=mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0 where id in(select id_analisis from tbl_resultados where id='".$v_datos[1]."') ");				
@@ -1647,13 +1647,13 @@ function rechaza_resultados($parametros,$hoy){
 
 
 function rechaza_resultados_compuesto($parametros,$hoy){
-	$v_datos=explode(",",$parametros);
+	$v_datos=explode("^",$parametros);
 	$sql="update tbl_resultados set estado=2, observaciones_gerente='".$v_datos[2]."' where consecutivo_solicitud='".$v_datos[0]."' and analisis_padre='".$v_datos[3]."'";	
 	$result=mysql_query($sql);
 	$sql="select analisis_ligados from tbl_categoriasanalisis where id='".$v_datos[3]."' ";
 	$result=mysql_query($sql);
 	$row=mysql_fetch_object($result);
-	$ligados=str_replace(":",",",$row->analisis_ligados);
+	$ligados=str_replace(":"^",",$row->analisis_ligados);
 	//actualizo los analisis que comprenden el compuesto
 	mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0, observaciones='".$v_datos[2]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in(".$ligados.") ");				
 	//actualizo los analisis que comprenden el padre

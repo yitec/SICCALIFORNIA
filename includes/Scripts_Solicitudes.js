@@ -35,7 +35,7 @@ function busca_clientes(){
           availableTagscli =data;      
         }//end succces function
     });//end ajax function  
-    availableTagscli=availableTagscli.split(",");
+    availableTagscli=availableTagscli.split("^");
     $( "#txt_cliente" ).autocomplete({
       source: availableTagscli
     });
@@ -50,7 +50,7 @@ function busca_doctores(){
           availableTagsdoc =data;      
         }//end succces function
     });//end ajax function  
-    availableTagsdoc=availableTagsdoc.split(",");
+    availableTagsdoc=availableTagsdoc.split("^");
     $( "#txt_doctor" ).autocomplete({
       source: availableTagsdoc
     });
@@ -213,7 +213,7 @@ Ivocación:click img_biscar
 function cargaAnalisis(tipo,copiar){  
     var repeticiones=1;
     var seleccionada=1;
-    var parametros=$("#cmb_categoria").val()+",";
+    var parametros=$("#cmb_categoria").val()+"^";
     $('#analisis_1').html('');
     $('.analisis_1').append('<div class="titulo_sombreado">------------------------------------------------------</div>');
     $.ajax({
@@ -226,7 +226,7 @@ function cargaAnalisis(tipo,copiar){
         success: function(datos){     
       var v_resultado=datos.resultado.split("|");     
         for (i=1;i<v_resultado.length;i++) { 
-          v_datos=v_resultado[i].split(",");
+          v_datos=v_resultado[i].split("^");
           residuo=i%5
           if(residuo==0){         
             

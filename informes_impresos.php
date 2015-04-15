@@ -45,10 +45,11 @@ $sql="select count(1) as total from tbl_resultados where consecutivo_solicitud='
 $result=mysql_query($sql);
 $row=mysql_fetch_object($result);
 $tot_resultados=$row->total;
+$ultimo_id=0;
 
 //busco todos los resultados
 $sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by CAST(cat.id_categoriamuestra AS UNSIGNED),cat.orden_impresion,res.analisis_padre,ana.id ASC";
+on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=mysql_query($sql);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
@@ -69,7 +70,7 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	//evaluo si ya imprimi el maximo de analisis x pagina
 	if ($cont_general!=$tot_resultados){
 		
-			busco_salto_pagina($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra);
+			busco_salto_pagina($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$ultimo_id);
 		
 	}		
 	//imprimo el titulo de la categoria si cambia
@@ -77,7 +78,7 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	if($row->id<251||$row->id>294){//si es espermograma corro una rutina diferente
 
 
-		$nombre_categoria=imprime_categoria($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$row->analisis_padre);
+		$nombre_categoria=imprime_categoria($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$row->analisis_padre,$row->id);
 	}
 
 	//imprimo nombre y resultados
@@ -94,9 +95,11 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		if($row->id==300){//busco si es el color de suero
 			global $suero;
 			$suero=$row->resultado;
-			busca_riesgo_cardiaco($pdf,$sexo);									
-			$pdf->AddPage();
-			header_principal($pdf);
+			busca_riesgo_cardiaco($pdf,$sexo);	
+			if ($cont_general!=$tot_resultados){								
+				$pdf->AddPage();
+				header_principal($pdf);
+			}
 		}else{
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
@@ -112,6 +115,8 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		}
 	}
 
+//esta variable me lleva el control de si debo hacer el salto de pagina.
+$ultimo_id=$row->id;
 
 }//end while
 
@@ -130,6 +135,31 @@ $pdf->Output();
 **********************************************************************************
 
 *********************************************************************************/
+
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************
+/**********************************************************************************/
+
+function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_analisis){
+
+	if ($vary>=240||$id_analisis==224||$id_analisis==222||$id_analisis==294){
+		global $tot_analisis;
+		//imprime_footer($pdf,$pdf->GETY());
+		$pdf->AddPage();
+		header_principal($pdf);
+		$pdf->Ln(5);
+		imprime_header_salto($pdf,$pdf->GETY(),$nombre_categoria,$id_categoria);
+		$tot_analisis=0;
+	}
+
+}
+
 
 function color(){
 	$this->SetFillColor(230,230,0);		
@@ -222,11 +252,11 @@ $result2=mysql_query("select id,nombre from tbl_categoriasanalisis where id='".$
 	if (mysql_num_rows($result2)>0){
 	$row2=mysql_fetch_object($result2);
 	if ($row2->nombre!=$subtitulo){
-		if ($row2->id_analisis==1){
+		if ($row2->id==1){
 			$pdf->Cell(190,5,'HEMOGRAMA',0,1,'L');		
 			$subtitulo=$row2->nombre;
 		}
-		elseif($row2->id_analisis==206){
+		elseif($row2->id==206){
 			$pdf->Cell(190,5,'URIANÁLISIS',0,1,'L');			
 			$subtitulo=$row2->nombre;
 		}
@@ -313,20 +343,28 @@ function imprime_referencias($pdf,$id,$resultado,$hombre,$mujer,$general,$sexo){
 
 
 
-function imprime_categoria($pdf,$vary,$nombre_categoria,$id_categoria,$padre){
+function imprime_categoria($pdf,$vary,$nombre_categoria,$id_categoria,$padre,$id_analisis){
 	$var = $vary;
 	//$pdf->Ln($var);
 	$sql="select nombre from tbl_categoriasmuestras where id='".$id_categoria."' ";
 	$result=mysql_query($sql);
 	$row=mysql_fetch_object($result);
 	if ($row->nombre!=$nombre_categoria){
+		/********************************
+		Descuadre=Este if me indica que si lipidos y ya imprimio mas de la mitad de la pagina salte
+		*********************************/
+		if ($vary>=150){
+			if ($id_analisis==14||$id_analisis=207){
+				busco_salto_pagina($pdf,220,$nombre_categoria,$id_categoria,$id_analisis);
+			}
+		}
 		$pdf->SetTextColor(0,0,0);
 		$pdf->SetFont('Arial','U',12);
 		//$pdf->Ln(8);
 		$pdf->Cell(64,5,'',0,1,'C');
-		$pdf->Cell(190,5,$row->nombre,0,1,'C');	
+		$pdf->Cell(190,5,$row->nombre,0,1,'C');			
 		$pdf->SetFont('Arial','U',10);
-		header_especiales($pdf,$nombre_categoria,$padre);
+		header_especiales($pdf,$row->nombre,$padre);
 		$pdf->Cell(63,5,'Parametro',0,0,'L');
 		$pdf->Cell(63,5,'Resultado',0,0,'C');
 		$pdf->Cell(64,5,'Referencia',0,1,'C');
@@ -366,26 +404,12 @@ function imprime_header_salto($pdf,$vary,$nombre_categoria,$id_categoria){
 	}
 }
 
-function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria){
-
-	if ($vary>=194){
-		global $tot_analisis;
-		//imprime_footer($pdf,$pdf->GETY());
-		$pdf->AddPage();
-		header_principal($pdf);
-		$pdf->Ln(5);
-		imprime_header_salto($pdf,$pdf->GETY(),$nombre_categoria,$id_categoria);
-		$tot_analisis=0;
-	}
-
-}
-
 
 function imprime_footer($pdf,$vary){
 
 $pdf->SetFont('Arial','B',14);
 $var = $vary;
-$var=$var+10;
+$var=$var+5;
 $pdf->Ln($var);
 $pdf->Image('img/firma.jpg',160,$var,30);
 $pdf->SetY($var+5);
