@@ -207,7 +207,11 @@ function guarda_resultados($parametros,$hoy){
 		$row=mysql_fetch_object($result);
 		$sql="update tbl_resultados set resultado='".$v_datos[2]."',unidades='".$v_datos[3]."',observaciones_analista='".$v_datos[4]."', estado=0 where id='".$row->id."'";
 	}else{
-		$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."',NOW(),0)";		
+		if ($v_datos[5]==1){
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,observaciones_impresas,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[4]."',NOW(),0)";		
+		}else{
+			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."',NOW(),0)";		
+		}
 	}
 	$result=mysql_query($sql);
 	$result=mysql_query("update tbl_analisis set estado=1 where id='".$v_datos[1]."'");	
@@ -482,13 +486,18 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 			if($v_datos[15]==1){
 				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,0)";
+				if($v_datos[15]==1&&$i==1){//pregunto si lleva observaciones imprezas
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,'".$v_datos[13]."',0)";				
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
 			$k++;
 		}
 	}
+	
 	$result=mysql_query("update tbl_analisis set estado=1 where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in (138,200,201,202,203,204,205)");						
 	$result=mysql_query("select * from tbl_analisis where consecutivo_solicitud='".$v_datos[0]."' and estado=0");	
 	if (mysql_num_rows($result)==0){

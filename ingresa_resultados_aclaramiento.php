@@ -216,7 +216,7 @@ while($row=mysql_fetch_object($result)){
 <table class=" margen_izquierdo">
 <tbody>        
         <tr>
-        <td class="Arial14Negro">Observaciones</td>        
+        <td class="Arial14Negro"><div style=" float:left;">Observaciones</div><div style=" float:left;margin-left:230px;">Imprimir Observaciones</div><div style=" float:left;margin-left:5px; margin-top:-2px;"><input id="chk_observaciones_impresas" type="checkbox"></div></td>        
         </tr>
         <tr>
         <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$gerente;?></textarea></td>        
@@ -225,7 +225,6 @@ while($row=mysql_fetch_object($result)){
 </table>
 <div align="center" style="margin-top:0px; margin-bottom:0px;">
 <input id="btn_guardarresacla" type="submit" value="Guardar" name="submit" class="submit" />
-<input id="btn_guardarsig" type="submit" value="Siguiente" name="submit" class="submit" />
 </div>    
 <br>
 </div><!-- fin div panel Central-->

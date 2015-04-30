@@ -113,311 +113,322 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Cell(175,3,"Espermograma",0,1,'C');
 			$pdf->SetTextColor(0,0,0);
 			$pdf->SETY(150);
-			$pdf->SetFont('Arial','BU',8);
+			$pdf->SetFont('Arial','BU',10);
 			$pdf->Cell(190,5,'MOVIMIENTO(1h.post.recoleccion)',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 252:
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 253:
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 254:
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 255:
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
-			$pdf->Cell(190,3,'VITALIDAD(eosina)',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','BU',10);
+			$pdf->Cell(190,4,'VITALIDAD(eosina)',0,1,'L');					
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;		
 		case 256:
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
-			$pdf->Cell(190,3,'MORFOLOGIA',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','BU',10);
+			$pdf->Cell(190,4,'MORFOLOGIA',0,1,'L');					
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 257:
-			$pdf->SetFont('Arial','',8);
+			$pdf->SetFont('Arial','',10);
 			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 258:
-			$pdf->SETY(101);
+			$pdf->SETY(100);
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
+			$pdf->SetFont('Arial','BU',10);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'ANORMALIDADES DE CABEZA',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
+			$pdf->Cell(190,4,'ANORMALIDADES DE CABEZA',0,1,'L');					
+			$pdf->SetFont('Arial','',10);
 			$pdf->SETX(105);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 259:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 260:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
-		case 261:			
+		case 261:					
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->SetFont('Arial','',10); //vacuolas
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 262:
-			$pdf->SETY(122);		//Macrocefalo
+			$pdf->SETY(128);		//Macrocefalo
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 263:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 264:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 265:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 266:			
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
+			$pdf->SetFont('Arial','BU',10);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'CUELLO',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
+			$pdf->Cell(190,4,'CUELLO',0,1,'L');					
+			$pdf->SetFont('Arial','',10);
 			$pdf->SETX(105);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
+			$pdf->Cell(60,4,$nombre,0,1,'L');
 			$pdf->Ln(-3);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 267:			
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
+			$pdf->SetFont('Arial','BU',10);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'COLA',0,1,'L');					
-			$pdf->SetFont('Arial','',8);
+			$pdf->Cell(190,4,'COLA',0,1,'L');					
+			$pdf->SetFont('Arial','',10);
 			$pdf->SETX(105);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 268:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;						
 		case 269:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 270:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;															
 		case 271:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;															
 		case 272:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;															
 		case 273:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 274:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 275:
 			$pdf->SETX(105);
 			$pdf->Ln(3);
-			$pdf->SetFont('Arial','BU',8);
+			$pdf->SetFont('Arial','BU',10);
 			$pdf->SETX(105);
-			$pdf->Cell(190,3,'CELURALIDAD',0,1,'L');								
+			$pdf->Cell(190,4,'CELURALIDAD',0,1,'L');								
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 276:
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;																																																															
 		case 277:								
 			$pdf->SETY(107);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');//hora de recoleccion
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');//hora de recoleccion
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 278:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;
 		case 279:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 280:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 281:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 282:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 283:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;	
 		case 284:			
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(65);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 		break;							
 		case 293:			
-			$pdf->SETY(119);
+			$pdf->SETY(124); //microcefalo
 			$pdf->SETX(105);
-			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
+			$pdf->SetFont('Arial','',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
 			$pdf->SETX(175);
-			$pdf->Cell(10,3,$resultado.' '.$unidades,0,1,'L');
+			$pdf->Cell(10,4,$resultado.' '.$unidades,0,1,'L');
 			$pdf->SETY(189);
 		break;							
 		case 294:			
-			$pdf->SETY(104);
+			$pdf->SETY(103);  //nombre del conyuge
 			$pdf->SETX(10);
-			$pdf->SetFont('Arial','BU',8);
-			$pdf->Cell(60,3,$nombre,0,1,'L');
-			$pdf->Ln(-3);
-			$pdf->SETX(65);
-			$pdf->Cell(10,3,utf8_decode($resultado),0,1,'L');
+			$pdf->SetFont('Arial','B',10);
+			$pdf->Cell(60,4,$nombre,0,1,'L');
+			$pdf->Ln(-4);
+			$pdf->SETX(47);
+			$pdf->Cell(10,4,utf8_decode($resultado),0,1,'L');
 			$pdf->SETY(189);		
 		break;									
 	}
+
+}
+
+function imprime_observaciones($pdf){
+		$pdf->SetY($pdf->GetY()+1);
+		global $observaciones;				
+		$pdf->SetFont('Arial','B',10);
+		if($observaciones!=''){
+			$pdf->Write(5,'Observaciones: '.$observaciones);
+		}
+		$observaciones='';
 
 }
 

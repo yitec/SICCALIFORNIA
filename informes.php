@@ -50,7 +50,7 @@ $tot_resultados=$row->total;
 $ultimo_id=0;
 
 //busco todos los resultados
-$sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
+$sql="select res.resultado,cat.nombre,res.unidades,res.observaciones_impresas,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
 on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=	mysql_query($sql);
 $total_resultados=mysql_num_rows($result);
@@ -60,6 +60,10 @@ $cont_general++;
 
 busca_vaginal($pdf,$row->id,$row->resultado);
 
+	//busco si debo imprimir observaciones en el informe
+	if (isset($row->observaciones_impresas)){
+		$observaciones=$row->observaciones_impresas;
+	}
 
 	//si el analisis padre varia imprimo una linea en blanco para diferenciar
 
@@ -98,19 +102,19 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 			
 		}
 		if($row->id==300){//busco si es el color de suero
-			//{***Si encuentro riego cardiaco lo imprimo al final****}
-		
-		
+			//***Si encuentro riego cardiaco lo imprimo al final****			
 			global $suero;
 			$suero=$row->resultado;
 			busca_riesgo_cardiaco($pdf,$sexo);			
-			if ($cont_general!=$tot_resultados){				
+			if ($cont_general!=$tot_resultados){								
 				imprime_footer($pdf,$pdf->GETY());
 				$pdf->AddPage();
 				header_principal($pdf);
 			}
 		
 		}else{
+			
+		busco_salto_linea($pdf,$row->id);
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
 		$pdf->SetX(90);	
@@ -133,7 +137,8 @@ $ultimo_id=$row->id;
 
 
 //$pdf->Write(5,$pdf->GETY());
-if ($pdf->GETY()>20){
+if ($pdf->GETY()>20){	
+	imprime_observaciones($pdf);
 	imprime_footer($pdf,$pdf->GETY());
 }
 $pdf->Output();
@@ -163,7 +168,15 @@ function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_anali
 
 	************************************/
 	if ($vary>=218||$id_analisis==224||$id_analisis==222||$id_analisis==294){		
-		global $tot_analisis;
+		//en algunas excepciones no debo saltar de pagina
+		//if (busco_excepciones($_REQUEST['solicitud']==true)){
+		$exep=busco_excepciones($_REQUEST['solicitud'],$id_analisis);
+		if ($exep==1){		
+			return;	
+		}
+		$exep=0;				
+		global $tot_analisis;		
+		imprime_observaciones($pdf);
 		imprime_footer($pdf,$pdf->GETY());
 		$pdf->AddPage();
 		header_principal($pdf);
@@ -173,6 +186,35 @@ function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_anali
 	}
 
 }
+
+
+
+function busco_salto_linea($pdf,$id_analisis){
+
+//busco salto de linea por formato
+			if($id_analisis==164||$id_analisis==223){				
+				
+			}
+//pongo negrita por formato
+			if($id_analisis==223){				
+				$pdf->SetFont('Arial','B',10);
+			}
+
+}
+
+
+function busco_excepciones($solicitud,$id_analisis){
+	if ($id_analisis==224){
+		$sql="select id from tbl_analisis where consecutivo_solicitud='".$solicitud."' and id_analisis=11";
+		$result=mysql_query($sql);
+		if(mysql_num_rows($result)>0){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+}
+
 
 function color(){
 	$this->SetFillColor(230,230,0);		

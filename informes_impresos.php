@@ -48,15 +48,18 @@ $tot_resultados=$row->total;
 $ultimo_id=0;
 
 //busco todos los resultados
-$sql="select res.resultado,cat.nombre,res.unidades,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
+$sql="select res.resultado,cat.nombre,res.unidades,res.observaciones_impresas,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
 on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=mysql_query($sql);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
 $cont_general++;
 busca_vaginal($pdf,$row->id,$row->resultado);
-
-
+	
+	//busco si hay observaciones para imprimir
+	if (isset($row->observaciones_impresas)){
+		$observaciones=$row->observaciones_impresas;
+	}
 	//si el analisis padre varia imprimo una linea en blanco para diferenciar
 
 	if ($analisis_padre!=$row->analisis_padre){
@@ -101,6 +104,7 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 				header_principal($pdf);
 			}
 		}else{
+		busco_salto_linea($pdf,$row->id);
 		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
 		$pdf->Ln(-5);
 		$pdf->SetX(95);	
@@ -122,6 +126,7 @@ $ultimo_id=$row->id;
 
 
 if ($pdf->GETY()>20){
+	imprime_observaciones($pdf);
 	//imprime_footer($pdf,$pdf->GETY());
 }
 $pdf->Output();
@@ -149,7 +154,10 @@ $pdf->Output();
 function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_analisis){
 
 	if ($vary>=240||$id_analisis==224||$id_analisis==222||$id_analisis==294){
+
+		
 		global $tot_analisis;
+		imprime_observaciones($pdf);
 		//imprime_footer($pdf,$pdf->GETY());
 		$pdf->AddPage();
 		header_principal($pdf);
@@ -159,6 +167,20 @@ function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_anali
 	}
 
 }
+
+function busco_salto_linea($pdf,$id_analisis){
+
+//busco salto de linea por formato
+			if($id_analisis==164||$id_analisis==223){				
+				$pdf->SetY($pdf->GetY()+5);
+			}
+//pongo negrita por formato
+			if($id_analisis==223){				
+				$pdf->SetFont('Arial','B',10);
+			}
+
+}
+
 
 
 function color(){

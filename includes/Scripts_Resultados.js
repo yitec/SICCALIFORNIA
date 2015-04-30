@@ -5,7 +5,11 @@ $(document).ready(function(){
 
 $(document).on('click', '#btn_guardarres',function() {    
 if(confirm('¿Seguro que desea procesar este análisis?')){               
-    parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val();
+    if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
+        parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val()+'^'+1;
+    }else{
+        parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val();
+    }
     $.ajax({
         data: "metodo=guarda_resultados&parametros="+parametros,
         type: "POST",
@@ -301,6 +305,10 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+
+    if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
+        parametros=parametros+1; 
+    }
     $.ajax({
         data: "metodo=guarda_resultados_aclaramiento&parametros="+parametros,
         type: "POST",
