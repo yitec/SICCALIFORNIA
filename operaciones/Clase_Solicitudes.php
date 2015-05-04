@@ -487,9 +487,9 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
 			}else{
 				if($v_datos[15]==1&&$i==1){//pregunto si lleva observaciones imprezas
-					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,'".$v_datos[13]."',0)";				
+				echo	$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,'".$v_datos[13]."',0)";				
 				}else{
-					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,0)";
+				echo	$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,0)";
 				}
 			}
 			$result=mysql_query($sql);
@@ -503,7 +503,7 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 	if (mysql_num_rows($result)==0){
 		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
 	}		
-	$jsondata="Success";		
+	$jsondata=$sql;		
 	echo json_encode($jsondata);
 }
 

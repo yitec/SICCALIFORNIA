@@ -49,7 +49,7 @@ $ultimo_id=0;
 
 //busco todos los resultados
 $sql="select res.resultado,cat.nombre,res.unidades,res.observaciones_impresas,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
+on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis where ana.id_analisis not in ('11')	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=mysql_query($sql);
 $tot_analisis=0;
 while($row=mysql_fetch_object($result)){
@@ -79,8 +79,6 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	//imprimo el titulo de la categoria si cambia
 
 	if($row->id<251||$row->id>294){//si es espermograma corro una rutina diferente
-
-
 		$nombre_categoria=imprime_categoria($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$row->analisis_padre,$row->id);
 	}
 
@@ -155,7 +153,7 @@ function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_anali
 
 	if ($vary>=240||$id_analisis==224||$id_analisis==222||$id_analisis==294){
 
-		
+		busco_excepciones($pdf,$_REQUEST['solicitud'],$id_analisis);											
 		global $tot_analisis;
 		imprime_observaciones($pdf);
 		//imprime_footer($pdf,$pdf->GETY());
@@ -179,6 +177,25 @@ function busco_salto_linea($pdf,$id_analisis){
 				$pdf->SetFont('Arial','B',10);
 			}
 
+}
+
+
+function busco_excepciones($pdf,$solicitud,$id_analisis){
+	if ($id_analisis==224){
+		$sql="select id from tbl_analisis where consecutivo_solicitud='".$solicitud."' and id_analisis=11";
+		$result=mysql_query($sql);
+		if(mysql_num_rows($result)>0){
+			$result=mysql_query("SELECT resultado FROM tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id where res.consecutivo_solicitud='".$solicitud."' and ana.id_analisis=11");
+			$row=mysql_fetch_object($result);
+			$pdf->MultiCell(68,5,"GRUPO Y RH",0,1,'L');			
+			$pdf->Ln(-5);
+			$pdf->SetX(70);	
+			$pdf->MultiCell(40,5,$row->resultado,0,0,'L');
+			$pdf->SetFont('Arial','',10);
+			global $cont_general;
+			$cont_general++;
+		}	
+	}
 }
 
 
