@@ -430,7 +430,7 @@ if($sexo==1){
 <table class=" margen_izquierdo">
 <tbody>        
         <tr>
-        <td class="Arial14Negro">Observaciones</td>        
+        <td class="Arial14Negro"><div style=" float:left;">Observaciones</div><div style=" float:left;margin-left:230px;">Imprimir Observaciones</div><div style=" float:left;margin-left:5px; margin-top:-2px;"><input id="chk_observaciones_impresas" type="checkbox"></div></td>               
         </tr>
         <tr>
         <td class="Arial14Negro"><textarea class="textArea" id="txt_observaciones_analista" cols="45" rows="3"><?=$gerente;?></textarea></td>        

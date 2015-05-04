@@ -6,7 +6,7 @@ $(document).ready(function(){
 $(document).on('click', '#btn_guardarres',function() {    
 if(confirm('¿Seguro que desea procesar este análisis?')){               
     if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
-        parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val()+'^'+1;
+        parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val()+'^'+"obs";
     }else{
         parametros=$('#txt_consecutivo').val()+'^'+$('#txt_idanalisis').val()+'^'+$('#txt_resultado').val()+'^'+$('#txt_unidades').val()+'^'+$('#txt_observaciones_analista').val();
     }
@@ -1418,6 +1418,8 @@ if(confirm('¿Seguro que desea rechazar este resultado?')){
 function observaciones(parametros){
     if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
         return parametros=parametros+"obs"; 
+    }else{
+        return parametros;
     }
 }
 

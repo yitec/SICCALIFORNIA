@@ -428,7 +428,7 @@ function imprime_observaciones($pdf){
 		if($observaciones!=''){
 			$pdf->Write(5,'Observaciones: '.$observaciones);
 		}
-		$observaciones='';
+		 unset ($observaciones);
 
 }
 

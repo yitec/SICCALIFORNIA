@@ -207,7 +207,7 @@ function guarda_resultados($parametros,$hoy){
 		$row=mysql_fetch_object($result);
 		$sql="update tbl_resultados set resultado='".$v_datos[2]."',unidades='".$v_datos[3]."',observaciones_analista='".$v_datos[4]."', estado=0 where id='".$row->id."'";
 	}else{
-		if ($v_datos[5]==1){
+		if ($v_datos[5]=="obs"){
 			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,observaciones_impresas,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."','".$v_datos[4]."',NOW(),0)";		
 		}else{
 			$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,estado)values('".$v_datos[0]."',1,'".$v_datos[1]."','".$v_datos[2]."','".$v_datos[3]."','".$v_datos[4]."',NOW(),0)";		
@@ -423,7 +423,7 @@ function guarda_resultados_lipidos($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 11; $i++) {
 		if ($i==$h){
-			if($v_datos[14]=="obs"&&$i=1){
+			if($v_datos[14]=="obs"&&$i==1){
 				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[12]."',NOW(),25,'".$v_datos[12]."',0)";				
 			}else{
 				if($v_datos[14]==1){
@@ -443,6 +443,7 @@ function guarda_resultados_lipidos($parametros,$hoy){
 		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
 	}		
 	$jsondata="Success";		
+	
 	echo json_encode($jsondata);
 }
 
