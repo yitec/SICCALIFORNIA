@@ -51,7 +51,7 @@ $ultimo_id=0;
 
 //busco todos los resultados
 $sql="select res.resultado,cat.nombre,res.unidades,res.observaciones_impresas,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
+on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis where ana.id_analisis not in ('11')	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=	mysql_query($sql);
 $total_resultados=mysql_num_rows($result);
 $tot_analisis=0;
@@ -77,16 +77,12 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 
 
 	//evaluo si ya imprimi el maximo de analisis x pagina
-	if ($cont_general!=$tot_resultados){
-		
-			busco_salto_pagina($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$ultimo_id);
-		
+	if ($cont_general!=$tot_resultados){		
+			busco_salto_pagina($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$ultimo_id);		
 	}		
 	//imprimo el titulo de la categoria si cambia
 
-	if($row->id<=251||$row->id>=294){//si es espermograma corro una rutina diferente
-
-
+	if($row->id<=251||$row->id>=294||$row->id==300){//si es espermograma corro una rutina diferente
 		$nombre_categoria=imprime_categoria($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$row->analisis_padre,$row->id);
 	}
 
@@ -106,7 +102,8 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 			global $suero;
 			$suero=$row->resultado;
 			busca_riesgo_cardiaco($pdf,$sexo);			
-			if ($cont_general!=$tot_resultados){								
+			if ($cont_general!=$tot_resultados){												
+				//imprime_observaciones($pdf);
 				imprime_footer($pdf,$pdf->GETY());
 				$pdf->AddPage();
 				header_principal($pdf);
@@ -168,13 +165,8 @@ function busco_salto_pagina($pdf,$vary,$nombre_categoria,$id_categoria,$id_anali
 
 	************************************/
 	if ($vary>=218||$id_analisis==224||$id_analisis==222||$id_analisis==294){		
-		//en algunas excepciones no debo saltar de pagina
-		//if (busco_excepciones($_REQUEST['solicitud']==true)){
-		$exep=busco_excepciones($_REQUEST['solicitud'],$id_analisis);
-		if ($exep==1){		
-			return;	
-		}
-		$exep=0;				
+		//en algunas excepciones no debo saltar de pagina		
+		busco_excepciones($pdf,$_REQUEST['solicitud'],$id_analisis);									
 		global $tot_analisis;		
 		imprime_observaciones($pdf);
 		imprime_footer($pdf,$pdf->GETY());
@@ -193,7 +185,7 @@ function busco_salto_linea($pdf,$id_analisis){
 
 //busco salto de linea por formato
 			if($id_analisis==164||$id_analisis==223){				
-				
+				$pdf->SetY($pdf->GetY()+5);
 			}
 //pongo negrita por formato
 			if($id_analisis==223){				
@@ -203,15 +195,21 @@ function busco_salto_linea($pdf,$id_analisis){
 }
 
 
-function busco_excepciones($solicitud,$id_analisis){
+function busco_excepciones($pdf,$solicitud,$id_analisis){
 	if ($id_analisis==224){
 		$sql="select id from tbl_analisis where consecutivo_solicitud='".$solicitud."' and id_analisis=11";
 		$result=mysql_query($sql);
 		if(mysql_num_rows($result)>0){
-			return 1;
-		}else{
-			return 0;
-		}
+			$result=mysql_query("SELECT resultado FROM tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id where res.consecutivo_solicitud='".$solicitud."' and ana.id_analisis=11");
+			$row=mysql_fetch_object($result);
+			$pdf->MultiCell(68,5,"GRUPO Y RH",0,1,'L');			
+			$pdf->Ln(-5);
+			$pdf->SetX(70);	
+			$pdf->MultiCell(40,5,$row->resultado,0,0,'L');
+			$pdf->SetFont('Arial','',10);
+			global $cont_general;
+			$cont_general++;
+		}	
 	}
 }
 
