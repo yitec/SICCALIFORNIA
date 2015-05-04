@@ -346,12 +346,16 @@ function guarda_resultados_hematologia($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 34; $i++) {
 		if ($i==$h){
-			if($v_datos[37]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[35]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[37]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[35]."',NOW(),1,'".$v_datos[35]."',0)";
+			}else{				
+				if($v_datos[37]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[35]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[35]."',NOW(),1,0)";
+				}
+			}	
 
-			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[35]."',NOW(),1,0)";
-			}
 			$result=mysql_query($sql);
 			$h=$h+2;
 			$k++;
@@ -381,10 +385,14 @@ function guarda_resultados_urianalisis($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 32; $i++) {
 		if ($i==$h){
-			if($v_datos[35]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[33]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[35]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[33]."',NOW(),206,'".$v_datos[33]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[33]."',NOW(),206,0)";
+				if($v_datos[35]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[33]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[33]."',NOW(),206,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -415,10 +423,14 @@ function guarda_resultados_lipidos($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 11; $i++) {
 		if ($i==$h){
-			if($v_datos[14]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[12]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[14]=="obs"&&$i=1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[12]."',NOW(),25,'".$v_datos[12]."',0)";				
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[12]."',NOW(),25,0)";
+				if($v_datos[14]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[12]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[12]."',NOW(),25,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -449,10 +461,14 @@ function guarda_resultados_aglutinaciones($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 11; $i++) {
 		if ($i==$h){
-			if($v_datos[15]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[15]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),68,'".$v_datos[13]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),68,0)";
+				if($v_datos[15]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),68,0)";
+				}
 			}				
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -464,7 +480,8 @@ function guarda_resultados_aglutinaciones($parametros,$hoy){
 	if (mysql_num_rows($result)==0){
 		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
 	}		
-	$jsondata="Success";		
+	//$jsondata="Success";		
+	$jsondata=$sql;		
 	echo json_encode($jsondata);
 }
 
@@ -483,11 +500,11 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 12; $i++) {
 		if ($i==$h){
-			if($v_datos[15]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[15]=="obs"&&$i==1){//pregunto si lleva observaciones imprezas
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,'".$v_datos[13]."',0)";					
 			}else{
-				if($v_datos[15]==1&&$i==1){//pregunto si lleva observaciones imprezas
-					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,'".$v_datos[13]."',0)";				
+				if($v_datos[15]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";					
 				}else{
 					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),138,0)";
 				}
@@ -504,6 +521,7 @@ function guarda_resultados_aclaramiento($parametros,$hoy){
 		mysql_query("update tbl_solicitudes set estado=2 where consecutivo='".$v_datos[0]."'  ");
 	}		
 	$jsondata="Success";		
+	//$jsondata=$i."->".$sql;		
 	echo json_encode($jsondata);
 }
 
@@ -522,12 +540,14 @@ function guarda_resultados_ena($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 12; $i++) {
 		if ($i==$h){
-
-			if($v_datos[15]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
-
-			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),179,0)";
+			if($v_datos[15]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),179,'".$v_datos[13]."',0)";
+			}else{				
+				if($v_datos[15]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),179,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -559,11 +579,14 @@ function guarda_resultados_vaginal($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 5; $i++) {
 		if ($i==$h){
-
-			if($v_datos[8]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[6]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[8]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[6]."',NOW(),143,'".$v_datos[6]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[6]."',NOW(),143,0)";
+				if($v_datos[8]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[6]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[6]."',NOW(),143,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -595,11 +618,14 @@ function guarda_resultados_hec($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 2; $i++) {
 		if ($i==$h){
-
-			if($v_datos[4]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[3]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."'";
+			if($v_datos[4]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[3]."',NOW(),140,'".$v_datos[3]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[3]."',NOW(),140,0)";
+				if($v_datos[4]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[3]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."'";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[3]."',NOW(),140,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -631,11 +657,14 @@ function guarda_resultados_curva2($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 10; $i++) {
 		if ($i==$h){
-			if($v_datos[13]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[11]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
-
-			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[11]."',NOW(),17,0)";
+			if($v_datos[13]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[11]."',NOW(),17,'".$v_datos[11]."',0)";
+			}else{	
+				if($v_datos[13]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[11]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[11]."',NOW(),17,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -668,11 +697,14 @@ function guarda_resultados_cardiopilinas($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 3; $i++) {
 		if ($i==$h){
-			if($v_datos[7]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[5]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
-
+			if($v_datos[7]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[5]."',NOW(),70,'".$v_datos[5]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[5]."',NOW(),70,0)";
+				if($v_datos[7]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[5]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[5]."',NOW(),70,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -704,11 +736,14 @@ function guarda_resultados_curva3($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 12; $i++) {
 		if ($i==$h){
-			if($v_datos[15]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
-
+			if($v_datos[15]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),18,,'".$v_datos[13]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),18,0)";
+				if($v_datos[15]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[13]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[13]."',NOW(),18,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -742,10 +777,14 @@ function guarda_resultados_espermo($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 72; $i++) {
 		if ($i==$h){
-			if($v_datos[75]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[73]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
-			}else{				
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[73]."',NOW(),150,0)";
+			if($v_datos[75]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[73]."',NOW(),150,'".$v_datos[73]."',0)";			
+			}else{
+				if($v_datos[75]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[73]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{				
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[73]."',NOW(),150,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -770,10 +809,14 @@ function guarda_resultados_proteina($parametros,$hoy){
 	$k=0;
 	for ($i = 1; $i <= 8; $i++) {
 		if ($i==$h){
-			if($v_datos[11]==1){
-				$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[9]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+			if($v_datos[11]=="obs"&&$i==1){
+				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,observaciones_impresas,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[9]."',NOW(),196,'".$v_datos[9]."',0)";
 			}else{
-				$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[9]."',NOW(),196,0)";
+				if($v_datos[11]==1){
+					$sql="update  tbl_resultados set resultado='".$v_datos[$i]."',unidades='".$v_datos[$i+1]."',observaciones_analista='".$v_datos[9]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis='".$v_ids[$k]."' ";
+				}else{
+					$sql="insert into tbl_resultados (consecutivo_solicitud,id_laboratorio,id_analisis,resultado,unidades,observaciones_analista,fecha_ingreso,analisis_padre,estado)values('".$v_datos[0]."',1,'".$v_ids[$k]."','".$v_datos[$i]."','".$v_datos[$i+1]."','".$v_datos[9]."',NOW(),196,0)";
+				}
 			}
 			$result=mysql_query($sql);
 			$h=$h+2;
@@ -1662,7 +1705,7 @@ function rechaza_resultados_compuesto($parametros,$hoy){
 	$sql="select analisis_ligados from tbl_categoriasanalisis where id='".$v_datos[3]."' ";
 	$result=mysql_query($sql);
 	$row=mysql_fetch_object($result);
-	$ligados=str_replace(":"^",",$row->analisis_ligados);
+	$ligados=str_replace(":","^",$row->analisis_ligados);
 	//actualizo los analisis que comprenden el compuesto
 	mysql_query("update tbl_analisis set fecha_rechazado='".$hoy."', estado=0, observaciones='".$v_datos[2]."' where consecutivo_solicitud='".$v_datos[0]."' and id_analisis in(".$ligados.") ");				
 	//actualizo los analisis que comprenden el padre

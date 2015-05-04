@@ -305,10 +305,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
-
-    if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
-        parametros=parametros+1; 
-    }
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_aclaramiento&parametros="+parametros,
         type: "POST",
@@ -351,6 +348,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);    
     $.ajax({
         data: "metodo=guarda_resultados_lipidos&parametros="+parametros,
         type: "POST",
@@ -394,6 +392,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_aglutinaciones&parametros="+parametros,
         type: "POST",
@@ -437,6 +436,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_ena&parametros="+parametros,
         type: "POST",
@@ -480,6 +480,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_curva2&parametros="+parametros,
         type: "POST",
@@ -524,6 +525,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_curva3&parametros="+parametros,
         type: "POST",
@@ -559,6 +561,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_cardiopilinas&parametros="+parametros,
         type: "POST",
@@ -663,6 +666,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()//73
     +'^'+$('#txt_ids').val()//74
     +'^'+$('#txt_rechazado').val();//75
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_espermo&parametros="+parametros,
         type: "POST",
@@ -704,6 +708,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_proteina&parametros="+parametros,
         type: "POST",
@@ -742,6 +747,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_vaginal&parametros="+parametros,
         type: "POST",
@@ -777,6 +783,7 @@ if(confirm('¿Seguro que desea procesar este análisis?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_resultados_hec&parametros="+parametros,
         type: "POST",
@@ -825,6 +832,7 @@ if(confirm('¿Seguro que desea guardar estos datos para este espermograma?')){
     +'^'+$('#txt_observaciones_analista').val()
     +'^'+$('#txt_ids').val()
     +'^'+$('#txt_rechazado').val();
+    parametros=observaciones(parametros);
     $.ajax({
         data: "metodo=guarda_formulario_espermo&parametros="+parametros,
         type: "POST",
@@ -1407,7 +1415,11 @@ if(confirm('¿Seguro que desea rechazar este resultado?')){
 }
 });
 
-
+function observaciones(parametros){
+    if ($("#chk_observaciones_impresas").is(":checked")){//si lleva observaciones impresas le agrego el parametro para que las guarde
+        return parametros=parametros+"obs"; 
+    }
+}
 
 
 /***************************************Limpiar todos los campos***************************************/
