@@ -56,7 +56,38 @@ function busca_doctores(){
     });
 }
 
+/******************************************************************
+Funciones para crear observaciones
+*******************************************************************/
+$(document).on('click', '.abre_dialogo',function() { 
+      dialog.dialog( "open" );
+    });
 
+  $(function() {
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Create an account": addUser,
+        Cancel: function() {
+          dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+  });
+
+   function addUser() {
+    alert("hola mundo");
+  }
+  
+//*******************************************************************
+//*******************************************************************
 
   
 
