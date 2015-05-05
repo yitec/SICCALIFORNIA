@@ -60,6 +60,7 @@ function busca_doctores(){
 Funciones para crear observaciones
 *******************************************************************/
 $(document).on('click', '.abre_dialogo',function() { 
+      dialog.data( "solicitud",$( this ).attr("solicitud") );
       dialog.dialog( "open" );
     });
 
@@ -67,11 +68,12 @@ $(document).on('click', '.abre_dialogo',function() {
     dialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
       height: 300,
-      width: 350,
+      width: 550,
       modal: true,
       buttons: {
-        "Create an account": addUser,
+        "Guardar observaciones": addUser,
         Cancel: function() {
+          alert($(this).data('solicitud'));
           dialog.dialog( "close" );
         }
       },
@@ -83,7 +85,7 @@ $(document).on('click', '.abre_dialogo',function() {
   });
 
    function addUser() {
-    alert("hola mundo");
+    alert($( this ).attr("solicitud"));
   }
   
 //*******************************************************************

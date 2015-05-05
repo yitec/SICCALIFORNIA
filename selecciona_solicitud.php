@@ -14,6 +14,7 @@ conectar();
 <link href="css/general.css" rel="stylesheet" type="text/css" />
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="includes/themes/base/jquery-ui-1.10.0.custom.css" />
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
 
 </head>
@@ -99,7 +100,7 @@ echo'<tr>
         <td align="center"  class="datos_tablas">'.utf8_encode($row->consecutivo).'</td>
         <td class="datos_tablas">'.utf8_encode($row->nombre).'</td>
         <td class="datos_tablas">'.fecha_nacional($row->fecha_ingreso).'</td>
-        <td class="datos_tablas"><div align="center"><img class="abre_dialogo" src="img/check.png" width="25" height="25" /></div></td>
+        <td class="datos_tablas"><div align="center"><img class="abre_dialogo" solicitud="'.$row->consecutivo.'" src="img/check.png" width="25" height="25" /></div></td>
       </tr>';
 }elseif ($_REQUEST['resultados']==1){
 echo'<tr>
@@ -121,18 +122,13 @@ echo'<tr>
 ?>
 </tbody>
 </table>
-<div id="dialog-form" title="Create new user">
-  <p class="validateTips">All form fields are required.</p>
+<div id="dialog-form" title="Observaciones">
+  
  
   <form>
     <fieldset>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
- 
+      <label for="name">Observaciones</label>
+      <textarea class="textArea" id="txt_observaciones_analista" cols="15" rows="3"></textarea> 
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
