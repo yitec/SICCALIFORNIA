@@ -15,7 +15,8 @@ conectar();
 <link href="css/tablas.css" rel="stylesheet" type="text/css" />
 <link href="css/menu_central.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="includes/themes/base/jquery-ui-1.10.0.custom.css" />
-<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' 
+<link href="css/jquery.pnotify.default.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' />
 
 </head>
 <body>
@@ -128,7 +129,7 @@ echo'<tr>
   <form>
     <fieldset>
       <label for="name">Observaciones</label>
-      <textarea class="textArea" id="txt_observaciones_analista" cols="15" rows="3"></textarea> 
+      <textarea class="textArea" id="txt_observaciones" cols="15" rows="3"></textarea> 
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
@@ -146,6 +147,7 @@ echo'<tr>
 <script src="includes/jquery.pnotify.js" type="text/javascript"></script> 
 <script src="includes/vendor/jquery.ui.widget.js"></script>
 <script src="includes/Scripts_Solicitudes.js" type="text/javascript"></script> 
+
 
 <?
 function fecha_nacional($fecha){

@@ -51,7 +51,7 @@ $ultimo_id=0;
 
 //busco todos los resultados
 $sql="select res.resultado,cat.nombre,res.unidades,res.observaciones_impresas,cat.id,cat.id_categoriamuestra, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer, res.analisis_padre from tbl_resultados res inner join tbl_analisis ana 
-on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis where ana.id_analisis not in ('11')	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
+on res.consecutivo_solicitud='".$_REQUEST['solicitud']."'  and res.id_analisis=ana.id inner join tbl_categoriasanalisis cat on ana.id_analisis=cat.id  inner join tbl_referencias ref on cat.id=ref.id_analisis where ana.id_analisis not in ('11','3','4','54','5')	order by cat.orden_impresion, CAST(cat.id_categoriamuestra AS UNSIGNED),res.analisis_padre,ana.id ASC";
 $result=	mysql_query($sql);
 $total_resultados=mysql_num_rows($result);
 $tot_analisis=0;
@@ -112,7 +112,8 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 		}else{
 			
 		busco_salto_linea($pdf,$row->id);
-		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');	
+		$pdf->MultiCell(68,5,$row->nombre,0,1,'L');
+		$pdf->SetFont('Arial','',10);	
 		$pdf->Ln(-5);
 		$pdf->SetX(90);	
 		imprime_resultados($pdf,$row->id,$row->resultado,$row->unidades);
@@ -136,7 +137,8 @@ $ultimo_id=$row->id;
 //$pdf->Write(5,$pdf->GETY());
 if ($pdf->GETY()>20){	
 	imprime_observaciones($pdf);
-	imprime_footer($pdf,$pdf->GETY());
+	imprime_observaciones_solicitud($pdf,$_REQUEST['solicitud']);
+	imprime_footer($pdf,$pdf->GETY());	
 }
 $pdf->Output();
 
@@ -188,29 +190,65 @@ function busco_salto_linea($pdf,$id_analisis){
 				$pdf->SetY($pdf->GetY()+5);
 			}
 //pongo negrita por formato
-			if($id_analisis==223){				
+			if($id_analisis==223||$id_analisis==224){				
 				$pdf->SetFont('Arial','B',10);
 			}
 
 }
 
 
-function busco_excepciones($pdf,$solicitud,$id_analisis){
+function busco_excepciones($pdf,$solicitud,$id_analisis){	
 	if ($id_analisis==224){
-		$sql="select id from tbl_analisis where consecutivo_solicitud='".$solicitud."' and id_analisis=11";
+		$sql="select id from tbl_analisis where consecutivo_solicitud='".$solicitud."' and id_analisis in ('11','3','4','54','5')";
 		$result=mysql_query($sql);
 		if(mysql_num_rows($result)>0){
-			$result=mysql_query("SELECT resultado FROM tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id where res.consecutivo_solicitud='".$solicitud."' and ana.id_analisis=11");
-			$row=mysql_fetch_object($result);
-			$pdf->MultiCell(68,5,"GRUPO Y RH",0,1,'L');			
-			$pdf->Ln(-5);
-			$pdf->SetX(70);	
-			$pdf->MultiCell(40,5,$row->resultado,0,0,'L');
+			$result=mysql_query("SELECT ana.id,ana.id_analisis,res.resultado,res.unidades, ref.referencia_general,ref.referencia_hombre,ref.referencia_mujer FROM tbl_resultados res join tbl_analisis ana on res.id_analisis=ana.id join tbl_referencias ref on ref.id_analisis=ana.id_analisis where res.consecutivo_solicitud='".$solicitud."' and ana.id_analisis in ('11','3','4','54','5')");
+			while ($row=mysql_fetch_object($result)){
 			$pdf->SetFont('Arial','',10);
+			switch ($row->id_analisis) {
+ 			   case 3:
+        			$pdf->MultiCell(68,5,"TP",0,1,'L');			
+        		break;
+    			case 4:
+        			$pdf->MultiCell(68,5,"TPT",0,1,'L');			
+        		break;
+    			case 5:
+        			$pdf->MultiCell(68,5,"FIBRINOGENO",0,1,'L');			
+        		break;
+        		case 11:
+        			$pdf->MultiCell(68,5,"GRUPO Y RH",0,1,'L');			
+        		break;
+        		case 54:
+        			$pdf->MultiCell(68,5,"VDRL",0,1,'L');			
+        		break;
+    			
+			}			
+			$pdf->SetFont('Arial','',10);	
+		$pdf->Ln(-5);
+		$pdf->SetX(90);	
+		imprime_resultados($pdf,$row->id,$row->resultado,$row->unidades);
+		$pdf->Ln(-5);
+		//imprimo referencias
+		$pdf->SetX(155);
+		imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
+
+			/*$pdf->SetFont('Arial','',10);
+			$pdf->Ln(-5);
+			$pdf->SetX(56);	
+			imprime_resultados($pdf,$row->id,$row->resultado,$row->unidades);
+			//$pdf->MultiCell(40,5,$row->resultado,1,1,'L');
+			$pdf->SetFont('Arial','',10);
+			//$pdf->Ln(-5);
+			$pdf->SetX(90);
+			global $sexo;
+			//imprime_referencias($pdf,$row->id,$row->resultado,$row->referencia_hombre,$row->referencia_mujer,$row->referencia_general,$sexo);
+			*/
 			global $cont_general;
 			$cont_general++;
+			}//end while
 		}	
 	}
+
 }
 
 

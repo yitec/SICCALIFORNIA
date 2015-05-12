@@ -96,6 +96,21 @@ function guarda_solicitud($parametros,$hoy){
 	echo json_encode($jsondata);
 
 }
+
+/*******************************************************
+	accion="guarda las opciones que se le hacen a una solicitud y que deben salir impresas"
+	parametros="consecutivo y observaciones"
+
+********************************************************/
+
+function guarda_observaciones($parametros){
+	$v_datos=explode("^",$parametros);	
+	$sql="insert into tbl_observaciones (consecutivo_solicitud,observaciones,estado)values('".$v_datos[0]."','".$v_datos[1]."',1)";
+	$result=mysql_query($sql);	
+	$jsondata="Success";
+	echo json_encode($jsondata);
+
+}
 	
 /*******************************************************
 	accion="obtiene los nombres de los analisis segun la categoria "

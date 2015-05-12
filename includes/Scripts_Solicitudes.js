@@ -71,22 +71,39 @@ $(document).on('click', '.abre_dialogo',function() {
       width: 550,
       modal: true,
       buttons: {
-        "Guardar observaciones": addUser,
-        Cancel: function() {
-          alert($(this).data('solicitud'));
+        "Guardar observaciones": guarda_observaciones,
+        Cancelar: function() {          
           dialog.dialog( "close" );
         }
       },
       close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
+        dialog.dialog( "close" );
       }
     });
   });
 
-   function addUser() {
-    alert($( this ).attr("solicitud"));
-  }
+function guarda_observaciones() {
+    dialog.dialog( "close" );
+    parametros=$(this).data('solicitud')+'^'+$("#txt_observaciones").val();
+    $.ajax({
+        data: "metodo=guarda_observaciones&parametros="+parametros,
+        type: "POST",
+        async:false,
+        dataType: "json",        
+        url: "operaciones/Clase_Solicitudes.php",      
+        success: function(datos){     
+          if (datos=="Success"){ 
+          //alert(datos);
+            notificacion('observaciones','Observacion creada correctamente','info');            
+            setInterval(function(){window.location.assign(direccion)},3000); 
+            top.location.href = 'selecciona_solicitud.php?observaciones=1';
+          }else{
+            notificacion('Error','Ha ocurrido un error, intente de nuevo','error');         
+          }
+            
+        }//end succces function
+        });//end ajax function
+}
   
 //*******************************************************************
 //*******************************************************************
@@ -222,8 +239,7 @@ $(document).on('click', '#btn_continuara',function() {
         //alert(datos);
       
     }//end succces function
-    });//end ajax function
-    
+    });//end ajax function        
     top.location.href = 'verifica_solicitud.php?txt_totAnalisis='+$('#txt_totAnalisis').val()+"&txt_cliente="+$('#txt_nombre').val()+"&txt_tipoCliente="+$('#txt_tipoCliente').val()+"&txt_nombreSolicitante="+$('#txt_nombreSolicitante').val()+"&txt_telefonoSolicitante="+$('#txt_telefonoSolicitante').val()+"&cmb_tipoPago="+$('#cmb_tipoPago').val()+"&cmb_xcorreo="+$('#cmb_xcorreo').val()+"&txt_consumible="+$('#txt_consumible').val()+"&txt_consecutivo="+$('#txt_consecutivo').val();
 });
 

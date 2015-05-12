@@ -138,6 +138,12 @@ conectar();
     <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php?resultados=1"><div id="cuadro_anaranjado"></div></a>Modifica Resultados</div>
     </div>
     <? } ?>
+    <? if (in_array(19, $_SESSION['perfil'])){
+    ?>
+    <div id="mainBlancoMenu"  style=" margin-left:10px;  float:left; margin-top:10px;">
+    <div align="center" class="Arial14Negro"><a href="selecciona_solicitud.php?observaciones=1"><div id="cuadro_negro"></div></a>Agregar Observaciones</div>
+    </div>
+    <? } ?>
 </div><!-- fin div panel Central-->
 
 <br />

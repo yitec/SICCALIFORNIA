@@ -1,4 +1,5 @@
 <?
+
 //******************busca si es vaginal***************************************
 
 function busca_vaginal($pdf,$id,$resultado){
@@ -430,6 +431,20 @@ function imprime_observaciones($pdf){
 		}
 		 unset ($observaciones);
 
+}
+
+function imprime_observaciones_solicitud($pdf,$consecutivo){
+		$result=mysql_query("select observaciones from tbl_observaciones where consecutivo_solicitud='".$consecutivo."'");
+		if (mysql_num_rows($result)>=1){
+			$row=mysql_fetch_object($result);
+			$pdf->SetY($pdf->GetY()+1);				
+			if($row->observaciones!=''){
+				$pdf->SetFont('Arial','B',10);
+				$pdf->Write(5,'Observaciones: ');
+				$pdf->SetFont('Arial','',10);
+				$pdf->Write(5,$row->observaciones);
+			}		 
+		}
 }
 
 ?>
