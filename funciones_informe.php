@@ -110,7 +110,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 	switch ($id) {
 		case 251:
 			$pdf->SetTextColor(0,0,0);	
-			$pdf->SetFont('Arial','BU',12);
+			$pdf->SetFont('Arial','BU',12);			
 			$pdf->Cell(175,3,"Espermograma",0,1,'C');
 			$pdf->SetTextColor(0,0,0);
 			$pdf->SETY(150);
@@ -416,7 +416,7 @@ function busca_espermograma($pdf,$id,$resultado,$unidades,$nombre){
 			$pdf->Ln(-4);
 			$pdf->SETX(47);
 			$pdf->Cell(10,4,utf8_decode($resultado),0,1,'L');
-			$pdf->SETY(189);		
+			$pdf->SETY(225);		
 		break;									
 	}
 

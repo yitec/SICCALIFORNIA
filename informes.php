@@ -82,13 +82,13 @@ busca_vaginal($pdf,$row->id,$row->resultado);
 	}		
 	//imprimo el titulo de la categoria si cambia
 
-	if($row->id<=251||$row->id>=294||$row->id==300){//si es espermograma corro una rutina diferente
+	if($row->id<251||$row->id>294||$row->id==300){//si es espermograma corro una rutina diferente
 		$nombre_categoria=imprime_categoria($pdf,$pdf->GETY(),$nombre_categoria,$row->id_categoriamuestra,$row->analisis_padre,$row->id);
 	}
 
 	//imprimo nombre y resultados
 
-	if($row->id>=251&&$row->id<=294){//si es espermograma corro una rutina diferente
+	if($row->id>=251&&$row->id<=294){//si es espermograma corro una rutina diferente		
 		busca_espermograma($pdf,$row->id,$row->resultado,$row->unidades,$row->nombre);		
 	}else{
 		if($row->id==215){//busco si es sedimento urinario
